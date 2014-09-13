@@ -1,0 +1,73 @@
+﻿#define BOARDSIZE 8
+#define WHITEPAWN1 1
+#define WHITEPAWN2 2
+#define WHITEPAWN3 3
+#define WHITEPAWN4 4
+#define WHITEPAWN5 5
+#define WHITEPAWN6 6
+#define WHITEPAWN7 7
+#define WHITEPAWN8 8
+
+#define WHITEROOK1 9
+#define WHITEKNIGHT1 10
+#define WHITEBISHOP1 11
+#define WHITEQUEEN 12
+#define WHITEKING 13
+#define WHITEBISHOP2 14
+#define WHITEKNIGHT2 15
+#define WHITEROOK2 16
+
+#define BLACKPAWN1 17
+#define BLACKPAWN2 18
+#define BLACKPAWN3 19
+#define BLACKPAWN4 20
+#define BLACKPAWN5 21
+#define BLACKPAWN6 22
+#define BLACKPAWN7 23
+#define BLACKPAWN8 24
+
+#define BLACKROOK1 25
+#define BLACKKNIGHT1 26
+#define BLACKBISHOP1 27
+#define BLACKQUEEN 28
+#define BLACKKING 29
+#define BLACKBISHOP2 30
+#define BLACKKNIGHT2 31
+#define BLACKROOK2 32
+
+#define FILE_A 0
+#define FILE_B 1
+#define FILE_C 2
+#define FILE_D 3
+#define FILE_E 4
+#define FILE_F 5
+#define FILE_G 6
+#define FILE_H 7
+
+#define RANK_1 0
+#define RANK_2 1
+#define RANK_3 2
+#define RANK_4 3
+#define RANK_5 4
+#define RANK_6 5
+#define RANK_7 6
+#define RANK_8 7
+
+var whiteKing[2] = [RANK_1, FILE_E];
+var blackKing[2] = [RANK_8, FILE_E];
+var whiteRook1[2] = [RANK_1, FILE_A];
+var whiteBishop1[2] = [RANK_1, FILE_C];
+
+
+var actual_board[BOARDSIZE][BOARDSIZE] = [		0,		0,		0,			0,	BLACKKING,	0,	0,	0,
+		   		 						  		0,		0,		0,			0,		0,		0,	0,	0,
+		   		 						  		0,		0,		0,			0,		0,		0,	0,	0,
+		   		 						  		0,		0,		0,			0,		0,		0,	0,	0,
+		   		 						  		0,		0,		0,			0,		0,		0,	0,	0,
+		   		 						  		0,		0,		0,			0,		0,		0,	0,	0,
+		   		 						  		0,		0,		0,			0,		0,		0,	0,	0,
+		   		 						  WHITEROOK1,	0,	WHITEBISHOP1,	0,	WHITEKING,	0,	0,	0];
+		   		 
+var shadow_board[BOARDSIZE][BOARDSIZE] = actual_board;
+		   		 
+		   		 
