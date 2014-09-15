@@ -1,0 +1,81 @@
+﻿#include "board.csp"
+
+Game() = WhiteRook();
+
+WhiteRook() = WhiteRookVertical() [] WhiteRookHorizontal();
+
+WhiteRookVertical() = WhiteRookUp() [] WhiteRookDown();
+
+WhiteRookHorizontal() = WhiteRookLeft() [] WhiteRookRight();
+
+WhiteRookUp() = WhiteRook1Up() [] WhiteRook2Up();
+
+WhiteRookDown() = WhiteRook1Down() [] WhiteRook2Down();
+
+WhiteRookLeft() = WhiteRook1Left() [] WhiteRook2Left();
+
+WhiteRookRight() = WhiteRook1Right() [] WhiteRook2Right();
+
+WhiteRook1Up() = [currentTurn == WHITE_TURN && 
+                  ((whiteRook1[0] != OUT_OF_BOARD && whiteRook1[1] != OUT_OF_BOARD) &&
+                   (whiteRook1[0] != RANK_8 && (actualBoard[whiteRook1[0] - 1][whiteRook1[1]] == 0 || 
+                    actualBoard[whiteRook1[0] - 1][whiteRook1[1]] >= BLACKPAWN1)))] whiteRook1Up {
+                     actualBoard[whiteRook1[0]][whiteRook1[1]] = 0;
+                     whiteRook1[0] = whiteRook1[0] - 1;
+                 } -> WhiteRook1Up() [] Game();
+
+WhiteRook2Up() = [currentTurn == WHITE_TURN && 
+                  ((whiteRook2[0] != OUT_OF_BOARD && whiteRook2[1] != OUT_OF_BOARD) &&
+                   (whiteRook2[0] != RANK_8 && (actualBoard[whiteRook2[0] - 1][whiteRook2[1]] == 0 || 
+                    actualBoard[whiteRook2[0] - 1][whiteRook2[1]] >= BLACKPAWN1)))] whiteRook2Up {
+                     actualBoard[whiteRook2[0]][whiteRook2[1]] = 0;
+                     whiteRook2[0] = whiteRook2[0] - 1;
+                 } -> WhiteRook2Up() [] Game();
+
+WhiteRook1Down() = [currentTurn == WHITE_TURN && 
+                    ((whiteRook1[0] != OUT_OF_BOARD && whiteRook1[1] != OUT_OF_BOARD) &&
+                     (whiteRook1[0] != RANK_1 && (actualBoard[whiteRook1[0] + 1][whiteRook1[1]] == 0 || 
+                      actualBoard[whiteRook1[0] + 1][whiteRook1[1]] >= BLACKPAWN1)))] whiteRook1Down {
+                       actualBoard[whiteRook1[0]][whiteRook1[1]] = 0;
+                       whiteRook1[0] = whiteRook1[0] + 1;
+                   } -> WhiteRook1Down() [] Game();
+
+WhiteRook2Down() = [currentTurn == WHITE_TURN && 
+                    ((whiteRook2[0] != OUT_OF_BOARD && whiteRook2[1] != OUT_OF_BOARD) &&
+                     (whiteRook2[0] != RANK_1 && (actualBoard[whiteRook2[0] + 1][whiteRook2[1]] == 0 || 
+                      actualBoard[whiteRook2[0] + 1][whiteRook2[1]] >= BLACKPAWN1)))] whiteRook2Down {
+                       actualBoard[whiteRook2[0]][whiteRook2[1]] = 0;
+                       whiteRook2[0] = whiteRook2[0] + 1;
+                   } -> WhiteRook2Down() [] Game();
+
+WhiteRook1Left() = [currentTurn == WHITE_TURN && 
+                    ((whiteRook1[0] != OUT_OF_BOARD && whiteRook1[1] != OUT_OF_BOARD) &&
+                     (whiteRook1[1] != FILE_A && (actualBoard[whiteRook1[0]][whiteRook1[1] - 1] == 0 || 
+                      actualBoard[whiteRook1[0]][whiteRook1[1] - 1] >= BLACKPAWN1)))] whiteRook1Left {
+                       actualBoard[whiteRook1[0]][whiteRook1[1]] = 0;
+                       whiteRook1[1] = whiteRook1[1] - 1;
+                   } -> WhiteRook1Left() [] Game();
+
+WhiteRook2Left() = [currentTurn == WHITE_TURN && 
+                    ((whiteRook2[0] != OUT_OF_BOARD && whiteRook2[1] != OUT_OF_BOARD) &&
+                     (whiteRook2[1] != FILE_A && (actualBoard[whiteRook2[0]][whiteRook2[1] - 1] == 0 || 
+                      actualBoard[whiteRook2[0]][whiteRook2[1] - 1] >= BLACKPAWN1)))] whiteRook2Left {
+                       actualBoard[whiteRook2[0]][whiteRook2[1]] = 0;
+                       whiteRook2[1] = whiteRook2[1] - 1;
+                   } -> WhiteRook2Left() [] Game();
+
+WhiteRook1Right() = [currentTurn == WHITE_TURN && 
+                     ((whiteRook1[0] != OUT_OF_BOARD && whiteRook1[1] != OUT_OF_BOARD) &&
+                      (whiteRook1[1] != FILE_H && (actualBoard[whiteRook1[0]][whiteRook1[1] + 1] == 0 || 
+                       actualBoard[whiteRook1[0]][whiteRook1[1] + 1] >= BLACKPAWN1)))] whiteRook1Left {
+                       actualBoard[whiteRook1[0]][whiteRook1[1]] = 0;
+                       whiteRook1[1] = whiteRook1[1] + 1;
+                   } -> WhiteRook1Right() [] Game();
+
+WhiteRook2Right() = [currentTurn == WHITE_TURN && 
+                     ((whiteRook2[0] != OUT_OF_BOARD && whiteRook2[1] != OUT_OF_BOARD) &&
+                      (whiteRook2[1] != FILE_H && (actualBoard[whiteRook2[0]][whiteRook2[1] + 1] == 0 || 
+                       actualBoard[whiteRook2[0]][whiteRook2[1] + 1] >= BLACKPAWN1)))] whiteRook2Left {
+                       actualBoard[whiteRook2[0]][whiteRook2[1]] = 0;
+                       whiteRook2[1] = whiteRook2[1] + 1;
+                   } -> WhiteRook2Right() [] Game();
