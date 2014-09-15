@@ -1,0 +1,73 @@
+﻿#define Ranks 3; // Number of Rows
+#define Files 3; // Number of Columns
+
+#define king 1;
+// Files
+#define a 0;
+#define b 1;
+#define c 2;
+// Ranks
+#define R3 0;
+#define R2 1;
+#define R1 2;
+
+// Col number :				a,	b,		c
+var board[Ranks][Files] =	[0,		0,	0, //Row 3
+							 0, king,	0, //Row 2
+							 0,	0 ,		0];//Row 1
+							 
+var kingRanks = R2;
+var kingFiles = b;
+
+kingMove() = kingLeft() [] kingRight() [] kingUp() [] kingDown() [] kingUpLeft() [] kingDownLeft() [] kingUpRight() [] kingDownRight();
+
+kingLeft() = [kingFiles !=a && board[kingRanks][kingFiles-1]==0]goleft{	
+				board[kingRanks][kingFiles-1]=board[kingRanks][kingFiles];
+				board[kingRanks][kingFiles]=0;
+				kingFiles = kingFiles-1;} -> kingMove();
+kingRight() = [kingFiles !=c && board[kingRanks][kingFiles+1]==0]goright{	
+				board[kingRanks][kingFiles+1]=board[kingRanks][kingFiles];
+				board[kingRanks][kingFiles]=0;
+				kingFiles = kingFiles+1;} -> kingMove();
+kingUp() = [kingRanks !=R3 && board[kingRanks-1][kingFiles]==0]goup{	
+				board[kingRanks-1][kingFiles]=board[kingRanks][kingFiles];
+				board[kingRanks][kingFiles]=0;
+				kingRanks = kingRanks-1;} -> kingMove();
+kingDown() = [kingRanks !=R1 && board[kingRanks+1][kingFiles]==0]godown{	
+				board[kingRanks+1][kingFiles]=board[kingRanks][kingFiles];
+				board[kingRanks][kingFiles]=0;
+				kingRanks = kingRanks+1;} -> kingMove();
+kingUpLeft() = [kingRanks !=R3 && kingFiles != a && board[kingRanks-1][kingFiles-1]==0]goupleft{	
+				board[kingRanks-1][kingFiles-1]=board[kingRanks][kingFiles];
+				board[kingRanks][kingFiles]=0;
+				kingRanks = kingRanks-1; kingFiles = kingFiles-1} -> kingMove();
+kingDownLeft() = [kingRanks !=R1 && kingFiles != a && board[kingRanks+1][kingFiles-1]==0]godownleft{	
+				board[kingRanks+1][kingFiles-1]=board[kingRanks][kingFiles];
+				board[kingRanks][kingFiles]=0;
+				kingRanks = kingRanks+1; kingFiles = kingFiles-1} -> kingMove();
+kingUpRight() = [kingRanks !=R3 && kingFiles != c && board[kingRanks-1][kingFiles+1]==0]goupright{	
+				board[kingRanks-1][kingFiles+1]=board[kingRanks][kingFiles];
+				board[kingRanks][kingFiles]=0;
+				kingRanks = kingRanks-1; kingFiles = kingFiles+1} -> kingMove();
+kingDownRight() = [kingRanks !=R1 && kingFiles != c && board[kingRanks+1][kingFiles+1]==0]godownright{	
+				board[kingRanks+1][kingFiles+1]=board[kingRanks][kingFiles];
+				board[kingRanks][kingFiles]=0;
+				kingRanks = kingRanks+1; kingFiles = kingFiles+1} -> kingMove();
+
+#assert kingMove() reaches bottomleft;
+#assert kingMove() reaches bottomright;
+#assert kingMove() reaches bottommiddle;
+#assert kingMove() reaches uppermiddle;
+#assert kingMove() reaches upperleft;
+#assert kingMove() reaches upperright;
+#assert kingMove() reaches middleright;
+#assert kingMove() reaches middleleft;
+
+#define bottommiddle board[R1][b] == king;
+#define bottomleft board[R1][a] == king;
+#define bottomright board[R1][c] == king;
+#define uppermiddle board[R3][b] == king;
+#define upperleft board[R3][a] == king;
+#define upperright board[R3][c] == king;
+#define middleright board[R2][c] == king;
+#define middleleft board[R2][a] == king;
