@@ -1,57 +1,66 @@
-﻿#define BOARDSIZE 8
-#define WHITEPAWN1 1
-#define WHITEPAWN2 2
-#define WHITEPAWN3 3
-#define WHITEPAWN4 4
-#define WHITEPAWN5 5
-#define WHITEPAWN6 6
-#define WHITEPAWN7 7
-#define WHITEPAWN8 8
+﻿#define BOARDSIZE 8;
+#define WHITE_PAWN_1 1;
+#define WHITE_PAWN_2 2;
+#define WHITE_PAWN_3 3;
+#define WHITE_PAWN_4 4;
+#define WHITE_PAWN_5 5;
+#define WHITE_PAWN_6 6;
+#define WHITE_PAWN_7 7;
+#define WHITE_PAWN_8 8;
 
-#define WHITEROOK1 9
-#define WHITEKNIGHT1 10
-#define WHITEBISHOP1 11
-#define WHITEQUEEN 12
-#define WHITEKING 13
-#define WHITEBISHOP2 14
-#define WHITEKNIGHT2 15
-#define WHITEROOK2 16
+#define WHITE_ROOK_1 9;
+#define WHITE_KNIGHT_1 10;
+#define WHITE_BISHOP_1 11;
+#define WHITE_QUEEN 12;                                                      //        0....................7
+#define WHITE_KING 13;                                                       //        a  b  c  d  e  f  g  h              (files)
+#define WHITE_BISHOP_2 14;                                                   // 7 8    25 26 27 28 29 30 31 32     BLACKS
+#define WHITE_KNIGHT_2 15;                                                   // . 7    17 18 19 20 21 22 23 24
+#define WHITE_ROOK_2 16;                                                     // . 6
+                                                                             // . 5
+#define BLACKPAWN1 17;                                                       // . 4
+#define BLACKPAWN2 18;                                                       // . 3
+#define BLACKPAWN3 19;                                                       // . 2    1  2  3  4  5  6  7  8
+#define BLACKPAWN4 20;                                                       // 0 1    9 10  11 12 13 14 15 16      WHITES
+#define BLACKPAWN5 21;                                                       //        R  N  B  Q  K   B  N  R
+#define BLACKPAWN6 22;                                                       //
+#define BLACKPAWN7 23;                                                       //  (ranks)
+#define BLACKPAWN8 24;
 
-#define BLACKPAWN1 17
-#define BLACKPAWN2 18
-#define BLACKPAWN3 19
-#define BLACKPAWN4 20
-#define BLACKPAWN5 21
-#define BLACKPAWN6 22
-#define BLACKPAWN7 23
-#define BLACKPAWN8 24
+#define BLACK_PAWN_1 17;
+#define BLACK_PAWN_2 18;
+#define BLACK_PAWN_3 19;
+#define BLACK_PAWN_4 20;
+#define BLACK_PAWN_5 21;
+#define BLACK_PAWN_6 22;
+#define BLACK_PAWN_7 23;
+#define BLACK_PAWN_8 24;
 
-#define BLACKROOK1 25
-#define BLACKKNIGHT1 26
-#define BLACKBISHOP1 27
-#define BLACKQUEEN 28
-#define BLACKKING 29
-#define BLACKBISHOP2 30
-#define BLACKKNIGHT2 31
-#define BLACKROOK2 32
+#define BLACK_ROOK_1 25;
+#define BLACK_KNIGHT_1 26;
+#define BLACK_BISHOP_1 27;
+#define BLACK_QUEEN 28;
+#define BLACK_KING 29;
+#define BLACK_BISHOP_2 30;
+#define BLACK_KNIGHT_2 31;
+#define BLACK_ROOK_2 32;
 
-#define FILE_A 0
-#define FILE_B 1
-#define FILE_C 2
-#define FILE_D 3
-#define FILE_E 4
-#define FILE_F 5
-#define FILE_G 6
-#define FILE_H 7
+#define FILE_A 0;
+#define FILE_B 1;
+#define FILE_C 2;
+#define FILE_D 3;
+#define FILE_E 4;
+#define FILE_F 5;
+#define FILE_G 6;
+#define FILE_H 7;
 
-#define RANK_1 0
-#define RANK_2 1
-#define RANK_3 2
-#define RANK_4 3
-#define RANK_5 4
-#define RANK_6 5
-#define RANK_7 6
-#define RANK_8 7
+#define RANK_1 0;
+#define RANK_2 1;
+#define RANK_3 2;
+#define RANK_4 3;
+#define RANK_5 4;
+#define RANK_6 5;
+#define RANK_7 6;
+#define RANK_8 7;
 
 #define WHITE_TURN 0
 #define BLACK_TURN 1
@@ -64,15 +73,22 @@ var whiteRook1[2] = [RANK_1, FILE_A];
 var whiteBishop1[2] = [RANK_1, FILE_C];
 var currentTurn = WHITE_TURN;
 
-var actual_board[BOARDSIZE][BOARDSIZE] = [		0,		0,		0,			0,	BLACKKING,	0,	0,	0,
+var actualBoard[BOARDSIZE][BOARDSIZE] = [		0,		0,		0,			0,	BLACK_KING,	0,	0,	0,
 		   		 						  		0,		0,		0,			0,		0,		0,	0,	0,
 		   		 						  		0,		0,		0,			0,		0,		0,	0,	0,
 		   		 						  		0,		0,		0,			0,		0,		0,	0,	0,
 		   		 						  		0,		0,		0,			0,		0,		0,	0,	0,
 		   		 						  		0,		0,		0,			0,		0,		0,	0,	0,
 		   		 						  		0,		0,		0,			0,		0,		0,	0,	0,
-		   		 						  WHITEROOK1,	0,	WHITEBISHOP1,	0,	WHITEKING,	0,	0,	0];
+		   		 						  WHITE_ROOK_1,	0,	WHITE_BISHOP_1,	0,	WHITE_KING,	0,	0,	0];
 		   		 
-var shadow_board[BOARDSIZE][BOARDSIZE] = actual_board;
-		   		 
-		   		 
+var shadowBoard[BOARDSIZE][BOARDSIZE] = [		0,		0,		0,			0,	BLACK_KING,	0,	0,	0,
+		   		 						  		0,		0,		0,			0,		0,		0,	0,	0,
+		   		 						  		0,		0,		0,			0,		0,		0,	0,	0,
+		   		 						  		0,		0,		0,			0,		0,		0,	0,	0,
+		   		 						  		0,		0,		0,			0,		0,		0,	0,	0,
+		   		 						  		0,		0,		0,			0,		0,		0,	0,	0,
+		   		 						  		0,		0,		0,			0,		0,		0,	0,	0,
+		   		 						  WHITE_ROOK_1,	0,	WHITE_BISHOP_1,	0,	WHITE_KING,	0,	0,	0];
+
+Dummy() = Skip;
