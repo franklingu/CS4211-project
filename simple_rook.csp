@@ -8,7 +8,7 @@ WhiteRookVertical() = WhiteRookUp() [] WhiteRookDown();
 
 WhiteRookHorizontal() = WhiteRookLeft() [] WhiteRookRight();
 
-WhiteRookUp() = WhiteRook1Up() [] WhiteRook2Up();
+WhiteRookUp() = WhiteRook1Up() [] WhiteRook2Up() [] WhiteRook1UpCapture() [] WhiteRook2UpCapture();
 
 WhiteRookDown() = WhiteRook1Down() [] WhiteRook2Down();
 
@@ -18,35 +18,53 @@ WhiteRookRight() = WhiteRook1Right() [] WhiteRook2Right();
 
 WhiteRook1Up() = [currentTurn == WHITE_TURN && 
                   ((whiteRook1[0] != OUT_OF_BOARD && whiteRook1[1] != OUT_OF_BOARD) &&
-                   (whiteRook1[0] != RANK_8 && (actualBoard[whiteRook1[0] - 1][whiteRook1[1]] == 0 || 
-                    actualBoard[whiteRook1[0] - 1][whiteRook1[1]] >= BLACK_PAWN_1)))] whiteRook1Up {
+                   (whiteRook1[0] != RANK_8 && (actualBoard[whiteRook1[0] - 1][whiteRook1[1]] == 0 )))] whiteRook1Up {
                      actualBoard[whiteRook1[0]][whiteRook1[1]] = 0;
                      whiteRook1[0] = whiteRook1[0] - 1;
                  } -> WhiteRook1Up() [] Dummy();
 
+WhiteRook1UpCapture() = [currentTurn == WHITE_TURN && 
+							(actualBoard[whiteRook1[0] - 1][whiteRook1[1]] >= BLACK_PAWN_1)] whiteRook1UpCapture {
+							actualBoard[whiteRook1[0]][whiteRook1[1]] = 0; whiteRook1[0] = whiteRook1[0] - 1;
+							} -> validateWhite();
+
 WhiteRook2Up() = [currentTurn == WHITE_TURN && 
                   ((whiteRook2[0] != OUT_OF_BOARD && whiteRook2[1] != OUT_OF_BOARD) &&
-                   (whiteRook2[0] != RANK_8 && (actualBoard[whiteRook2[0] - 1][whiteRook2[1]] == 0 || 
-                    actualBoard[whiteRook2[0] - 1][whiteRook2[1]] >= BLACK_PAWN_1)))] whiteRook2Up {
+                   (whiteRook2[0] != RANK_8 && (actualBoard[whiteRook2[0] - 1][whiteRook2[1]] == 0)))] whiteRook2Up {
                      actualBoard[whiteRook2[0]][whiteRook2[1]] = 0;
                      whiteRook2[0] = whiteRook2[0] - 1;
                  } -> WhiteRook2Up() [] Dummy();
+                 
+WhiteRook2UpCapture() = [currentTurn == WHITE_TURN && 
+							(actualBoard[whiteRook2[0] - 1][whiteRook2[1]] >= BLACK_PAWN_1)] whiteRook2UpCapture {
+							actualBoard[whiteRook2[0]][whiteRook2[1]] = 0; whiteRook2[0] = whiteRook2[0] - 1;
+							} -> validateWhite();
 
 WhiteRook1Down() = [currentTurn == WHITE_TURN && 
                     ((whiteRook1[0] != OUT_OF_BOARD && whiteRook1[1] != OUT_OF_BOARD) &&
-                     (whiteRook1[0] != RANK_1 && (actualBoard[whiteRook1[0] + 1][whiteRook1[1]] == 0 || 
-                      actualBoard[whiteRook1[0] + 1][whiteRook1[1]] >= BLACK_PAWN_1)))] whiteRook1Down {
+                     (whiteRook1[0] != RANK_1 && (actualBoard[whiteRook1[0] + 1][whiteRook1[1]] == 0)))] whiteRook1Down {
                        actualBoard[whiteRook1[0]][whiteRook1[1]] = 0;
                        whiteRook1[0] = whiteRook1[0] + 1;
                    } -> WhiteRook1Down() [] Dummy();
+                   
+WhiteRook1DownCapture() = [currentTurn == WHITE_TURN &&
+								(actualBoard[whiteRook1[0] + 1][whiteRook1[1]] >= BLACK_PAWN_1)] whiteRook1DownCapture {
+								actualBoard[whiteRook1[0]][whiteRook1[1]] = 0;
+                       			whiteRook1[0] = whiteRook1[0] + 1;
+                       		} -> validateWhite();
 
 WhiteRook2Down() = [currentTurn == WHITE_TURN && 
                     ((whiteRook2[0] != OUT_OF_BOARD && whiteRook2[1] != OUT_OF_BOARD) &&
-                     (whiteRook2[0] != RANK_1 && (actualBoard[whiteRook2[0] + 1][whiteRook2[1]] == 0 || 
-                      actualBoard[whiteRook2[0] + 1][whiteRook2[1]] >= BLACK_PAWN_1)))] whiteRook2Down {
+                     (whiteRook2[0] != RANK_1 && (actualBoard[whiteRook2[0] + 1][whiteRook2[1]] == 0)))] whiteRook2Down {
                        actualBoard[whiteRook2[0]][whiteRook2[1]] = 0;
                        whiteRook2[0] = whiteRook2[0] + 1;
                    } -> WhiteRook2Down() [] Dummy();
+                   
+WhiteRook2DownCapture() = [currentTurn == WHITE_TURN &&
+								(actualBoard[whiteRook2[0] + 1][whiteRook2[1]] >= BLACK_PAWN_1)] whiteRook2DownCapture {
+								actualBoard[whiteRook2[0]][whiteRook2[1]] = 0;
+                       			whiteRook2[0] = whiteRook2[0] + 1;
+                       		} -> validateWhite();
 
 WhiteRook1Left() = [currentTurn == WHITE_TURN && 
                     ((whiteRook1[0] != OUT_OF_BOARD && whiteRook1[1] != OUT_OF_BOARD) &&
