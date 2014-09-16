@@ -162,3 +162,20 @@ moveOnce(piece, up, right) = if (piecePosition[piece][RANK] != -1 && piecePositi
 };
 										  
 validateWhite() = Stop;
+
+// sample assertions
+moveRookRight() = moveContinuous(WHITE_QUEENS_ROOK, 0, 1);
+#assert moveRookRight() reaches goal;
+
+moveRookUp() = moveContinuous(WHITE_QUEENS_ROOK, 1, 0);
+#assert moveRookUp() reaches goal_2;
+
+moveKingUp() = moveOnce(WHITE_KING, 1, 0);
+#assert moveKingUp() reaches goal_3;
+
+moveKingDown() = moveOnce(WHITE_KING, -1, 0);
+#assert moveKingDown() reaches goal_3;
+
+#define goal actualBoard[RANK_1][FILE_D] == WHITE_QUEENS_ROOK;
+#define goal_2 actualBoard[RANK_4][FILE_A] == WHITE_QUEENS_ROOK;
+#define goal_3 actualBoard[RANK_2][FILE_E] == WHITE_KING;
