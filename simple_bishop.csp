@@ -1,0 +1,33 @@
+﻿#include "board.csp";
+
+whiteBishop() = whiteBishopUpLeft() [] whiteBishopUpRight() [] whiteBishopDownLeft() [] whiteBishopDownRight();
+
+whiteBishopUpLeft() = whiteQueensBishopUpLeft() [] whiteKingsBishopUpLeft();
+whiteBishopUpRight() = whiteQueensBishopUpRight() [] whiteKingsBishopUpRight();
+whiteBishopDownLeft() = whiteQueensBishopDownLeft() [] whiteKingsBishopDownLeft();
+whiteBishopDownRight() = whiteQueensBishopDownRight() [] whiteKingsBishopDownRight();
+
+whiteQueensBishopUpLeft() = moveContinuous(WHITE_QUEENS_BISHOP, 1, -1);
+whiteQueensBishopUpRight() = moveContinuous(WHITE_QUEENS_BISHOP, 1, 1);
+whiteQueensBishopDownLeft() = moveContinuous(WHITE_QUEENS_BISHOP, -1, -1);
+whiteQueensBishopDownRight() = moveContinuous(WHITE_QUEENS_BISHOP, -1, 1);
+
+whiteKingsBishopUpLeft() = moveContinuous(WHITE_KINGS_BISHOP, 1, -1);
+whiteKingsBishopUpRight() = moveContinuous(WHITE_KINGS_BISHOP, 1, 1);
+whiteKingsBishopDownLeft() = moveContinuous(WHITE_KINGS_BISHOP, -1, -1);
+whiteKingsBishopDownRight() = moveContinuous(WHITE_KINGS_BISHOP, -1, 1);					 
+
+#assert whiteBishop() reaches goal_bishop_success_1;
+#assert whiteBishop() reaches goal_bishop_success_2;
+#assert whiteBishop() reaches goal_bishop_fail_1;
+#assert whiteBishop() reaches goal_bishop_fail_2;
+
+#define goal_bishop_success_1 actualBoard[RANK_6][FILE_H] == WHITE_QUEENS_BISHOP && 
+	piecePosition[WHITE_QUEENS_BISHOP][RANK] == RANK_6 && piecePosition[WHITE_QUEENS_BISHOP][FILE] == FILE_H;
+	
+#define goal_bishop_success_2 actualBoard[RANK_3][FILE_D] == WHITE_KINGS_BISHOP && 
+	piecePosition[WHITE_KINGS_BISHOP][RANK] == RANK_3 && piecePosition[WHITE_KINGS_BISHOP][FILE] == FILE_D;	
+	
+#define goal_bishop_fail_1 actualBoard[RANK_4][FILE_E] == WHITE_QUEENS_BISHOP;
+
+#define goal_bishop_fail_2 piecePosition[WHITE_KINGS_BISHOP][RANK] == RANK_4 && piecePosition[WHITE_KINGS_BISHOP][FILE] == FILE_A - 1;
