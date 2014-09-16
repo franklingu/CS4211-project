@@ -59,7 +59,7 @@
 #define WHITE_TURN 0;
 #define BLACK_TURN 1;
 
-#define OUT_OF_BOARD -1;
+#define DEAD -1;
 
 var whiteKing[2] = [RANK_1, FILE_E];
 var blackKing[2] = [RANK_8, FILE_E];
