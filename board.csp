@@ -63,7 +63,6 @@
 
 var currentTurn = WHITE_TURN;
 
-var actualBoard[BOARD_SIZE][BOARD_SIZE] = [		0,		0,		0,			0,	BLACK_KING,	0,	0,	0,
 // piece position keeps track of each piece's position
 var piecePosition[33][2] = [-1, -1, // 0 - dummy
 							-1, -1, // 1
@@ -99,13 +98,16 @@ var piecePosition[33][2] = [-1, -1, // 0 - dummy
 							-1, -1, // 31
 							-1, -1 // 32
 							];
+
+var actualBoard[BOARD_SIZE][BOARD_SIZE] = [		WHITE_QUEENS_ROOK,	0,	WHITE_QUEENS_BISHOP,	0,	WHITE_KING,	WHITE_KINGS_BISHOP,	0,	0,
 		   		 						  		0,		0,		0,			0,		0,		0,	0,	0,
 		   		 						  		0,		0,		0,			0,		0,		0,	0,	0,
 		   		 						  		0,		0,		0,			0,		0,		0,	0,	0,
 		   		 						  		0,		0,		0,			0,		0,		0,	0,	0,
 		   		 						  		0,		0,		0,			0,		0,		0,	0,	0,
 		   		 						  		0,		0,		0,			0,		0,		0,	0,	0,
-		   		 						  WHITE_ROOK_1,	0,	WHITE_BISHOP_1,	0,	WHITE_KING,	0,	0,	0];
+		   		 						  		0,		0,		0,			0,	BLACK_KING,	0,	0,	0
+		   		 						 ];
 		   		 
 var shadowBoard[BOARD_SIZE][BOARD_SIZE] = [		0,		0,		0,			0,	BLACK_KING,	0,	0,	0,
 		   		 						  		0,		0,		0,			0,		0,		0,	0,	0,
