@@ -1,4 +1,6 @@
 ﻿#define BOARD_SIZE 8;
+#define RANK 0;
+#define FILE 1;
 
 #define WHITE_PAWN_1 1;
 #define WHITE_PAWN_2 2;
