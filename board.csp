@@ -61,10 +61,6 @@
 
 #define DEAD -1;
 
-var whiteKing[2] = [RANK_1, FILE_E];
-var blackKing[2] = [RANK_8, FILE_E];
-var whiteRook1[2] = [RANK_1, FILE_A];
-var whiteBishop1[2] = [RANK_1, FILE_C];
 var currentTurn = WHITE_TURN;
 
 var actualBoard[BOARD_SIZE][BOARD_SIZE] = [		0,		0,		0,			0,	BLACK_KING,	0,	0,	0,
@@ -87,4 +83,3 @@ var shadowBoard[BOARD_SIZE][BOARD_SIZE] = [		0,		0,		0,			0,	BLACK_KING,	0,	0,	0
 
 validateWhite() = Skip;
 
-Dummy() = Skip;
