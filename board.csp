@@ -109,14 +109,6 @@ var actualBoard[BOARD_SIZE][BOARD_SIZE] = [		WHITE_QUEENS_ROOK,	0,	WHITE_QUEENS_
 		   		 						  		0,		0,		0,			0,	BLACK_KING,	0,	0,	0
 		   		 						 ];
 		   		 
-var shadowBoard[BOARD_SIZE][BOARD_SIZE] = [		0,		0,		0,			0,	BLACK_KING,	0,	0,	0,
-		   		 						  		0,		0,		0,			0,		0,		0,	0,	0,
-		   		 						  		0,		0,		0,			0,		0,		0,	0,	0,
-		   		 						  		0,		0,		0,			0,		0,		0,	0,	0,
-		   		 						  		0,		0,		0,			0,		0,		0,	0,	0,
-		   		 						  		0,		0,		0,			0,		0,		0,	0,	0,
-		   		 						  		0,		0,		0,			0,		0,		0,	0,	0,
-		   		 						  WHITE_ROOK_1,	0,	WHITE_BISHOP_1,	0,	WHITE_KING,	0,	0,	0];
 
 validateWhite() = Skip;
 
