@@ -1,0 +1,38 @@
+﻿#include "board.csp";
+
+whiteRook() = whiteRookUp() [] whiteRookDown() [] whiteRookLeft() [] whiteRookRight();
+
+whiteRookUp() = whiteQueensRookUp() [] whiteKingsRookUp();
+whiteRookDown() = whiteQueensRookDown() [] whiteKingsRookDown();
+whiteRookLeft() = whiteQueensRookLeft() [] whiteKingsRookLeft();
+whiteRookRight() = whiteQueensRookRight() [] whiteKingsRookRight();
+
+whiteQueensRookUp() = moveContinuous(WHITE_QUEENS_ROOK, 1, 0);
+whiteQueensRookDown() = moveContinuous(WHITE_QUEENS_ROOK, -1, 0);
+whiteQueensRookLeft() = moveContinuous(WHITE_QUEENS_ROOK, 0, -1);
+whiteQueensRookRight() = moveContinuous(WHITE_QUEENS_ROOK, 0, 1);
+
+//Theres no white king's rook as of now
+whiteKingsRookUp() = moveContinuous(WHITE_KINGS_ROOK, 1, 0);
+whiteKingsRookDown() = moveContinuous(WHITE_KINGS_ROOK, -1, 0);
+whiteKingsRookLeft() = moveContinuous(WHITE_KINGS_ROOK, 0, -1);
+whiteKingsRookRight() = moveContinuous(WHITE_KINGS_ROOK, 0, 1);					 
+
+#assert whiteRook() reaches goal_rook_success_1;
+#assert whiteRook() reaches goal_rook_success_2;
+//#assert whiteRook() reaches goal_rook_success_2;
+#assert whiteRook() reaches goal_rook_fail_1;
+#assert whiteRook() reaches goal_rook_fail_2;
+//#assert whiteRook() reaches goal_rook_fail_2;
+
+#define goal_rook_success_1 actualBoard[RANK_6][FILE_A] == WHITE_QUEENS_ROOK && 
+	piecePosition[WHITE_QUEENS_ROOK][RANK] == RANK_6 && piecePosition[WHITE_QUEENS_ROOK][FILE] == FILE_A;
+
+#define goal_rook_success_2 actualBoard[RANK_4][FILE_A] == WHITE_QUEENS_ROOK &&
+	piecePosition[WHITE_QUEENS_ROOK][RANK] == RANK_4 && piecePosition[WHITE_QUEENS_ROOK][FILE] == FILE_A;	
+//#define goal_rook_success_2 actualBoard[RANK_5][FILE_H] == WHITE_KINGS_ROOK && 
+//	piecePosition[WHITE_KINGS_ROOK][RANK] == RANK_5 && piecePosition[WHITE_KINGS_ROOK][FILE] == FILE_H;	
+	
+#define goal_rook_fail_1 actualBoard[RANK_4][FILE_E] == WHITE_QUEENS_ROOK;
+#define goal_rook_fail_2 actualBoard[RANK_6][FILE_C] == WHITE_QUEENS_ROOK;
+//#define goal_rook_fail_2 piecePosition[WHITE_KINGS_ROOK][RANK] == RANK_4 && piecePosition[WHITE_KINGS_ROOK][FILE] == FILE_A - 1;
