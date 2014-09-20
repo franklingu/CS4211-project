@@ -1,0 +1,25 @@
+﻿#include "board.csp";
+
+blackQueenUp() = [currentTurn == BLACK_TURN]moveContinuous(BLACK_QUEEN, 1, 0);
+blackQueenDown() = [currentTurn == BLACK_TURN]moveContinuous(BLACK_QUEEN, -1, 0);
+blackQueenLeft() = [currentTurn == BLACK_TURN]moveContinuous(BLACK_QUEEN, 0, -1);
+blackQueenRight() = [currentTurn == BLACK_TURN]moveContinuous(BLACK_QUEEN, 0, 1);
+blackQueenUpLeft() = [currentTurn == BLACK_TURN]moveContinuous(BLACK_QUEEN, 1, -1);
+blackQueenUpRight() = [currentTurn == BLACK_TURN]moveContinuous(BLACK_QUEEN, 1, 1);
+blackQueenDownLeft() = [currentTurn == BLACK_TURN]moveContinuous(BLACK_QUEEN, -1, -1);
+blackQueenDownRight() = [currentTurn == BLACK_TURN]moveContinuous(BLACK_QUEEN, -1, 1);
+
+blackQueen() = blackQueenUp() [] blackQueenDown() [] blackQueenLeft() [] blackQueenRight() [] 
+               blackQueenUpLeft() [] blackQueenUpRight() [] blackQueenDownLeft() [] blackQueenDownRight();
+
+whiteQueenUp() = [currentTurn == WHITE_TURN]moveContinuous(WHITE_QUEEN, 1, 0);
+whiteQueenDown() = [currentTurn == WHITE_TURN]moveContinuous(WHITE_QUEEN, -1, 0);
+whiteQueenLeft() = [currentTurn == WHITE_TURN]moveContinuous(WHITE_QUEEN, 0, -1);
+whiteQueenRight() = [currentTurn == WHITE_TURN]moveContinuous(WHITE_QUEEN, 0, 1);
+whiteQueenUpLeft() = [currentTurn == WHITE_TURN]moveContinuous(WHITE_QUEEN, 1, -1);
+whiteQueenUpRight() = [currentTurn == WHITE_TURN]moveContinuous(WHITE_QUEEN, 1, 1);
+whiteQueenDownLeft() = [currentTurn == WHITE_TURN]moveContinuous(WHITE_QUEEN, -1, -1);
+whiteQueenDownRight() = [currentTurn == WHITE_TURN]moveContinuous(WHITE_QUEEN, -1, 1);
+
+whiteQueen() = whiteQueenUp() [] whiteQueenDown() [] whiteQueenLeft() [] whiteQueenRight() [] 
+               whiteQueenUpLeft() [] whiteQueenUpRight() [] whiteQueenDownLeft() [] whiteQueenDownRight();
