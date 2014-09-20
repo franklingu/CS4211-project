@@ -1,0 +1,12 @@
+﻿#include "board.csp";
+
+whiteQueenUp() = moveContinuous(WHITE_QUEEN, 1, 0);
+whiteQueenDown() = moveContinuous(WHITE_QUEEN, -1, 0);
+whiteQueenLeft() = moveContinuous(WHITE_QUEEN, 0, -1);
+whiteQueenRight() = moveContinuous(WHITE_QUEEN, 0, 1);
+whiteQueenUpLeft() = moveContinuous(WHITE_QUEEN, 1, -1);
+whiteQueenUpRight() = moveContinuous(WHITE_QUEEN, 1, 1);
+whiteQueenDownLeft() = moveContinuous(WHITE_QUEEN, -1, -1);
+whiteQueenDownRight() = moveContinuous(WHITE_QUEEN, -1, 1);
+
+whiteQueen() = whiteQueenUp() [] whiteQueenDown() [] whiteQueenLeft() [] whiteQueenRight() [] whiteQueenUpLeft() [] whiteQueenUpRight() [] whiteQueenDownLeft() [] whiteQueenDownRight();
