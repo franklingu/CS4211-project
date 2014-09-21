@@ -1,0 +1,44 @@
+﻿#include "board.csp";
+
+whitePawn() = whitePawnStraight() [] whitePawnDouble() [] whitePawnUpLeft() [] whitePawnUpRight();
+
+whitePawnStraight() = whiteOnePawnStraight() [] whiteTwoPawnStraight() [] whiteThreePawnStraight() [] whiteFourPawnStraight() [] whiteFivePawnStraight() [] whiteSixPawnStraight() [] whiteSevenPawnStraight() [] whiteEightPawnStraight();
+whitePawnDouble() = whiteOnePawnDouble() [] whiteTwoPawnDouble() [] whiteThreePawnDouble() [] whiteFourPawnDouble() [] whiteFivePawnDouble() [] whiteSixPawnDouble() [] whiteSevenPawnDouble() [] whiteEightPawnDouble();
+whitePawnUpLeft() = whiteOnePawnUpLeft() [] whiteTwoPawnUpLeft() [] whiteThreePawnUpLeft() [] whiteFourPawnUpLeft() [] whiteFivePawnUpLeft() [] whiteSixPawnUpLeft() [] whiteSevenPawnUpLeft() [] whiteEightPawnUpLeft();
+whitePawnUpRight() = whiteOnePawnUpRight() [] whiteTwoPawnUpRight() [] whiteThreePawnUpRight() [] whiteFourPawnUpRight() [] whiteFivePawnUpRight() [] whiteSixPawnUpRight() [] whiteSevenPawnUpRight() [] whiteEightPawnUpRight();
+
+whiteOnePawnStraight() = moveOnce(WHITE_PAWN_1, 1, 0);
+whiteTwoPawnStraight() = moveOnce(WHITE_PAWN_2, 1, 0);
+whiteThreePawnStraight() = moveOnce(WHITE_PAWN_3, 1, 0);
+whiteFourPawnStraight() = moveOnce(WHITE_PAWN_4, 1, 0);
+whiteFivePawnStraight() = moveOnce(WHITE_PAWN_5, 1, 0);
+whiteSixPawnStraight() = moveOnce(WHITE_PAWN_6, 1, 0);
+whiteSevenPawnStraight() = moveOnce(WHITE_PAWN_7, 1, 0);
+whiteEightPawnStraight() = moveOnce(WHITE_PAWN_8, 1, 0);
+
+whiteOnePawnDouble() = movePawnDouble(WHITE_PAWN_1, 2);
+whiteTwoPawnDouble() = movePawnDouble(WHITE_PAWN_2, 2);
+whiteThreePawnDouble() = movePawnDouble(WHITE_PAWN_3, 2);
+whiteFourPawnDouble() = movePawnDouble(WHITE_PAWN_4, 2);
+whiteFivePawnDouble() = movePawnDouble(WHITE_PAWN_5, 2);
+whiteSixPawnDouble() = movePawnDouble(WHITE_PAWN_6, 2);
+whiteSevenPawnDouble() = movePawnDouble(WHITE_PAWN_7, 2);
+whiteEightPawnDouble() = movePawnDouble(WHITE_PAWN_8, 2);
+
+whiteOnePawnUpLeft() = movePawnDiagonal(WHITE_PAWN_1, 1, -1);
+whiteTwoPawnUpLeft() = movePawnDiagonal(WHITE_PAWN_2, 1, -1);
+whiteThreePawnUpLeft() = movePawnDiagonal(WHITE_PAWN_3, 1, -1);
+whiteFourPawnUpLeft() = movePawnDiagonal(WHITE_PAWN_4, 1, -1);
+whiteFivePawnUpLeft() = movePawnDiagonal(WHITE_PAWN_5, 1, -1);
+whiteSixPawnUpLeft() = movePawnDiagonal(WHITE_PAWN_6, 1, -1);
+whiteSevenPawnUpLeft() = movePawnDiagonal(WHITE_PAWN_7, 1, -1);
+whiteEightPawnUpLeft() = movePawnDiagonal(WHITE_PAWN_8, 1, -1);
+
+whiteOnePawnUpRight() = movePawnDiagonal(WHITE_PAWN_1, 1, 1);
+whiteTwoPawnUpRight() = movePawnDiagonal(WHITE_PAWN_2, 1, 1);
+whiteThreePawnUpRight() = movePawnDiagonal(WHITE_PAWN_3, 1, 1);
+whiteFourPawnUpRight() = movePawnDiagonal(WHITE_PAWN_4, 1, 1);
+whiteFivePawnUpRight() = movePawnDiagonal(WHITE_PAWN_5, 1, 1);
+whiteSixPawnUpRight() = movePawnDiagonal(WHITE_PAWN_6, 1, 1);
+whiteSevenPawnUpRight() = movePawnDiagonal(WHITE_PAWN_7, 1, 1);
+whiteEightPawnUpRight() = movePawnDiagonal(WHITE_PAWN_8, 1, 1);
