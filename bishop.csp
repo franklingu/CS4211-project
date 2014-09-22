@@ -17,6 +17,23 @@ whiteKingsBishopUpRight() = moveContinuous(WHITE_KINGS_BISHOP, 1, 1);
 whiteKingsBishopDownLeft() = moveContinuous(WHITE_KINGS_BISHOP, -1, -1);
 whiteKingsBishopDownRight() = moveContinuous(WHITE_KINGS_BISHOP, -1, 1);					 
 
+blackBishop() = blackBishopUpLeft() [] blackBishopUpRight() [] blackBishopDownLeft() [] blackBishopDownRight();
+
+blackBishopUpLeft() = blackQueensBishopUpLeft() [] blackKingsBishopUpLeft();
+blackBishopUpRight() = blackQueensBishopUpRight() [] blackKingsBishopUpRight();
+blackBishopDownLeft() = blackQueensBishopDownLeft() [] blackKingsBishopDownLeft();
+blackBishopDownRight() = blackQueensBishopDownRight() [] blackKingsBishopDownRight();
+
+blackQueensBishopUpLeft() = moveContinuous(BLACK_QUEENS_BISHOP, 1, -1);
+blackQueensBishopUpRight() = moveContinuous(BLACK_QUEENS_BISHOP, 1, 1);
+blackQueensBishopDownLeft() = moveContinuous(BLACK_QUEENS_BISHOP, -1, -1);
+blackQueensBishopDownRight() = moveContinuous(BLACK_QUEENS_BISHOP, -1, 1);
+
+blackKingsBishopUpLeft() = moveContinuous(BLACK_KINGS_BISHOP, 1, -1);
+blackKingsBishopUpRight() = moveContinuous(BLACK_KINGS_BISHOP, 1, 1);
+blackKingsBishopDownLeft() = moveContinuous(BLACK_KINGS_BISHOP, -1, -1);
+blackKingsBishopDownRight() = moveContinuous(BLACK_KINGS_BISHOP, -1, 1);
+
 #assert whiteBishop() reaches goal_bishop_success_1;
 #assert whiteBishop() reaches goal_bishop_success_2;
 #assert whiteBishop() reaches goal_bishop_fail_1;
