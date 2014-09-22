@@ -141,7 +141,7 @@ moveContinuous(piece, up, right) = if (piecePosition[piece][RANK] != DEAD && pie
 		}
 	}else{Stop};
 		
-moveOnce(piece, up, right) = if (piecePosition[piece][RANK] != -1 && piecePosition[piece][FILE] != -1 )
+moveOnce(piece, up, right) = if (piecePosition[piece][RANK] != DEAD && piecePosition[piece][FILE] != DEAD )
 {
 	// movement is within board
 	if ( piecePosition[piece][RANK] + up >= 0 && piecePosition[piece][RANK] + up <= BOARD_SIZE - 1 &&

@@ -1,0 +1,49 @@
+﻿#include "board.csp";
+
+blackKingsKnightUpLeft1() = [currentTurn == BLACK_TURN]moveOnce(BLACK_KINGS_KNIGHT, 1, -2);
+blackKingsKnightUpLeft2() = [currentTurn == BLACK_TURN]moveOnce(BLACK_KINGS_KNIGHT, 2, -1);
+blackKingsKnightUpRight1() = [currentTurn == BLACK_TURN]moveOnce(BLACK_KINGS_KNIGHT, 1, 2);
+blackKingsKnightUpRight2() = [currentTurn == BLACK_TURN]moveOnce(BLACK_KINGS_KNIGHT, 2, 1);
+blackKingsKnightDownLeft1() = [currentTurn == BLACK_TURN]moveOnce(BLACK_KINGS_KNIGHT, -1, -2);
+blackKingsKnightDownLeft2() = [currentTurn == BLACK_TURN]moveOnce(BLACK_KINGS_KNIGHT, -2, -1);
+blackKingsKnightDownRight1() = [currentTurn == BLACK_TURN]moveOnce(BLACK_KINGS_KNIGHT, -1, 2);
+blackKingsKnightDownRight2() = [currentTurn == BLACK_TURN]moveOnce(BLACK_KINGS_KNIGHT, -2, 1);
+
+blackQueensKnightUpLeft1() = [currentTurn == BLACK_TURN]moveOnce(BLACK_QUEENS_KNIGHT, 1, -2);
+blackQueensKnightUpLeft2() = [currentTurn == BLACK_TURN]moveOnce(BLACK_QUEENS_KNIGHT, 2, -1);
+blackQueensKnightUpRight1() = [currentTurn == BLACK_TURN]moveOnce(BLACK_QUEENS_KNIGHT, 1, 2);
+blackQueensKnightUpRight2() = [currentTurn == BLACK_TURN]moveOnce(BLACK_QUEENS_KNIGHT, 2, 1);
+blackQueensKnightDownLeft1() = [currentTurn == BLACK_TURN]moveOnce(BLACK_QUEENS_KNIGHT, -1, -2);
+blackQueensKnightDownLeft2() = [currentTurn == BLACK_TURN]moveOnce(BLACK_QUEENS_KNIGHT, -2, -1);
+blackQueensKnightDownRight1() = [currentTurn == BLACK_TURN]moveOnce(BLACK_QUEENS_KNIGHT, -1, 2);
+blackQueensKnightDownRight2() = [currentTurn == BLACK_TURN]moveOnce(BLACK_QUEENS_KNIGHT, -2, 1);
+
+blackKingsKnight() = blackKingsKnightUpLeft1() [] blackKingsKnightUpLeft2() [] blackKingsKnightUpRight1() [] blackKingsKnightUpRight2() []
+                     blackKingsKnightDownLeft1() [] blackKingsKnightDownLeft2() [] blackKingsKnightDownRight1() [] blackKingsKnightDownRight2();
+blackQueensKnight() = blackQueensKnightUpLeft1() [] blackQueensKnightUpLeft2() [] blackQueensKnightUpRight1() [] blackQueensKnightUpRight2() []
+                      blackQueensKnightDownLeft1() [] blackQueensKnightDownLeft2() [] blackQueensKnightDownRight1() [] blackQueensKnightDownRight2();
+blackKnights() = blackKingsKnight() [] blackQueensKnight();
+
+whiteKingsKnightUpLeft1() = [currentTurn == WHITE_TURN]moveOnce(WHITE_KINGS_KNIGHT, 1, -2);
+whiteKingsKnightUpLeft2() = [currentTurn == WHITE_TURN]moveOnce(WHITE_KINGS_KNIGHT, 2, -1);
+whiteKingsKnightUpRight1() = [currentTurn == WHITE_TURN]moveOnce(WHITE_KINGS_KNIGHT, 1, 2);
+whiteKingsKnightUpRight2() = [currentTurn == WHITE_TURN]moveOnce(WHITE_KINGS_KNIGHT, 2, 1);
+whiteKingsKnightDownLeft1() = [currentTurn == WHITE_TURN]moveOnce(WHITE_KINGS_KNIGHT, -1, -2);
+whiteKingsKnightDownLeft2() = [currentTurn == WHITE_TURN]moveOnce(WHITE_KINGS_KNIGHT, -2, -1);
+whiteKingsKnightDownRight1() = [currentTurn == WHITE_TURN]moveOnce(WHITE_KINGS_KNIGHT, -1, 2);
+whiteKingsKnightDownRight2() = [currentTurn == WHITE_TURN]moveOnce(WHITE_KINGS_KNIGHT, -2, 1);
+
+whiteQueensKnightUpLeft1() = [currentTurn == WHITE_TURN]moveOnce(WHITE_QUEENS_KNIGHT, 1, -2);
+whiteQueensKnightUpLeft2() = [currentTurn == WHITE_TURN]moveOnce(WHITE_QUEENS_KNIGHT, 2, -1);
+whiteQueensKnightUpRight1() = [currentTurn == WHITE_TURN]moveOnce(WHITE_QUEENS_KNIGHT, 1, 2);
+whiteQueensKnightUpRight2() = [currentTurn == WHITE_TURN]moveOnce(WHITE_QUEENS_KNIGHT, 2, 1);
+whiteQueensKnightDownLeft1() = [currentTurn == WHITE_TURN]moveOnce(WHITE_QUEENS_KNIGHT, -1, -2);
+whiteQueensKnightDownLeft2() = [currentTurn == WHITE_TURN]moveOnce(WHITE_QUEENS_KNIGHT, -2, -1);
+whiteQueensKnightDownRight1() = [currentTurn == WHITE_TURN]moveOnce(WHITE_QUEENS_KNIGHT, -1, 2);
+whiteQueensKnightDownRight2() = [currentTurn == WHITE_TURN]moveOnce(WHITE_QUEENS_KNIGHT, -2, 1);
+
+whiteKingsKnight() = whiteKingsKnightUpLeft1() [] whiteKingsKnightUpLeft2() [] whiteKingsKnightUpRight1() [] whiteKingsKnightUpRight2() []
+                     whiteKingsKnightDownLeft1() [] whiteKingsKnightDownLeft2() [] whiteKingsKnightDownRight1() [] whiteKingsKnightDownRight2();
+whiteQueensKnight() = whiteQueensKnightUpLeft1() [] whiteQueensKnightUpLeft2() [] whiteQueensKnightUpRight1() [] whiteQueensKnightUpRight2() []
+                      whiteQueensKnightDownLeft1() [] whiteQueensKnightDownLeft2() [] whiteQueensKnightDownRight1() [] whiteQueensKnightDownRight2();
+whiteKnights() = whiteKingsKnight() [] whiteQueensKnight();
