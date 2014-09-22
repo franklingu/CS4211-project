@@ -18,6 +18,23 @@ whiteKingsRookDown() = moveContinuous(WHITE_KINGS_ROOK, -1, 0);
 whiteKingsRookLeft() = moveContinuous(WHITE_KINGS_ROOK, 0, -1);
 whiteKingsRookRight() = moveContinuous(WHITE_KINGS_ROOK, 0, 1);					 
 
+blackRook() = blackRookUp() [] blackRookDown() [] blackRookLeft() [] blackRookRight();
+
+blackRookUp() = blackQueensRookUp() [] blackKingsRookUp();
+blackRookDown() = blackQueensRookDown() [] blackKingsRookDown();
+blackRookLeft() = blackQueensRookLeft() [] blackKingsRookLeft();
+blackRookRight() = blackQueensRookRight() [] blackKingsRookRight();
+
+blackQueensRookUp() = moveContinuous(BLACK_QUEENS_ROOK, 1, 0);
+blackQueensRookDown() = moveContinuous(BLACK_QUEENS_ROOK, -1, 0);
+blackQueensRookLeft() = moveContinuous(BLACK_QUEENS_ROOK, 0, -1);
+blackQueensRookRight() = moveContinuous(BLACK_QUEENS_ROOK, 0, 1);
+
+blackKingsRookUp() = moveContinuous(BLACK_KINGS_ROOK, 1, 0);
+blackKingsRookDown() = moveContinuous(BLACK_KINGS_ROOK, -1, 0);
+blackKingsRookLeft() = moveContinuous(BLACK_KINGS_ROOK, 0, -1);
+blackKingsRookRight() = moveContinuous(BLACK_KINGS_ROOK, 0, 1);	
+
 #assert whiteRook() reaches goal_rook_success_1;
 #assert whiteRook() reaches goal_rook_success_2;
 //#assert whiteRook() reaches goal_rook_success_2;
