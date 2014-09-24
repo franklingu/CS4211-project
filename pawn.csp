@@ -42,3 +42,48 @@ whiteFivePawnUpRight() = movePawnDiagonal(WHITE_PAWN_5, 1, 1);
 whiteSixPawnUpRight() = movePawnDiagonal(WHITE_PAWN_6, 1, 1);
 whiteSevenPawnUpRight() = movePawnDiagonal(WHITE_PAWN_7, 1, 1);
 whiteEightPawnUpRight() = movePawnDiagonal(WHITE_PAWN_8, 1, 1);
+
+
+
+blackPawn() = blackPawnStraight() [] blackPawnDouble() [] blackPawnDownLeft() [] blackPawnDownRight();
+
+blackPawnStraight() = blackOnePawnStraight() [] blackTwoPawnStraight() [] blackThreePawnStraight() [] blackFourPawnStraight() [] blackFivePawnStraight() [] blackSixPawnStraight() [] blackSevenPawnStraight() [] blackEightPawnStraight();
+blackPawnDouble() = blackOnePawnDouble() [] blackTwoPawnDouble() [] blackThreePawnDouble() [] blackFourPawnDouble() [] blackFivePawnDouble() [] blackSixPawnDouble() [] blackSevenPawnDouble() [] blackEightPawnDouble();
+blackPawnDownLeft() = blackOnePawnDownLeft() [] blackTwoPawnDownLeft() [] blackThreePawnDownLeft() [] blackFourPawnDownLeft() [] blackFivePawnDownLeft() [] blackSixPawnDownLeft() [] blackSevenPawnDownLeft() [] blackEightPawnDownLeft();
+blackPawnDownRight() = blackOnePawnDownRight() [] blackTwoPawnDownRight() [] blackThreePawnDownRight() [] blackFourPawnDownRight() [] blackFivePawnDownRight() [] blackSixPawnDownRight() [] blackSevenPawnDownRight() [] blackEightPawnDownRight();
+
+blackOnePawnStraight() = moveOnce(BLACK_PAWN_1, -1, 0);
+blackTwoPawnStraight() = moveOnce(BLACK_PAWN_2, -1, 0);
+blackThreePawnStraight() = moveOnce(BLACK_PAWN_3, -1, 0);
+blackFourPawnStraight() = moveOnce(BLACK_PAWN_4, -1, 0);
+blackFivePawnStraight() = moveOnce(BLACK_PAWN_5, -1, 0);
+blackSixPawnStraight() = moveOnce(BLACK_PAWN_6, -1, 0);
+blackSevenPawnStraight() = moveOnce(BLACK_PAWN_7, -1, 0);
+blackEightPawnStraight() = moveOnce(BLACK_PAWN_8, -1, 0);
+
+blackOnePawnDouble() = movePawnDouble(BLACK_PAWN_1, -2);
+blackTwoPawnDouble() = movePawnDouble(BLACK_PAWN_2, -2);
+blackThreePawnDouble() = movePawnDouble(BLACK_PAWN_3, -2);
+blackFourPawnDouble() = movePawnDouble(BLACK_PAWN_4, -2);
+blackFivePawnDouble() = movePawnDouble(BLACK_PAWN_5, -2);
+blackSixPawnDouble() = movePawnDouble(BLACK_PAWN_6, -2);
+blackSevenPawnDouble() = movePawnDouble(BLACK_PAWN_7, -2);
+blackEightPawnDouble() = movePawnDouble(BLACK_PAWN_8, -2);
+
+blackOnePawnDownLeft() = movePawnDiagonal(BLACK_PAWN_1, -1, -1);
+blackTwoPawnDownLeft() = movePawnDiagonal(BLACK_PAWN_2, -1, -1);
+blackThreePawnDownLeft() = movePawnDiagonal(BLACK_PAWN_3, -1, -1);
+blackFourPawnDownLeft() = movePawnDiagonal(BLACK_PAWN_4, -1, -1);
+blackFivePawnDownLeft() = movePawnDiagonal(BLACK_PAWN_5, -1, -1);
+blackSixPawnDownLeft() = movePawnDiagonal(BLACK_PAWN_6, -1, -1);
+blackSevenPawnDownLeft() = movePawnDiagonal(BLACK_PAWN_7, -1, -1);
+blackEightPawnDownLeft() = movePawnDiagonal(BLACK_PAWN_8, -1, -1);
+
+blackOnePawnDownRight() = movePawnDiagonal(BLACK_PAWN_1, -1, 1);
+blackTwoPawnDownRight() = movePawnDiagonal(BLACK_PAWN_2, -1, 1);
+blackThreePawnDownRight() = movePawnDiagonal(BLACK_PAWN_3, -1, 1);
+blackFourPawnDownRight() = movePawnDiagonal(BLACK_PAWN_4, -1, 1);
+blackFivePawnDownRight() = movePawnDiagonal(BLACK_PAWN_5, -1, 1);
+blackSixPawnDownRight() = movePawnDiagonal(BLACK_PAWN_6, -1, 1);
+blackSevenPawnDownRight() = movePawnDiagonal(BLACK_PAWN_7, -1, 1);
+blackEightPawnDownRight() = movePawnDiagonal(BLACK_PAWN_8, -1, 1);
