@@ -181,7 +181,7 @@ movePawnDiagonal(piece, up, right) = if (piecePosition[piece][RANK] != DEAD && p
 
 movePawnDouble(piece, up) = if (piecePosition[piece][RANK] != DEAD && piecePosition[piece][FILE] != DEAD)
 {
-	if (piecePosition[piece][RANK] == 1 && actualBoard[piecePosition[piece][RANK] + up][piecePosition[piece][FILE]] == 0) {
+	if (piecePosition[piece][RANK] == RANK_2 && actualBoard[piecePosition[piece][RANK] + up][piecePosition[piece][FILE]] == 0) {
 		move{
 				// update the old position
 				actualBoard[piecePosition[piece][RANK]][piecePosition[piece][FILE]] = 0;
