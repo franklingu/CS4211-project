@@ -116,7 +116,8 @@ moveContinuous(piece, up, right) = if (piecePosition[piece][RANK] != DEAD && pie
 		piecePosition[piece][FILE] + right >= 0 && piecePosition[piece][FILE] + right <= BOARD_SIZE - 1 )
 		{
 			// if space is empty
-			if(actualBoard[piecePosition[piece][RANK] + up][piecePosition[piece][FILE] + right] == 0){
+			if(actualBoard[piecePosition[piece][RANK] + up][piecePosition[piece][FILE] + right] == 0)
+			{
 				move{
 					// update the old position
 					actualBoard[piecePosition[piece][RANK]][piecePosition[piece][FILE]] = 0;
@@ -126,15 +127,17 @@ moveContinuous(piece, up, right) = if (piecePosition[piece][RANK] != DEAD && pie
 					actualBoard[piecePosition[piece][RANK]][piecePosition[piece][FILE]] = piece;
 				} -> moveContinuous(piece, up, right) [] validateWhite()
 			}
-			// if target is occupied by a black piece
-			else if(actualBoard[piecePosition[piece][RANK] + up][piecePosition[piece][FILE] + right] >= BLACK_PAWN_1){
+			// if target is occupied by a black piece and you are white
+			else if((piece <= WHITE_KINGS_ROOK && actualBoard[piecePosition[piece][RANK] + up][piecePosition[piece][FILE] + right] >= BLACK_PAWN_1) ||
+					(piece >= BLACK_PAWN_1 && actualBoard[piecePosition[piece][RANK] + up][piecePosition[piece][FILE] + right] <= WHITE_KINGS_ROOK))
+			{
 				eat{
 					actualBoard[piecePosition[piece][RANK]][piecePosition[piece][FILE]] = 0;
 					piecePosition[piece][RANK] = piecePosition[piece][RANK] + up;
 					piecePosition[piece][FILE] = piecePosition[piece][FILE] + right;
 					actualBoard[piecePosition[piece][RANK]][piecePosition[piece][FILE]] = piece;
 				} -> validateWhite()
-			}
+			}			
 			else {Stop}
 		} else {
 			Stop
