@@ -7,23 +7,23 @@ whitePawnDouble() = whiteOnePawnDouble() [] whiteTwoPawnDouble() [] whiteThreePa
 whitePawnUpLeft() = whiteOnePawnUpLeft() [] whiteTwoPawnUpLeft() [] whiteThreePawnUpLeft() [] whiteFourPawnUpLeft() [] whiteFivePawnUpLeft() [] whiteSixPawnUpLeft() [] whiteSevenPawnUpLeft() [] whiteEightPawnUpLeft();
 whitePawnUpRight() = whiteOnePawnUpRight() [] whiteTwoPawnUpRight() [] whiteThreePawnUpRight() [] whiteFourPawnUpRight() [] whiteFivePawnUpRight() [] whiteSixPawnUpRight() [] whiteSevenPawnUpRight() [] whiteEightPawnUpRight();
 
-whiteOnePawnStraight() = moveOnce(WHITE_PAWN_1, 1, 0);
-whiteTwoPawnStraight() = moveOnce(WHITE_PAWN_2, 1, 0);
-whiteThreePawnStraight() = moveOnce(WHITE_PAWN_3, 1, 0);
-whiteFourPawnStraight() = moveOnce(WHITE_PAWN_4, 1, 0);
-whiteFivePawnStraight() = moveOnce(WHITE_PAWN_5, 1, 0);
-whiteSixPawnStraight() = moveOnce(WHITE_PAWN_6, 1, 0);
-whiteSevenPawnStraight() = moveOnce(WHITE_PAWN_7, 1, 0);
-whiteEightPawnStraight() = moveOnce(WHITE_PAWN_8, 1, 0);
+whiteOnePawnStraight() = movePawnOnce(WHITE_PAWN_1, 1);
+whiteTwoPawnStraight() = movePawnOnce(WHITE_PAWN_2, 1);
+whiteThreePawnStraight() = movePawnOnce(WHITE_PAWN_3, 1);
+whiteFourPawnStraight() = movePawnOnce(WHITE_PAWN_4, 1);
+whiteFivePawnStraight() = movePawnOnce(WHITE_PAWN_5, 1);
+whiteSixPawnStraight() = movePawnOnce(WHITE_PAWN_6, 1);
+whiteSevenPawnStraight() = movePawnOnce(WHITE_PAWN_7, 1);
+whiteEightPawnStraight() = movePawnOnce(WHITE_PAWN_8, 1);
 
-whiteOnePawnDouble() = movePawnDouble(WHITE_PAWN_1, 2);
-whiteTwoPawnDouble() = movePawnDouble(WHITE_PAWN_2, 2);
-whiteThreePawnDouble() = movePawnDouble(WHITE_PAWN_3, 2);
-whiteFourPawnDouble() = movePawnDouble(WHITE_PAWN_4, 2);
-whiteFivePawnDouble() = movePawnDouble(WHITE_PAWN_5, 2);
-whiteSixPawnDouble() = movePawnDouble(WHITE_PAWN_6, 2);
-whiteSevenPawnDouble() = movePawnDouble(WHITE_PAWN_7, 2);
-whiteEightPawnDouble() = movePawnDouble(WHITE_PAWN_8, 2);
+whiteOnePawnDouble() = movePawnDouble(WHITE_PAWN_1, 1);
+whiteTwoPawnDouble() = movePawnDouble(WHITE_PAWN_2, 1);
+whiteThreePawnDouble() = movePawnDouble(WHITE_PAWN_3, 1);
+whiteFourPawnDouble() = movePawnDouble(WHITE_PAWN_4, 1);
+whiteFivePawnDouble() = movePawnDouble(WHITE_PAWN_5, 1);
+whiteSixPawnDouble() = movePawnDouble(WHITE_PAWN_6, 1);
+whiteSevenPawnDouble() = movePawnDouble(WHITE_PAWN_7, 1);
+whiteEightPawnDouble() = movePawnDouble(WHITE_PAWN_8, 1);
 
 whiteOnePawnUpLeft() = movePawnDiagonal(WHITE_PAWN_1, 1, -1);
 whiteTwoPawnUpLeft() = movePawnDiagonal(WHITE_PAWN_2, 1, -1);
@@ -52,23 +52,23 @@ blackPawnDouble() = blackOnePawnDouble() [] blackTwoPawnDouble() [] blackThreePa
 blackPawnDownLeft() = blackOnePawnDownLeft() [] blackTwoPawnDownLeft() [] blackThreePawnDownLeft() [] blackFourPawnDownLeft() [] blackFivePawnDownLeft() [] blackSixPawnDownLeft() [] blackSevenPawnDownLeft() [] blackEightPawnDownLeft();
 blackPawnDownRight() = blackOnePawnDownRight() [] blackTwoPawnDownRight() [] blackThreePawnDownRight() [] blackFourPawnDownRight() [] blackFivePawnDownRight() [] blackSixPawnDownRight() [] blackSevenPawnDownRight() [] blackEightPawnDownRight();
 
-blackOnePawnStraight() = moveOnce(BLACK_PAWN_1, -1, 0);
-blackTwoPawnStraight() = moveOnce(BLACK_PAWN_2, -1, 0);
-blackThreePawnStraight() = moveOnce(BLACK_PAWN_3, -1, 0);
-blackFourPawnStraight() = moveOnce(BLACK_PAWN_4, -1, 0);
-blackFivePawnStraight() = moveOnce(BLACK_PAWN_5, -1, 0);
-blackSixPawnStraight() = moveOnce(BLACK_PAWN_6, -1, 0);
-blackSevenPawnStraight() = moveOnce(BLACK_PAWN_7, -1, 0);
-blackEightPawnStraight() = moveOnce(BLACK_PAWN_8, -1, 0);
+blackOnePawnStraight() = movePawnOnce(BLACK_PAWN_1, -1);
+blackTwoPawnStraight() = movePawnOnce(BLACK_PAWN_2, -1);
+blackThreePawnStraight() = movePawnOnce(BLACK_PAWN_3, -1);
+blackFourPawnStraight() = movePawnOnce(BLACK_PAWN_4, -1);
+blackFivePawnStraight() = movePawnOnce(BLACK_PAWN_5, -1);
+blackSixPawnStraight() = movePawnOnce(BLACK_PAWN_6, -1);
+blackSevenPawnStraight() = movePawnOnce(BLACK_PAWN_7, -1);
+blackEightPawnStraight() = movePawnOnce(BLACK_PAWN_8, -1);
 
-blackOnePawnDouble() = movePawnDouble(BLACK_PAWN_1, -2);
-blackTwoPawnDouble() = movePawnDouble(BLACK_PAWN_2, -2);
-blackThreePawnDouble() = movePawnDouble(BLACK_PAWN_3, -2);
-blackFourPawnDouble() = movePawnDouble(BLACK_PAWN_4, -2);
-blackFivePawnDouble() = movePawnDouble(BLACK_PAWN_5, -2);
-blackSixPawnDouble() = movePawnDouble(BLACK_PAWN_6, -2);
-blackSevenPawnDouble() = movePawnDouble(BLACK_PAWN_7, -2);
-blackEightPawnDouble() = movePawnDouble(BLACK_PAWN_8, -2);
+blackOnePawnDouble() = movePawnDouble(BLACK_PAWN_1, -1);
+blackTwoPawnDouble() = movePawnDouble(BLACK_PAWN_2, -1);
+blackThreePawnDouble() = movePawnDouble(BLACK_PAWN_3, -1);
+blackFourPawnDouble() = movePawnDouble(BLACK_PAWN_4, -1);
+blackFivePawnDouble() = movePawnDouble(BLACK_PAWN_5, -1);
+blackSixPawnDouble() = movePawnDouble(BLACK_PAWN_6, -1);
+blackSevenPawnDouble() = movePawnDouble(BLACK_PAWN_7, -1);
+blackEightPawnDouble() = movePawnDouble(BLACK_PAWN_8, -1);
 
 blackOnePawnDownLeft() = movePawnDiagonal(BLACK_PAWN_1, -1, -1);
 blackTwoPawnDownLeft() = movePawnDiagonal(BLACK_PAWN_2, -1, -1);
@@ -87,3 +87,129 @@ blackFivePawnDownRight() = movePawnDiagonal(BLACK_PAWN_5, -1, 1);
 blackSixPawnDownRight() = movePawnDiagonal(BLACK_PAWN_6, -1, 1);
 blackSevenPawnDownRight() = movePawnDiagonal(BLACK_PAWN_7, -1, 1);
 blackEightPawnDownRight() = movePawnDiagonal(BLACK_PAWN_8, -1, 1);
+
+movePawnOnce(piece, up) = if (piecePosition[piece][RANK] != DEAD && piecePosition[piece][FILE] != DEAD )
+{
+	// movement is within board, taking advantage of pawns are never on the final row of either side
+	if ( piecePosition[piece][RANK] + up >= 0 && piecePosition[piece][RANK] + up <= BOARD_SIZE - 1)
+		{
+			// if space is empty
+			if(actualBoard[piecePosition[piece][RANK] + up][piecePosition[piece][FILE]] == 0)
+			{
+				move{
+					// update the old position
+					actualBoard[piecePosition[piece][RANK]][piecePosition[piece][FILE]] = 0;
+					// update new position
+					piecePosition[piece][RANK] = piecePosition[piece][RANK] + up;
+					actualBoard[piecePosition[piece][RANK]][piecePosition[piece][FILE]] = piece;
+					} -> validateWhite()
+			}
+		}
+};
+
+movePawnDiagonal(piece, up, right) = if (piecePosition[piece][RANK] != DEAD && piecePosition[piece][FILE] != DEAD)
+{
+	if ( piecePosition[piece][RANK] + up >= 0 && piecePosition[piece][RANK] + up <= BOARD_SIZE - 1 &&
+		piecePosition[piece][FILE] + right >= 0 && piecePosition[piece][FILE] + right <= BOARD_SIZE - 1 )
+	{
+	  if(piece <= WHITE_PAWN_8)
+	  {
+			if (actualBoard[piecePosition[piece][RANK] + up][piecePosition[piece][FILE] + right] >= BLACK_PAWN_1)                    //if target is occupied by black pieces then white pawns can kill it
+			{
+				eat{
+					actualBoard[piecePosition[piece][RANK]][piecePosition[piece][FILE]] = 0;
+					piecePosition[piece][RANK] = piecePosition[piece][RANK] + up;
+					piecePosition[piece][FILE] = piecePosition[piece][FILE] + right;
+					actualBoard[piecePosition[piece][RANK]][piecePosition[piece][FILE]] = piece;
+				} -> validateWhite()
+			}
+			else { Stop }
+	  }
+	  else if(piece >= BLACK_PAWN_1)
+	  {
+	        if (actualBoard[piecePosition[piece][RANK] + up][piecePosition[piece][FILE] + right] > 0 && actualBoard[piecePosition[piece][RANK] + up][piecePosition[piece][FILE] + right] <= WHITE_KINGS_ROOK)                //if target is occupied by white pieces then black pawns can kill it
+			{
+				eat{
+					actualBoard[piecePosition[piece][RANK]][piecePosition[piece][FILE]] = 0;
+					piecePosition[piece][RANK] = piecePosition[piece][RANK] + up;
+					piecePosition[piece][FILE] = piecePosition[piece][FILE] + right;
+					actualBoard[piecePosition[piece][RANK]][piecePosition[piece][FILE]] = piece;
+				} -> validateBlack()
+			}
+			else { Stop }
+	  }
+	}
+	else { Stop }
+};
+
+movePawnDouble(piece, up) = if (piecePosition[piece][RANK] != DEAD && piecePosition[piece][FILE] != DEAD)
+{
+   if(piece <= WHITE_PAWN_8)
+   {	
+		if (piecePosition[piece][RANK] == RANK_2 && actualBoard[piecePosition[piece][RANK] + up][piecePosition[piece][FILE]] == 0 &&
+			actualBoard[piecePosition[piece][RANK] + up + up][piecePosition[piece][FILE]] == 0)       //RANK_2 is the initial rank for the white pawns
+		{
+			move{
+					// update the old position
+					actualBoard[piecePosition[piece][RANK]][piecePosition[piece][FILE]] = 0;
+					// update new position
+					piecePosition[piece][RANK] = piecePosition[piece][RANK] + up + up;
+					actualBoard[piecePosition[piece][RANK]][piecePosition[piece][FILE]] = piece;
+			} -> validateWhite()
+		}
+		else { Stop }
+	}
+	else if(piece >= BLACK_PAWN_1)
+	{
+	    if (piecePosition[piece][RANK] == RANK_7 && actualBoard[piecePosition[piece][RANK] + up][piecePosition[piece][FILE]] == 0 &&
+			actualBoard[piecePosition[piece][RANK] + up + up][piecePosition[piece][FILE]] == 0)       //RANK_7 is the initial rank for the black pawns
+		{
+			move{
+					// update the old position
+					actualBoard[piecePosition[piece][RANK]][piecePosition[piece][FILE]] = 0;
+					// update new position
+					piecePosition[piece][RANK] = piecePosition[piece][RANK] + up + up;
+					actualBoard[piecePosition[piece][RANK]][piecePosition[piece][FILE]] = piece;
+			} -> validateBlack()
+		}
+		else { Stop }
+	}
+};
+
+
+#define goal_pawn_move_single actualBoard[RANK_6][FILE_E] == BLACK_PAWN_5 && 
+	piecePosition[BLACK_PAWN_5][RANK] == RANK_6 && piecePosition[BLACK_PAWN_5][FILE] == FILE_E;
+	
+#define goal_pawn_move_double actualBoard[RANK_5][FILE_E] == BLACK_PAWN_5 && 
+	piecePosition[BLACK_PAWN_5][RANK] == RANK_5 && piecePosition[BLACK_PAWN_5][FILE] == FILE_E;	
+	
+#define goal_pawn_move_single_fail actualBoard[RANK_6][FILE_A] == BLACK_PAWN_1 && 
+	piecePosition[BLACK_PAWN_1][RANK] == RANK_6 && piecePosition[BLACK_PAWN_1][FILE] == FILE_A;		
+	
+#define goal_pawn_move_double_fail actualBoard[RANK_5][FILE_A] == BLACK_PAWN_1 && 
+	piecePosition[BLACK_PAWN_1][RANK] == RANK_5 && piecePosition[BLACK_PAWN_1][FILE] == FILE_A;
+
+#define goal_pawn_move_double_fail_2 actualBoard[RANK_4][FILE_C] == BLACK_PAWN_3 && 
+	piecePosition[BLACK_PAWN_3][RANK] == RANK_4 && piecePosition[BLACK_PAWN_3][FILE] == FILE_C;			
+	
+#define goal_pawn_eat_diagonal_left actualBoard[RANK_6][FILE_D] == BLACK_PAWN_5 && 
+	piecePosition[BLACK_PAWN_5][RANK] == RANK_6 && piecePosition[BLACK_PAWN_5][FILE] == FILE_D;
+	
+#define goal_pawn_eat_diagonal_right actualBoard[RANK_6][FILE_F] == BLACK_PAWN_5 && 
+	piecePosition[BLACK_PAWN_5][RANK] == RANK_6 && piecePosition[BLACK_PAWN_5][FILE] == FILE_F;	
+	
+#define goal_pawn_move_triple actualBoard[RANK_4][FILE_E] == BLACK_PAWN_5 && 
+	piecePosition[BLACK_PAWN_5][RANK] == RANK_4 && piecePosition[BLACK_PAWN_5][FILE] == FILE_E;		
+	
+#define goal_pawn_no_eat_diagonal_right actualBoard[RANK_6][FILE_B] == BLACK_PAWN_1 && 
+	piecePosition[BLACK_PAWN_1][RANK] == RANK_6 && piecePosition[BLACK_PAWN_1][FILE] == FILE_B;	
+
+#assert blackPawn() reaches goal_pawn_move_single;
+#assert blackPawn() reaches goal_pawn_move_single_fail;
+#assert blackPawn() reaches goal_pawn_move_double;
+#assert blackPawn() reaches goal_pawn_move_double_fail;
+#assert blackPawn() reaches goal_pawn_move_double_fail_2;
+#assert blackPawn() reaches goal_pawn_eat_diagonal_left;
+#assert blackPawn() reaches goal_pawn_eat_diagonal_right;
+#assert blackPawn() reaches goal_pawn_no_eat_diagonal_right;
+#assert blackPawn() reaches goal_pawn_move_triple;
