@@ -12,7 +12,6 @@ whiteQueensRookDown() = moveContinuous(WHITE_QUEENS_ROOK, -1, 0);
 whiteQueensRookLeft() = moveContinuous(WHITE_QUEENS_ROOK, 0, -1);
 whiteQueensRookRight() = moveContinuous(WHITE_QUEENS_ROOK, 0, 1);
 
-//Theres no white king's rook as of now
 whiteKingsRookUp() = moveContinuous(WHITE_KINGS_ROOK, 1, 0);
 whiteKingsRookDown() = moveContinuous(WHITE_KINGS_ROOK, -1, 0);
 whiteKingsRookLeft() = moveContinuous(WHITE_KINGS_ROOK, 0, -1);
@@ -37,19 +36,61 @@ blackKingsRookRight() = moveContinuous(BLACK_KINGS_ROOK, 0, 1);
 
 #assert whiteRook() reaches goal_rook_success_1;
 #assert whiteRook() reaches goal_rook_success_2;
-//#assert whiteRook() reaches goal_rook_success_2;
+#assert whiteRook() reaches goal_rook_success_3;
+#assert whiteRook() reaches goal_rook_success_4;
+#assert whiteRook() reaches goal_rook_success_5;
+#assert whiteRook() reaches goal_rook_success_6;
+#assert whiteRook() reaches goal_rook_success_7;
+#assert whiteRook() reaches goal_rook_success_8;
 #assert whiteRook() reaches goal_rook_fail_1;
 #assert whiteRook() reaches goal_rook_fail_2;
-//#assert whiteRook() reaches goal_rook_fail_2;
+#assert whiteRook() reaches goal_rook_fail_3;
+#assert whiteRook() reaches goal_rook_fail_4;
+#assert whiteRook() reaches goal_rook_fail_5;
+#assert whiteRook() reaches goal_rook_fail_6;
+#assert whiteRook() reaches goal_rook_fail_7;
+#assert whiteRook() reaches goal_rook_fail_8;
+#assert whiteRook() reaches goal_rook_fail_9;
+#assert whiteRook() reaches goal_rook_fail_10;
+#assert whiteRook() reaches goal_rook_fail_11;
+#assert whiteRook() reaches goal_rook_fail_12;
+
 
 #define goal_rook_success_1 actualBoard[RANK_6][FILE_A] == WHITE_QUEENS_ROOK && 
 	piecePosition[WHITE_QUEENS_ROOK][RANK] == RANK_6 && piecePosition[WHITE_QUEENS_ROOK][FILE] == FILE_A;
 
 #define goal_rook_success_2 actualBoard[RANK_4][FILE_A] == WHITE_QUEENS_ROOK &&
 	piecePosition[WHITE_QUEENS_ROOK][RANK] == RANK_4 && piecePosition[WHITE_QUEENS_ROOK][FILE] == FILE_A;	
-//#define goal_rook_success_2 actualBoard[RANK_5][FILE_H] == WHITE_KINGS_ROOK && 
-//	piecePosition[WHITE_KINGS_ROOK][RANK] == RANK_5 && piecePosition[WHITE_KINGS_ROOK][FILE] == FILE_H;	
+
+#define goal_rook_success_3 actualBoard[RANK_5][FILE_A] == WHITE_QUEENS_ROOK &&
+	piecePosition[WHITE_QUEENS_ROOK][RANK] == RANK_5 && piecePosition[WHITE_QUEENS_ROOK][FILE] == FILE_A;	
+
+#define goal_rook_success_4 actualBoard[RANK_7][FILE_A] == WHITE_QUEENS_ROOK &&
+	piecePosition[WHITE_QUEENS_ROOK][RANK] == RANK_7 && piecePosition[WHITE_QUEENS_ROOK][FILE] == FILE_A;	
+
+#define goal_rook_success_5 actualBoard[RANK_8][FILE_A] == WHITE_QUEENS_ROOK &&
+	piecePosition[WHITE_QUEENS_ROOK][RANK] == RANK_8 && piecePosition[WHITE_QUEENS_ROOK][FILE] == FILE_A;	
+
+#define goal_rook_success_6 actualBoard[RANK_3][FILE_A] == WHITE_QUEENS_ROOK &&
+	piecePosition[WHITE_QUEENS_ROOK][RANK] == RANK_3 && piecePosition[WHITE_QUEENS_ROOK][FILE] == FILE_A;	
+
+#define goal_rook_success_7 actualBoard[RANK_1][FILE_A] == WHITE_QUEENS_ROOK &&
+	piecePosition[WHITE_QUEENS_ROOK][RANK] == RANK_1 && piecePosition[WHITE_QUEENS_ROOK][FILE] == FILE_A;	
+
+#define goal_rook_success_8 actualBoard[RANK_2][FILE_A] == WHITE_QUEENS_ROOK &&
+	piecePosition[WHITE_QUEENS_ROOK][RANK] == RANK_2 && piecePosition[WHITE_QUEENS_ROOK][FILE] == FILE_A;	
+	
+	
 	
 #define goal_rook_fail_1 actualBoard[RANK_4][FILE_E] == WHITE_QUEENS_ROOK;
 #define goal_rook_fail_2 actualBoard[RANK_6][FILE_C] == WHITE_QUEENS_ROOK;
-//#define goal_rook_fail_2 piecePosition[WHITE_KINGS_ROOK][RANK] == RANK_4 && piecePosition[WHITE_KINGS_ROOK][FILE] == FILE_A - 1;
+#define goal_rook_fail_3 actualBoard[RANK_5][FILE_B] == WHITE_QUEENS_ROOK;
+#define goal_rook_fail_4 actualBoard[RANK_2][FILE_D] == WHITE_QUEENS_ROOK;
+#define goal_rook_fail_5 actualBoard[RANK_1][FILE_F] == WHITE_QUEENS_ROOK;
+#define goal_rook_fail_6 actualBoard[RANK_3][FILE_H] == WHITE_QUEENS_ROOK;
+#define goal_rook_fail_7 actualBoard[RANK_7][FILE_H] == WHITE_QUEENS_ROOK;
+#define goal_rook_fail_8 actualBoard[RANK_8][FILE_C] == WHITE_QUEENS_ROOK;
+#define goal_rook_fail_9 actualBoard[RANK_1][FILE_C] == WHITE_QUEENS_ROOK;
+#define goal_rook_fail_10 actualBoard[RANK_1][FILE_E] == WHITE_QUEENS_ROOK;
+#define goal_rook_fail_11 actualBoard[RANK_1][FILE_F] == WHITE_QUEENS_ROOK;
+#define goal_rook_fail_12 actualBoard[RANK_8][FILE_E] == WHITE_QUEENS_ROOK;
