@@ -215,3 +215,14 @@ moveBlackPawn() = changeTurnToBlackPawn{currentTurn = BLACK_TURN} -> blackPawn()
 #assert moveBlackPawn() reaches goal_pawn_eat_diagonal_right;
 #assert moveBlackPawn() reaches goal_pawn_no_eat_diagonal_right;
 #assert moveBlackPawn() reaches goal_pawn_move_triple;
+
+#define white_pawn_blocked_white actualBoard[RANK_7][FILE_F] == WHITE_PAWN_6 && 
+	piecePosition[WHITE_PAWN_6][RANK] == RANK_7 && piecePosition[WHITE_PAWN_6][FILE] == FILE_F;		
+#define white_pawn_blocked_black actualBoard[RANK_7][FILE_D] == WHITE_PAWN_6 && 
+	piecePosition[WHITE_PAWN_6][RANK] == RANK_7 && piecePosition[WHITE_PAWN_6][FILE] == FILE_D;		
+#define white_pawn_eat actualBoard[RANK_7][FILE_E] == WHITE_PAWN_6 && 
+	piecePosition[WHITE_PAWN_6][RANK] == RANK_7 && piecePosition[WHITE_PAWN_6][FILE] == FILE_E;	
+
+#assert whitePawn() reaches white_pawn_blocked_white;
+#assert whitePawn() reaches white_pawn_blocked_black;
+#assert whitePawn() reaches white_pawn_eat;

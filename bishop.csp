@@ -157,4 +157,4 @@ blackKingsBishopDownRight() = [currentTurn == BLACK_TURN]moveContinuous(BLACK_KI
 #define goal_bishop_fail_35 actualBoard[RANK_7][FILE_E] == WHITE_QUEENS_BISHOP;
 #define goal_bishop_fail_36 actualBoard[RANK_8][FILE_G] == WHITE_QUEENS_BISHOP;
 
-moveBlackBishop() = changeTurnToBlackBishop{currentTurn == TURN_BLACK} -> blackBishop();
+moveBlackBishop() = changeTurnToBlackBishop{currentTurn = BLACK_TURN;} -> blackBishop();
