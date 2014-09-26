@@ -1,25 +1,51 @@
 ﻿#include "board.csp";
 
-BlackKingUp() = [currentTurn == BLACK_TURN]moveOnce(BLACK_KING, 1, 0);
-BlackKingDown() = [currentTurn == BLACK_TURN]moveOnce(BLACK_KING, -1, 0);
-BlackKingRight() = [currentTurn == BLACK_TURN]moveOnce(BLACK_KING, 0, 1);
-BlackKingLeft() = [currentTurn == BLACK_TURN]moveOnce(BLACK_KING, 0, -1);
-BlackKingUpLeft() = [currentTurn == BLACK_TURN]moveOnce(BLACK_KING, 1, -1);
-BlackKingUpRight() = [currentTurn == BLACK_TURN]moveOnce(BLACK_KING, 1, 1);
-BlackKingDownLeft() = [currentTurn == BLACK_TURN]moveOnce(BLACK_KING, -1, -1);
-BlackKingDownRight() = [currentTurn == BLACK_TURN]moveOnce(BLACK_KING, -1, 1);
+blackKingUp() = [currentTurn == BLACK_TURN]moveOnce(BLACK_KING, 1, 0);
+blackKingDown() = [currentTurn == BLACK_TURN]moveOnce(BLACK_KING, -1, 0);
+blackKingRight() = [currentTurn == BLACK_TURN]moveOnce(BLACK_KING, 0, 1);
+blackKingLeft() = [currentTurn == BLACK_TURN]moveOnce(BLACK_KING, 0, -1);
+blackKingUpLeft() = [currentTurn == BLACK_TURN]moveOnce(BLACK_KING, 1, -1);
+blackKingUpRight() = [currentTurn == BLACK_TURN]moveOnce(BLACK_KING, 1, 1);
+blackKingDownLeft() = [currentTurn == BLACK_TURN]moveOnce(BLACK_KING, -1, -1);
+blackKingDownRight() = [currentTurn == BLACK_TURN]moveOnce(BLACK_KING, -1, 1);
 
-BlackKing() = BlackKingUp() [] BlackKingRight() [] BlackKingDown() [] BlackKingLeft() []
-              BlackKingUpLeft() [] BlackKingUpRight() [] BlackKingDownLeft() [] BlackKingDownRight();
+blackKing() = blackKingUp() [] blackKingRight() [] blackKingDown() [] blackKingLeft() []
+              blackKingUpLeft() [] blackKingUpRight() [] blackKingDownLeft() [] blackKingDownRight();
 
-WhiteKingUp() = [currentTurn == WHITE_TURN]moveOnce(WHITE_KING, 1, 0);
-WhiteKingDown() = [currentTurn == WHITE_TURN]moveOnce(WHITE_KING, -1, 0);
-WhiteKingRight() = [currentTurn == WHITE_TURN]moveOnce(WHITE_KING, 0, 1);
-WhiteKingLeft() = [currentTurn == WHITE_TURN]moveOnce(WHITE_KING, 0, -1);
-WhiteKingUpLeft() = [currentTurn == WHITE_TURN]moveOnce(WHITE_KING, 1, -1);
-WhiteKingUpRight() = [currentTurn == WHITE_TURN]moveOnce(WHITE_KING, 1, 1);
-WhiteKingDownLeft() = [currentTurn == WHITE_TURN]moveOnce(WHITE_KING, -1, -1);
-WhiteKingDownRight() = [currentTurn == WHITE_TURN]moveOnce(WHITE_KING, -1, 1);
+whiteKingUp() = [currentTurn == WHITE_TURN]moveOnce(WHITE_KING, 1, 0);
+whiteKingDown() = [currentTurn == WHITE_TURN]moveOnce(WHITE_KING, -1, 0);
+whiteKingRight() = [currentTurn == WHITE_TURN]moveOnce(WHITE_KING, 0, 1);
+whiteKingLeft() = [currentTurn == WHITE_TURN]moveOnce(WHITE_KING, 0, -1);
+whiteKingUpLeft() = [currentTurn == WHITE_TURN]moveOnce(WHITE_KING, 1, -1);
+whiteKingUpRight() = [currentTurn == WHITE_TURN]moveOnce(WHITE_KING, 1, 1);
+whiteKingDownLeft() = [currentTurn == WHITE_TURN]moveOnce(WHITE_KING, -1, -1);
+whiteKingDownRight() = [currentTurn == WHITE_TURN]moveOnce(WHITE_KING, -1, 1);
 
-WhiteKing() = WhiteKingUp() [] WhiteKingRight() [] WhiteKingDown() [] WhiteKingLeft() []
-              WhiteKingUpLeft() [] WhiteKingUpRight() [] WhiteKingDownLeft() [] WhiteKingDownRight();
+whiteKing() = whiteKingUp() [] whiteKingRight() [] whiteKingDown() [] whiteKingLeft() []
+              whiteKingUpLeft() [] whiteKingUpRight() [] whiteKingDownLeft() [] whiteKingDownRight();
+
+#define goalWhiteKingUp piecePosition[WHITE_KING][0] == RANK_2 && piecePosition[WHITE_KING][1] == FILE_E;
+#define goalWhiteKingUpLeft piecePosition[WHITE_KING][0] == RANK_2 && piecePosition[WHITE_KING][1] == FILE_D;
+#define goalWhiteKingUpRight piecePosition[WHITE_KING][0] == RANK_2 && piecePosition[WHITE_KING][1] == FILE_F;
+#define goalWhiteKingLeft piecePosition[WHITE_KING][0] == RANK_1 && piecePosition[WHITE_KING][1] == FILE_D;
+#define goalWhiteKingRightSelfPiece piecePosition[WHITE_KING][0] == RANK_1 && piecePosition[WHITE_KING][1] == FILE_F;
+
+#assert whiteKing() reaches goalWhiteKingUp;
+#assert whiteKing() reaches goalWhiteKingUpLeft;
+#assert whiteKing() reaches goalWhiteKingUpRight;
+#assert whiteKing() reaches goalWhiteKingLeft;
+#assert whiteKing() reaches goalWhiteKingRightSelfPiece;
+
+#define goalBlackKingDownRightEnemyPiece piecePosition[BLACK_KING][0] == RANK_7 && piecePosition[BLACK_KING][1] == FILE_F;
+#define goalBlackKingDownSelfPiece piecePosition[BLACK_KING][0] == RANK_7 && piecePosition[BLACK_KING][1] == FILE_E;
+#define goalBlackKingDownLeftSelfPiece piecePosition[BLACK_KING][0] == RANK_7 && piecePosition[BLACK_KING][1] == FILE_D;
+#define goalBlackKingRight piecePosition[BLACK_KING][0] == RANK_8 && piecePosition[BLACK_KING][1] == FILE_F;
+#define goalBlackKingLeft piecePosition[BLACK_KING][0] == RANK_8 && piecePosition[BLACK_KING][1] == FILE_D;
+
+makeBlacKingMove() = [currentTurn == WHITE_TURN]switchToBlack{currentTurn = BLACK_TURN;} -> blackKing();
+
+#assert makeBlacKingMove() reaches goalBlackKingDownRightEnemyPiece;
+#assert makeBlacKingMove() reaches goalBlackKingDownSelfPiece;
+#assert makeBlacKingMove() reaches goalBlackKingDownLeftSelfPiece;
+#assert makeBlacKingMove() reaches goalBlackKingRight;
+#assert makeBlacKingMove() reaches goalBlackKingLeft;
