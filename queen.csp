@@ -77,7 +77,3 @@ moveBlackQueen() = changeTurnToBlackQueen{currentTurn = BLACK_TURN} -> blackQuee
 #assert moveBlackQueen() reaches black_queen_blocked_down_left;
 
 #assert whiteQueen() reaches white_queen_double_black;
-
-
-
-

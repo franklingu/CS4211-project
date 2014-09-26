@@ -49,7 +49,7 @@ whiteKing() = whiteKingUp() [] whiteKingRight() [] whiteKingDown() [] whiteKingL
 #define goalBlackKingLeft piecePosition[BLACK_KING][0] == RANK_8 && piecePosition[BLACK_KING][1] == FILE_D &&
 						   actualBoard[RANK_8][FILE_D] == BLACK_KING;
 
-makeBlacKingMove() = [currentTurn == WHITE_TURN]switchToBlack{currentTurn = BLACK_TURN;} -> blackKing();
+makeBlacKingMove() = changeTurnToBlack{currentTurn = BLACK_TURN;} -> blackKing();
 
 #assert makeBlacKingMove() reaches goalBlackKingDownRightEnemyPiece;
 #assert makeBlacKingMove() reaches goalBlackKingDownSelfPiece;
