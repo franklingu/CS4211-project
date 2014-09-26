@@ -204,7 +204,7 @@ movePawnDouble(piece, up) = if (piecePosition[piece][RANK] != DEAD && piecePosit
 #define goal_pawn_no_eat_diagonal_right actualBoard[RANK_6][FILE_B] == BLACK_PAWN_1 && 
 	piecePosition[BLACK_PAWN_1][RANK] == RANK_6 && piecePosition[BLACK_PAWN_1][FILE] == FILE_B;	
 
-moveBlackPawn() = changeTurnToBlack{currentTurn = BLACK_TURN} -> blackPawn();
+moveBlackPawn() = changeTurnToBlackPawn{currentTurn = BLACK_TURN} -> blackPawn();
 
 #assert moveBlackPawn() reaches goal_pawn_move_single;
 #assert moveBlackPawn() reaches goal_pawn_move_single_fail;
