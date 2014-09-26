@@ -65,35 +65,35 @@ var currentTurn = WHITE_TURN;
 
 // piece position keeps track of each piece's position
 var piecePosition[33][2] = [-1, -1, // 0 - dummy
-							-1, -1, // 1
+							-1, -1, // 1 white pawn 1
 							-1, -1, 
 							-1, -1,
-							RANK_6, FILE_D,
+							RANK_6, FILE_D, // 4 white pawn 4
 							-1, -1,
-							RANK_6, FILE_F,
+							RANK_6, FILE_F, // 6 white pawn 6
 							-1, -1,
 							-1, -1,
 							RANK_2, FILE_A, // 9 white queens's rook
 							-1, -1,
 							RANK_1, FILE_C, // 11 white queens's bishop
+							RANK_4, FILE_E, // 12 white queen
+							RANK_1, FILE_E, // 13 white king
+							RANK_1, FILE_F, // 14 white king's bishop
+							RANK_7, FILE_F, // 15 white king's knight
 							-1, -1,
-							RANK_1, FILE_E, // white king
-							RANK_1, FILE_F, // white king's bishop
+							RANK_7, FILE_A, // 17 black pawn 1
 							-1, -1,
-							-1, -1,
-							RANK_7, FILE_A,
-							-1, -1,
-							RANK_6, FILE_C,
-							-1, -1, // 20
-							RANK_7, FILE_E,
+							RANK_6, FILE_C, // 19 black pawn 3
+							-1, -1, // 20 black pawn 4
+							RANK_7, FILE_E, // 21 black pawn 5
 							-1, -1,
 							-1, -1,
 							-1, -1,
 							RANK_5, FILE_A, // 25 black queen's rook
-							RANK_6, FILE_A,
+							RANK_6, FILE_A, // 26 black queen's knight
 							-1, -1,
-							-1, -1,
-							RANK_8, FILE_E, // black king
+							RANK_7, FILE_D, // 28 black queen
+							RANK_8, FILE_E, // 29 black king
 							-1, -1, // 30
 							-1, -1, // 31
 							RANK_1, FILE_H // 32
@@ -102,13 +102,13 @@ var piecePosition[33][2] = [-1, -1, // 0 - dummy
 var actualBoard[BOARD_SIZE][BOARD_SIZE] = [		0,	0,	WHITE_QUEENS_BISHOP,	0,	WHITE_KING,	WHITE_KINGS_BISHOP,	0,	BLACK_KINGS_ROOK,
 		   		 						  		WHITE_QUEENS_ROOK,		0,		0,			0,		0,		0,	0,	0,
 		   		 						  		0,		0,		0,			0,		0,		0,	0,	0,
-		   		 						  		0,		0,		0,			0,		0,		0,	0,	0,
+		   		 						  		0,		0,		0,			0,		WHITE_QUEENS,		0,	0,	0,
 		   		 						  		BLACK_QUEENS_ROOK,		0,		0,			0,		0,		0,	0,	0,
 		   		 						  		BLACK_QUEENS_KNIGHT,		0,		BLACK_PAWN_3,			WHITE_PAWN_4,		0,		WHITE_PAWN_6,	0,	0,
-		   		 						  		BLACK_PAWN_1,		0,		0,			0,		BLACK_PAWN_5,		0,	0,	0,
+		   		 						  		BLACK_PAWN_1,		0,		0,			BLACK_QUEENS,		BLACK_PAWN_5,		WHITE_KINGS_KNIGHT,	0,	0,
 		   		 						  		0,		0,		0,			0,	BLACK_KING,	0,	0,	0
 		   		 						 ];
-		   		 
+				 
 moveContinuous(piece, up, right) = if (piecePosition[piece][RANK] != DEAD && piecePosition[piece][FILE] != DEAD )
 {
 	// movement is within board
