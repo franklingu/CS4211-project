@@ -64,46 +64,46 @@
 var currentTurn = WHITE_TURN;
 
 // piece position keeps track of each piece's position
-var piecePosition[33][2] = [-1, -1, // 0 - dummy
-							-1, -1, // 1 white pawn 1
-							-1, -1, 
-							-1, -1,
+var piecePosition[33][2] = [DEAD, DEAD, // 0 - dummy
+							DEAD, DEAD, // 1 white pawn 1
+							DEAD, DEAD, // 2 white pawn 2
+							DEAD, DEAD, // 3 white pawn 3
 							RANK_6, FILE_D, // 4 white pawn 4
-							-1, -1,
+							DEAD, DEAD, // 5 white pawn 5
 							RANK_6, FILE_F, // 6 white pawn 6
-							-1, -1,
-							-1, -1,
+							DEAD, DEAD, // 7 white pawn 7
+							DEAD, DEAD, // 8 white pawn 8
 							RANK_2, FILE_A, // 9 white queens's rook
-							-1, -1,
+							DEAD, DEAD, // 10 white queen's knight
 							RANK_1, FILE_C, // 11 white queens's bishop
 							RANK_4, FILE_E, // 12 white queen
 							RANK_1, FILE_E, // 13 white king
 							RANK_1, FILE_F, // 14 white king's bishop
 							RANK_7, FILE_F, // 15 white king's knight
-							-1, -1,
+							DEAD, DEAD, // 16 white king's rook
 							RANK_7, FILE_A, // 17 black pawn 1
-							-1, -1,
+							DEAD, DEAD, // 18 black pawn 2
 							RANK_6, FILE_C, // 19 black pawn 3
-							-1, -1, // 20 black pawn 4
+							DEAD, DEAD, // 20 black pawn 4
 							RANK_7, FILE_E, // 21 black pawn 5
-							-1, -1,
-							-1, -1,
-							-1, -1,
+							DEAD, DEAD, // 22 black pawn 6
+							RANK_5, FILE_G, // 23 black pawn 7
+							DEAD, DEAD, // 24 black pawn 8
 							RANK_5, FILE_A, // 25 black queen's rook
 							RANK_6, FILE_A, // 26 black queen's knight
-							-1, -1,
+							DEAD, DEAD, // 27 black queen's bishop
 							RANK_7, FILE_D, // 28 black queen
 							RANK_8, FILE_E, // 29 black king
-							-1, -1, // 30
-							-1, -1, // 31
-							RANK_1, FILE_H // 32
+							DEAD, DEAD, // 30 black king's bishop
+							DEAD, DEAD, // 31 black king's knight
+							RANK_1, FILE_H // 32 black king's rook
 							];
 
 var actualBoard[BOARD_SIZE][BOARD_SIZE] = [		0,	0,	WHITE_QUEENS_BISHOP,	0,	WHITE_KING,	WHITE_KINGS_BISHOP,	0,	BLACK_KINGS_ROOK,
 		   		 						  		WHITE_QUEENS_ROOK,		0,		0,			0,		0,		0,	0,	0,
 		   		 						  		0,		0,		0,			0,		0,		0,	0,	0,
 		   		 						  		0,		0,		0,			0,		WHITE_QUEEN,		0,	0,	0,
-		   		 						  		BLACK_QUEENS_ROOK,		0,		0,			0,		0,		0,	0,	0,
+		   		 						  		BLACK_QUEENS_ROOK,		0,		0,			0,		0,		0,	BLACK_PAWN_7,	0,
 		   		 						  		BLACK_QUEENS_KNIGHT,		0,		BLACK_PAWN_3,			WHITE_PAWN_4,		0,		WHITE_PAWN_6,	0,	0,
 		   		 						  		BLACK_PAWN_1,		0,		0,			BLACK_QUEEN,		BLACK_PAWN_5,		WHITE_KINGS_KNIGHT,	0,	0,
 		   		 						  		0,		0,		0,			0,	BLACK_KING,	0,	0,	0
