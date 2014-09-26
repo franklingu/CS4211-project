@@ -68,9 +68,9 @@ moveBlackKnights() = changeTurnToBlackKnight{currentTurn = BLACK_TURN} -> blackK
     piecePosition[WHITE_KINGS_KNIGHT][RANK] == RANK_5 && piecePosition[WHITE_KINGS_KNIGHT][FILE] == FILE_E;
 #define goal_white_king_knight_move_empty_4 actualBoard[RANK_8][FILE_D] == WHITE_KINGS_KNIGHT &&
     piecePosition[WHITE_KINGS_KNIGHT][RANK] == RANK_8 && piecePosition[WHITE_KINGS_KNIGHT][FILE] == FILE_D;
-#define goal_white_king_knight_occupied_by_black actualBoard[RANK_5][FILE_G] == WHITE_KINGS_KNIGHT &&
+#define goal_white_king_knight_occupied_by_black_pawn_7 actualBoard[RANK_5][FILE_G] == WHITE_KINGS_KNIGHT &&
     piecePosition[WHITE_KINGS_KNIGHT][RANK] == RANK_5 && piecePosition[WHITE_KINGS_KNIGHT][FILE] == FILE_G;
-#define goal_white_king_knight_occupied_by_white actualBoard[RANK_6][FILE_D] == WHITE_KINGS_KNIGHT &&               //this shud fail u cant kill ur own piece
+#define goal_white_king_knight_occupied_by_white_pawn_4 actualBoard[RANK_6][FILE_D] == WHITE_KINGS_KNIGHT &&               //this shud fail u cant kill ur own piece
     piecePosition[WHITE_KINGS_KNIGHT][RANK] == RANK_6 && piecePosition[WHITE_KINGS_KNIGHT][FILE] == FILE_D;
 
 
@@ -82,5 +82,5 @@ moveBlackKnights() = changeTurnToBlackKnight{currentTurn = BLACK_TURN} -> blackK
 #assert whiteKnights() reaches goal_white_king_knight_move_empty_2;
 #assert whiteKnights() reaches goal_white_king_knight_move_empty_3;
 #assert whiteKnights() reaches goal_white_king_knight_move_empty_4;
-#assert whiteKnights() reaches goal_white_king_knight_occupied_by_black;
-#assert whiteKnights() reaches goal_white_king_knight_occupied_by_white;
+#assert whiteKnights() reaches goal_white_king_knight_occupied_by_black_pawn_7;
+#assert whiteKnights() reaches goal_white_king_knight_occupied_by_white_pawn_4;

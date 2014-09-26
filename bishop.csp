@@ -34,127 +34,117 @@ blackKingsBishopUpRight() = [currentTurn == BLACK_TURN]moveContinuous(BLACK_KING
 blackKingsBishopDownLeft() = [currentTurn == BLACK_TURN]moveContinuous(BLACK_KINGS_BISHOP, -1, -1);
 blackKingsBishopDownRight() = [currentTurn == BLACK_TURN]moveContinuous(BLACK_KINGS_BISHOP, -1, 1);
 
-#assert whiteBishop() reaches goal_bishop_success_1;
-#assert whiteBishop() reaches goal_bishop_success_2;
-#assert whiteBishop() reaches goal_bishop_success_3;
-#assert whiteBishop() reaches goal_bishop_success_4;
-#assert whiteBishop() reaches goal_bishop_success_5;
-#assert whiteBishop() reaches goal_bishop_success_6;
-#assert whiteBishop() reaches goal_bishop_success_7;
-#assert whiteBishop() reaches goal_bishop_success_8;
-#assert whiteBishop() reaches goal_bishop_success_9;
-#assert whiteBishop() reaches goal_bishop_success_10;
-#assert whiteBishop() reaches goal_bishop_success_11;
-#assert whiteBishop() reaches goal_bishop_success_12;
-#assert whiteBishop() reaches goal_bishop_fail_1;
-#assert whiteBishop() reaches goal_bishop_fail_2;
-#assert whiteBishop() reaches goal_bishop_fail_3;
-#assert whiteBishop() reaches goal_bishop_fail_4;
-#assert whiteBishop() reaches goal_bishop_fail_5;
-#assert whiteBishop() reaches goal_bishop_fail_6;
-#assert whiteBishop() reaches goal_bishop_fail_7;
-#assert whiteBishop() reaches goal_bishop_fail_8;
-#assert whiteBishop() reaches goal_bishop_fail_9;
-#assert whiteBishop() reaches goal_bishop_fail_10;
-#assert whiteBishop() reaches goal_bishop_fail_11;
-#assert whiteBishop() reaches goal_bishop_fail_12;
-#assert whiteBishop() reaches goal_bishop_fail_13;
-#assert whiteBishop() reaches goal_bishop_fail_14;
-#assert whiteBishop() reaches goal_bishop_fail_15;
-#assert whiteBishop() reaches goal_bishop_fail_16;
-#assert whiteBishop() reaches goal_bishop_fail_17;
-#assert whiteBishop() reaches goal_bishop_fail_18;
-#assert whiteBishop() reaches goal_bishop_fail_19;
-#assert whiteBishop() reaches goal_bishop_fail_20;
-#assert whiteBishop() reaches goal_bishop_fail_21;
-#assert whiteBishop() reaches goal_bishop_fail_22;
-#assert whiteBishop() reaches goal_bishop_fail_23;
-#assert whiteBishop() reaches goal_bishop_fail_24;
-#assert whiteBishop() reaches goal_bishop_fail_25;
-#assert whiteBishop() reaches goal_bishop_fail_26;
-#assert whiteBishop() reaches goal_bishop_fail_27;
-#assert whiteBishop() reaches goal_bishop_fail_28;
-#assert whiteBishop() reaches goal_bishop_fail_29;
-#assert whiteBishop() reaches goal_bishop_fail_30;
-#assert whiteBishop() reaches goal_bishop_fail_31;
-#assert whiteBishop() reaches goal_bishop_fail_32;
-#assert whiteBishop() reaches goal_bishop_fail_33;
-#assert whiteBishop() reaches goal_bishop_fail_34;
-#assert whiteBishop() reaches goal_bishop_fail_35;
-#assert whiteBishop() reaches goal_bishop_fail_36;
+#assert whiteBishop() reaches goal_white_queen_bishop_jump_over_black_pawn_7;
+#assert whiteBishop() reaches goal_white_queen_bishop_occupied_by_black_pawn_7;
+#assert whiteBishop() reaches goal_white_queen_bishop_empty_diagonal_2;
+#assert whiteBishop() reaches goal_white_queen_bishop_empty_diagonal_3;
+#assert whiteBishop() reaches goal_white_queen_bishop_empty_diagonal_4;
+#assert whiteBishop() reaches goal_white_queen_bishop_occupied_by_white_queen_bishop;
+#assert whiteBishop() reaches goal_white_king_bishop_occupied_by_white_king_bishop;
+#assert whiteBishop() reaches goal_white_king_bishop_empty_diagonal_5;
+#assert whiteBishop() reaches goal_white_king_bishop_empty_diagonal_6;
+#assert whiteBishop() reaches goal_white_king_bishop_empty_diagonal_7;
+#assert whiteBishop() reaches goal_white_king_bishop_empty_diagonal_8;
+#assert whiteBishop() reaches goal_white_king_bishop_occupied_by_black_queen_knight;
 
-#define goal_bishop_success_1 actualBoard[RANK_6][FILE_H] == WHITE_QUEENS_BISHOP && 
-	piecePosition[WHITE_QUEENS_BISHOP][RANK] == RANK_6 && piecePosition[WHITE_QUEENS_BISHOP][FILE] == FILE_H;
+#define goal_white_queen_bishop_jump_over_black_pawn_7 actualBoard[RANK_6][FILE_H] == WHITE_QUEENS_BISHOP && 
+	piecePosition[WHITE_QUEENS_BISHOP][RANK] == RANK_6 && piecePosition[WHITE_QUEENS_BISHOP][FILE] == FILE_H;          //shud fail as it cant jump over blackpawn7
 	
-#define goal_bishop_success_2 actualBoard[RANK_5][FILE_G] == WHITE_QUEENS_BISHOP && 
+#define goal_white_queen_bishop_occupied_by_black_pawn_7 actualBoard[RANK_5][FILE_G] == WHITE_QUEENS_BISHOP && 
 	piecePosition[WHITE_QUEENS_BISHOP][RANK] == RANK_5 && piecePosition[WHITE_QUEENS_BISHOP][FILE] == FILE_G;	
 	
-#define goal_bishop_success_3 actualBoard[RANK_4][FILE_F] == WHITE_QUEENS_BISHOP && 
+#define goal_white_queen_bishop_empty_diagonal_2 actualBoard[RANK_4][FILE_F] == WHITE_QUEENS_BISHOP && 
 	piecePosition[WHITE_QUEENS_BISHOP][RANK] == RANK_4 && piecePosition[WHITE_QUEENS_BISHOP][FILE] == FILE_F;
 	
-#define goal_bishop_success_4 actualBoard[RANK_3][FILE_E] == WHITE_QUEENS_BISHOP && 
+#define goal_white_queen_bishop_empty_diagonal_3 actualBoard[RANK_3][FILE_E] == WHITE_QUEENS_BISHOP && 
 	piecePosition[WHITE_QUEENS_BISHOP][RANK] == RANK_3 && piecePosition[WHITE_QUEENS_BISHOP][FILE] == FILE_E;
 
-#define goal_bishop_success_5 actualBoard[RANK_2][FILE_D] == WHITE_QUEENS_BISHOP && 
+#define goal_white_queen_bishop_empty_diagonal_4 actualBoard[RANK_2][FILE_D] == WHITE_QUEENS_BISHOP && 
 	piecePosition[WHITE_QUEENS_BISHOP][RANK] == RANK_2 && piecePosition[WHITE_QUEENS_BISHOP][FILE] == FILE_D;	
 	
-#define goal_bishop_success_6 actualBoard[RANK_1][FILE_C] == WHITE_QUEENS_BISHOP && 
+#define goal_white_queen_bishop_occupied_by_white_queen_bishop actualBoard[RANK_1][FILE_C] == WHITE_QUEENS_BISHOP && 
 	piecePosition[WHITE_QUEENS_BISHOP][RANK] == RANK_1 && piecePosition[WHITE_QUEENS_BISHOP][FILE] == FILE_C;	
 	
-#define goal_bishop_success_7 actualBoard[RANK_1][FILE_F] == WHITE_KINGS_BISHOP && 
+#define goal_white_king_bishop_occupied_by_white_king_bishop actualBoard[RANK_1][FILE_F] == WHITE_KINGS_BISHOP && 
 	piecePosition[WHITE_KINGS_BISHOP][RANK] == RANK_1 && piecePosition[WHITE_KINGS_BISHOP][FILE] == FILE_F;
 	
-#define goal_bishop_success_8 actualBoard[RANK_2][FILE_E] == WHITE_KINGS_BISHOP && 
+#define goal_white_king_bishop_empty_diagonal_5 actualBoard[RANK_2][FILE_E] == WHITE_KINGS_BISHOP && 
 	piecePosition[WHITE_KINGS_BISHOP][RANK] == RANK_2 && piecePosition[WHITE_KINGS_BISHOP][FILE] == FILE_E;	
 	
-#define goal_bishop_success_9 actualBoard[RANK_3][FILE_D] == WHITE_KINGS_BISHOP && 
+#define goal_white_king_bishop_empty_diagonal_6 actualBoard[RANK_3][FILE_D] == WHITE_KINGS_BISHOP && 
 	piecePosition[WHITE_KINGS_BISHOP][RANK] == RANK_3 && piecePosition[WHITE_KINGS_BISHOP][FILE] == FILE_D;
 	
-#define goal_bishop_success_10 actualBoard[RANK_4][FILE_C] == WHITE_KINGS_BISHOP && 
+#define goal_white_king_bishop_empty_diagonal_7 actualBoard[RANK_4][FILE_C] == WHITE_KINGS_BISHOP && 
 	piecePosition[WHITE_KINGS_BISHOP][RANK] == RANK_4 && piecePosition[WHITE_KINGS_BISHOP][FILE] == FILE_C;
 
-#define goal_bishop_success_11 actualBoard[RANK_5][FILE_B] == WHITE_KINGS_BISHOP && 
+#define goal_white_king_bishop_empty_diagonal_8 actualBoard[RANK_5][FILE_B] == WHITE_KINGS_BISHOP && 
 	piecePosition[WHITE_KINGS_BISHOP][RANK] == RANK_5 && piecePosition[WHITE_KINGS_BISHOP][FILE] == FILE_B;	
 	
-#define goal_bishop_success_12 actualBoard[RANK_6][FILE_A] == WHITE_KINGS_BISHOP && 
+#define goal_white_king_bishop_occupied_by_black_queen_knight actualBoard[RANK_6][FILE_A] == WHITE_KINGS_BISHOP && 
 	piecePosition[WHITE_KINGS_BISHOP][RANK] == RANK_6 && piecePosition[WHITE_KINGS_BISHOP][FILE] == FILE_A;		
-	
-#define goal_bishop_fail_1 actualBoard[RANK_6][FILE_H] == WHITE_KINGS_BISHOP;
-#define goal_bishop_fail_2 actualBoard[RANK_5][FILE_G] == WHITE_KINGS_BISHOP;
-#define goal_bishop_fail_3 actualBoard[RANK_4][FILE_F] == WHITE_KINGS_BISHOP;
-#define goal_bishop_fail_4 actualBoard[RANK_3][FILE_E] == WHITE_KINGS_BISHOP;
-#define goal_bishop_fail_5 actualBoard[RANK_2][FILE_D] == WHITE_KINGS_BISHOP;
-#define goal_bishop_fail_6 actualBoard[RANK_1][FILE_C] == WHITE_KINGS_BISHOP;
-#define goal_bishop_fail_7 actualBoard[RANK_1][FILE_A] == WHITE_KINGS_BISHOP;
-#define goal_bishop_fail_8 actualBoard[RANK_1][FILE_E] == WHITE_KINGS_BISHOP;
-#define goal_bishop_fail_9 actualBoard[RANK_1][FILE_C] == WHITE_KINGS_BISHOP;
-#define goal_bishop_fail_10 actualBoard[RANK_8][FILE_E] == WHITE_KINGS_BISHOP;
-#define goal_bishop_fail_11 actualBoard[RANK_1][FILE_H] == WHITE_KINGS_BISHOP;
-#define goal_bishop_fail_12 actualBoard[RANK_2][FILE_A] == WHITE_KINGS_BISHOP;
-#define goal_bishop_fail_13 actualBoard[RANK_3][FILE_C] == WHITE_KINGS_BISHOP;
-#define goal_bishop_fail_14 actualBoard[RANK_4][FILE_B] == WHITE_KINGS_BISHOP;
-#define goal_bishop_fail_15 actualBoard[RANK_5][FILE_D] == WHITE_KINGS_BISHOP;
-#define goal_bishop_fail_16 actualBoard[RANK_6][FILE_F] == WHITE_KINGS_BISHOP;
-#define goal_bishop_fail_17 actualBoard[RANK_7][FILE_E] == WHITE_KINGS_BISHOP;
-#define goal_bishop_fail_18 actualBoard[RANK_8][FILE_G] == WHITE_KINGS_BISHOP;
 
-#define goal_bishop_fail_19 actualBoard[RANK_6][FILE_A] == WHITE_QUEENS_BISHOP;
-#define goal_bishop_fail_20 actualBoard[RANK_5][FILE_B] == WHITE_QUEENS_BISHOP;
-#define goal_bishop_fail_21 actualBoard[RANK_4][FILE_C] == WHITE_QUEENS_BISHOP;
-#define goal_bishop_fail_22 actualBoard[RANK_3][FILE_D] == WHITE_QUEENS_BISHOP;
-#define goal_bishop_fail_23 actualBoard[RANK_2][FILE_E] == WHITE_QUEENS_BISHOP;
-#define goal_bishop_fail_24 actualBoard[RANK_1][FILE_F] == WHITE_QUEENS_BISHOP;
-#define goal_bishop_fail_25 actualBoard[RANK_1][FILE_A] == WHITE_QUEENS_BISHOP;
-#define goal_bishop_fail_26 actualBoard[RANK_1][FILE_E] == WHITE_QUEENS_BISHOP;
-#define goal_bishop_fail_27 actualBoard[RANK_1][FILE_F] == WHITE_QUEENS_BISHOP;
-#define goal_bishop_fail_28 actualBoard[RANK_8][FILE_E] == WHITE_QUEENS_BISHOP;
-#define goal_bishop_fail_29 actualBoard[RANK_1][FILE_H] == WHITE_QUEENS_BISHOP;
-#define goal_bishop_fail_30 actualBoard[RANK_2][FILE_A] == WHITE_QUEENS_BISHOP;
-#define goal_bishop_fail_31 actualBoard[RANK_3][FILE_C] == WHITE_QUEENS_BISHOP;
-#define goal_bishop_fail_32 actualBoard[RANK_4][FILE_B] == WHITE_QUEENS_BISHOP;
-#define goal_bishop_fail_33 actualBoard[RANK_5][FILE_D] == WHITE_QUEENS_BISHOP;
-#define goal_bishop_fail_34 actualBoard[RANK_6][FILE_F] == WHITE_QUEENS_BISHOP;
-#define goal_bishop_fail_35 actualBoard[RANK_7][FILE_E] == WHITE_QUEENS_BISHOP;
-#define goal_bishop_fail_36 actualBoard[RANK_8][FILE_G] == WHITE_QUEENS_BISHOP;
+
+
+
+#assert whiteBishop() reaches goal_white_king_bishop_fail_empty_1;
+#assert whiteBishop() reaches goal_white_king_bishop_fail_occupied_by_black_pawn_7;
+#assert whiteBishop() reaches goal_white_king_bishop_fail_empty_2;
+#assert whiteBishop() reaches goal_white_king_bishop_fail_empty_3;
+#assert whiteBishop() reaches goal_white_king_bishop_fail_empty_4;
+#assert whiteBishop() reaches goal_white_king_bishop_fail_occupied_by_white_queen_bishop;
+#assert whiteBishop() reaches goal_white_king_bishop_fail_empty_5;
+#assert whiteBishop() reaches goal_white_king_bishop_fail_occupied_by_white_king;
+#assert whiteBishop() reaches goal_white_king_bishop_fail_occupied_by_black_king;
+#assert whiteBishop() reaches goal_white_king_bishop_fail_occupied_by_black_queen;
+#assert whiteBishop() reaches goal_white_king_bishop_fail_occupied_by_black_pawn_5;
+#assert whiteBishop() reaches goal_white_queen_bishop_fail_occupied_by_black_queen_knight;
+#assert whiteBishop() reaches goal_white_queen_bishop_fail_empty_1;
+#assert whiteBishop() reaches goal_white_queen_bishop_fail_empty_2;
+#assert whiteBishop() reaches goal_white_queen_bishop_fail_empty_3;
+#assert whiteBishop() reaches goal_white_queen_bishop_fail_empty_4;
+#assert whiteBishop() reaches goal_white_queen_bishop_fail_occupied_by_white_king_bishop;
+#assert whiteBishop() reaches goal_white_queen_bishop_fail_occupied_by_white_king;
+#assert whiteBishop() reaches goal_white_queen_bishop_fail_occupied_by_black_king;
+#assert whiteBishop() reaches goal_white_queen_bishop_fail_occupied_by_black_king_rook;
+#assert whiteBishop() reaches goal_white_queen_bishop_fail_occupied_by_white_queen_rook;
+#assert whiteBishop() reaches goal_white_queen_bishop_fail_occupied_by_white_queen;
+#assert whiteBishop() reaches goal_white_queen_bishop_fail_occupied_by_black_queen_rook;
+#assert whiteBishop() reaches goal_white_queen_bishop_fail_occupied_by_black_pawn_3;
+#assert whiteBishop() reaches goal_white_queen_bishop_fail_occupied_by_white_pawn_4;
+#assert whiteBishop() reaches goal_white_queen_bishop_fail_occupied_by_white_pawn_6;
+#assert whiteBishop() reaches goal_white_queen_bishop_fail_occupied_by_black_pawn_1;
+#assert whiteBishop() reaches goal_white_queen_bishop_fail_occupied_by_white_king_knight;
+
+
+
+	
+#define goal_white_king_bishop_fail_empty_1 actualBoard[RANK_6][FILE_H] == WHITE_KINGS_BISHOP;
+#define goal_white_king_bishop_fail_occupied_by_black_pawn_7 actualBoard[RANK_5][FILE_G] == WHITE_KINGS_BISHOP;
+#define goal_white_king_bishop_fail_empty_2 actualBoard[RANK_4][FILE_F] == WHITE_KINGS_BISHOP;
+#define goal_white_king_bishop_fail_empty_3 actualBoard[RANK_3][FILE_E] == WHITE_KINGS_BISHOP;
+#define goal_white_king_bishop_fail_empty_4 actualBoard[RANK_2][FILE_D] == WHITE_KINGS_BISHOP;
+#define goal_white_king_bishop_fail_occupied_by_white_queen_bishop actualBoard[RANK_1][FILE_C] == WHITE_KINGS_BISHOP;
+#define goal_white_king_bishop_fail_empty_5 actualBoard[RANK_1][FILE_A] == WHITE_KINGS_BISHOP;
+#define goal_white_king_bishop_fail_occupied_by_white_king actualBoard[RANK_1][FILE_E] == WHITE_KINGS_BISHOP;
+#define goal_white_king_bishop_fail_occupied_by_black_king actualBoard[RANK_8][FILE_E] == WHITE_KINGS_BISHOP;
+#define goal_white_king_bishop_fail_occupied_by_black_queen actualBoard[RANK_7][FILE_D] == WHITE_KINGS_BISHOP;
+#define goal_white_king_bishop_fail_occupied_by_black_pawn_5 actualBoard[RANK_7][FILE_E] == WHITE_KINGS_BISHOP;
+#define goal_white_queen_bishop_fail_occupied_by_black_queen_knight actualBoard[RANK_6][FILE_A] == WHITE_QUEENS_BISHOP;
+#define goal_white_queen_bishop_fail_empty_1 actualBoard[RANK_5][FILE_B] == WHITE_QUEENS_BISHOP;
+#define goal_white_queen_bishop_fail_empty_2 actualBoard[RANK_4][FILE_C] == WHITE_QUEENS_BISHOP;
+#define goal_white_queen_bishop_fail_empty_3 actualBoard[RANK_3][FILE_D] == WHITE_QUEENS_BISHOP;
+#define goal_white_queen_bishop_fail_empty_4 actualBoard[RANK_2][FILE_E] == WHITE_QUEENS_BISHOP;
+#define goal_white_queen_bishop_fail_occupied_by_white_king_bishop actualBoard[RANK_1][FILE_F] == WHITE_QUEENS_BISHOP;
+#define goal_white_queen_bishop_fail_occupied_by_white_king actualBoard[RANK_1][FILE_E] == WHITE_QUEENS_BISHOP;
+#define goal_white_queen_bishop_fail_occupied_by_black_king actualBoard[RANK_8][FILE_E] == WHITE_QUEENS_BISHOP;
+#define goal_white_queen_bishop_fail_occupied_by_black_king_rook actualBoard[RANK_1][FILE_H] == WHITE_QUEENS_BISHOP;
+#define goal_white_queen_bishop_fail_occupied_by_white_queen_rook actualBoard[RANK_2][FILE_A] == WHITE_QUEENS_BISHOP;
+#define goal_white_queen_bishop_fail_occupied_by_white_queen actualBoard[RANK_4][FILE_E] == WHITE_QUEENS_BISHOP;
+#define goal_white_queen_bishop_fail_occupied_by_black_queen_rook actualBoard[RANK_5][FILE_A] == WHITE_QUEENS_BISHOP;
+#define goal_white_queen_bishop_fail_occupied_by_black_pawn_3 actualBoard[RANK_6][FILE_C] == WHITE_QUEENS_BISHOP;
+#define goal_white_queen_bishop_fail_occupied_by_white_pawn_4 actualBoard[RANK_6][FILE_D] == WHITE_QUEENS_BISHOP;
+#define goal_white_queen_bishop_fail_occupied_by_white_pawn_6 actualBoard[RANK_6][FILE_F] == WHITE_QUEENS_BISHOP;
+#define goal_white_queen_bishop_fail_occupied_by_black_pawn_1 actualBoard[RANK_7][FILE_A] == WHITE_QUEENS_BISHOP;
+#define goal_white_queen_bishop_fail_occupied_by_white_king_knight actualBoard[RANK_7][FILE_F] == WHITE_QUEENS_BISHOP;
 
 moveBlackBishop() = changeTurnToBlackBishop{currentTurn = BLACK_TURN;} -> blackBishop();
