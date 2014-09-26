@@ -1,0 +1,25 @@
+﻿#include "board.csp";
+
+BlackKingUp() = [currentTurn == BLACK_TURN]moveOnce(BLACK_KING, 1, 0);
+BlackKingDown() = [currentTurn == BLACK_TURN]moveOnce(BLACK_KING, -1, 0);
+BlackKingRight() = [currentTurn == BLACK_TURN]moveOnce(BLACK_KING, 0, 1);
+BlackKingLeft() = [currentTurn == BLACK_TURN]moveOnce(BLACK_KING, 0, -1);
+BlackKingUpLeft() = [currentTurn == BLACK_TURN]moveOnce(BLACK_KING, 1, -1);
+BlackKingUpRight() = [currentTurn == BLACK_TURN]moveOnce(BLACK_KING, 1, 1);
+BlackKingDownLeft() = [currentTurn == BLACK_TURN]moveOnce(BLACK_KING, -1, -1);
+BlackKingDownRight() = [currentTurn == BLACK_TURN]moveOnce(BLACK_KING, -1, 1);
+
+BlackKing() = BlackKingUp() [] BlackKingRight() [] BlackKingDown() [] BlackKingLeft() []
+              BlackKingUpLeft() [] BlackKingUpRight() [] BlackKingDownLeft() [] BlackKingDownRight();
+
+WhiteKingUp() = [currentTurn == WHITE_TURN]moveOnce(WHITE_KING, 1, 0);
+WhiteKingDown() = [currentTurn == WHITE_TURN]moveOnce(WHITE_KING, -1, 0);
+WhiteKingRight() = [currentTurn == WHITE_TURN]moveOnce(WHITE_KING, 0, 1);
+WhiteKingLeft() = [currentTurn == WHITE_TURN]moveOnce(WHITE_KING, 0, -1);
+WhiteKingUpLeft() = [currentTurn == WHITE_TURN]moveOnce(WHITE_KING, 1, -1);
+WhiteKingUpRight() = [currentTurn == WHITE_TURN]moveOnce(WHITE_KING, 1, 1);
+WhiteKingDownLeft() = [currentTurn == WHITE_TURN]moveOnce(WHITE_KING, -1, -1);
+WhiteKingDownRight() = [currentTurn == WHITE_TURN]moveOnce(WHITE_KING, -1, 1);
+
+WhiteKing() = WhiteKingUp() [] WhiteKingRight() [] WhiteKingDown() [] WhiteKingLeft() []
+              WhiteKingUpLeft() [] WhiteKingUpRight() [] WhiteKingDownLeft() [] WhiteKingDownRight();
