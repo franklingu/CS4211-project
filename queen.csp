@@ -23,3 +23,28 @@ whiteQueenDownRight() = [currentTurn == WHITE_TURN]moveContinuous(WHITE_QUEEN, -
 
 whiteQueen() = whiteQueenUp() [] whiteQueenDown() [] whiteQueenLeft() [] whiteQueenRight() [] 
                whiteQueenUpLeft() [] whiteQueenUpRight() [] whiteQueenDownLeft() [] whiteQueenDownRight();
+
+
+#define white_queen_down_left true;
+#define white_queen_right true;
+#define white_queen_up_right true;
+#define black_queen_left true;
+#define black_queen_up true;
+#define black_queen_down_right true;
+
+#define white_queen_eat_up_left true;
+#define white_queen_eat_down_right true;
+#define black_queen_eat_down true;
+
+#define white_queen_occupied_down true;
+#define black_queen_occupied_up_right true;
+
+#define black_queen_blocked_right true;
+#define black_queen_blocked_down_left true;
+
+#define white_queen_double_black true;
+
+
+
+
+
