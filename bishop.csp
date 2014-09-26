@@ -7,15 +7,15 @@ whiteBishopUpRight() = whiteQueensBishopUpRight() [] whiteKingsBishopUpRight();
 whiteBishopDownLeft() = whiteQueensBishopDownLeft() [] whiteKingsBishopDownLeft();
 whiteBishopDownRight() = whiteQueensBishopDownRight() [] whiteKingsBishopDownRight();
 
-whiteQueensBishopUpLeft() = moveContinuous(WHITE_QUEENS_BISHOP, 1, -1);
-whiteQueensBishopUpRight() = moveContinuous(WHITE_QUEENS_BISHOP, 1, 1);
-whiteQueensBishopDownLeft() = moveContinuous(WHITE_QUEENS_BISHOP, -1, -1);
-whiteQueensBishopDownRight() = moveContinuous(WHITE_QUEENS_BISHOP, -1, 1);
+whiteQueensBishopUpLeft() = [currentTurn == WHITE_TURN]moveContinuous(WHITE_QUEENS_BISHOP, 1, -1);
+whiteQueensBishopUpRight() = [currentTurn == WHITE_TURN]moveContinuous(WHITE_QUEENS_BISHOP, 1, 1);
+whiteQueensBishopDownLeft() = [currentTurn == WHITE_TURN]moveContinuous(WHITE_QUEENS_BISHOP, -1, -1);
+whiteQueensBishopDownRight() = [currentTurn == WHITE_TURN]moveContinuous(WHITE_QUEENS_BISHOP, -1, 1);
 
-whiteKingsBishopUpLeft() = moveContinuous(WHITE_KINGS_BISHOP, 1, -1);
-whiteKingsBishopUpRight() = moveContinuous(WHITE_KINGS_BISHOP, 1, 1);
-whiteKingsBishopDownLeft() = moveContinuous(WHITE_KINGS_BISHOP, -1, -1);
-whiteKingsBishopDownRight() = moveContinuous(WHITE_KINGS_BISHOP, -1, 1);					 
+whiteKingsBishopUpLeft() = [currentTurn == WHITE_TURN]moveContinuous(WHITE_KINGS_BISHOP, 1, -1);
+whiteKingsBishopUpRight() = [currentTurn == WHITE_TURN]moveContinuous(WHITE_KINGS_BISHOP, 1, 1);
+whiteKingsBishopDownLeft() = [currentTurn == WHITE_TURN]moveContinuous(WHITE_KINGS_BISHOP, -1, -1);
+whiteKingsBishopDownRight() = [currentTurn == WHITE_TURN]moveContinuous(WHITE_KINGS_BISHOP, -1, 1);					 
 
 blackBishop() = blackBishopUpLeft() [] blackBishopUpRight() [] blackBishopDownLeft() [] blackBishopDownRight();
 
@@ -24,15 +24,15 @@ blackBishopUpRight() = blackQueensBishopUpRight() [] blackKingsBishopUpRight();
 blackBishopDownLeft() = blackQueensBishopDownLeft() [] blackKingsBishopDownLeft();
 blackBishopDownRight() = blackQueensBishopDownRight() [] blackKingsBishopDownRight();
 
-blackQueensBishopUpLeft() = moveContinuous(BLACK_QUEENS_BISHOP, 1, -1);
-blackQueensBishopUpRight() = moveContinuous(BLACK_QUEENS_BISHOP, 1, 1);
-blackQueensBishopDownLeft() = moveContinuous(BLACK_QUEENS_BISHOP, -1, -1);
-blackQueensBishopDownRight() = moveContinuous(BLACK_QUEENS_BISHOP, -1, 1);
+blackQueensBishopUpLeft() = [currentTurn == BLACK_TURN]moveContinuous(BLACK_QUEENS_BISHOP, 1, -1);
+blackQueensBishopUpRight() = [currentTurn == BLACK_TURN]moveContinuous(BLACK_QUEENS_BISHOP, 1, 1);
+blackQueensBishopDownLeft() = [currentTurn == BLACK_TURN]moveContinuous(BLACK_QUEENS_BISHOP, -1, -1);
+blackQueensBishopDownRight() = [currentTurn == BLACK_TURN]moveContinuous(BLACK_QUEENS_BISHOP, -1, 1);
 
-blackKingsBishopUpLeft() = moveContinuous(BLACK_KINGS_BISHOP, 1, -1);
-blackKingsBishopUpRight() = moveContinuous(BLACK_KINGS_BISHOP, 1, 1);
-blackKingsBishopDownLeft() = moveContinuous(BLACK_KINGS_BISHOP, -1, -1);
-blackKingsBishopDownRight() = moveContinuous(BLACK_KINGS_BISHOP, -1, 1);
+blackKingsBishopUpLeft() = [currentTurn == BLACK_TURN]moveContinuous(BLACK_KINGS_BISHOP, 1, -1);
+blackKingsBishopUpRight() = [currentTurn == BLACK_TURN]moveContinuous(BLACK_KINGS_BISHOP, 1, 1);
+blackKingsBishopDownLeft() = [currentTurn == BLACK_TURN]moveContinuous(BLACK_KINGS_BISHOP, -1, -1);
+blackKingsBishopDownRight() = [currentTurn == BLACK_TURN]moveContinuous(BLACK_KINGS_BISHOP, -1, 1);
 
 #assert whiteBishop() reaches goal_bishop_success_1;
 #assert whiteBishop() reaches goal_bishop_success_2;
@@ -156,3 +156,5 @@ blackKingsBishopDownRight() = moveContinuous(BLACK_KINGS_BISHOP, -1, 1);
 #define goal_bishop_fail_34 actualBoard[RANK_6][FILE_F] == WHITE_QUEENS_BISHOP;
 #define goal_bishop_fail_35 actualBoard[RANK_7][FILE_E] == WHITE_QUEENS_BISHOP;
 #define goal_bishop_fail_36 actualBoard[RANK_8][FILE_G] == WHITE_QUEENS_BISHOP;
+
+moveBlackBishop() = changeTurnToBlackBishop{currentTurn == TURN_BLACK} -> blackBishop();
