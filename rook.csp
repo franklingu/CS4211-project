@@ -7,15 +7,15 @@ whiteRookDown() = whiteQueensRookDown() [] whiteKingsRookDown();
 whiteRookLeft() = whiteQueensRookLeft() [] whiteKingsRookLeft();
 whiteRookRight() = whiteQueensRookRight() [] whiteKingsRookRight();
 
-whiteQueensRookUp() = moveContinuous(WHITE_QUEENS_ROOK, 1, 0);
-whiteQueensRookDown() = moveContinuous(WHITE_QUEENS_ROOK, -1, 0);
-whiteQueensRookLeft() = moveContinuous(WHITE_QUEENS_ROOK, 0, -1);
-whiteQueensRookRight() = moveContinuous(WHITE_QUEENS_ROOK, 0, 1);
+whiteQueensRookUp() = [currentTurn == WHITE_TURN]moveContinuous(WHITE_QUEENS_ROOK, 1, 0);
+whiteQueensRookDown() = [currentTurn == WHITE_TURN]moveContinuous(WHITE_QUEENS_ROOK, -1, 0);
+whiteQueensRookLeft() = [currentTurn == WHITE_TURN]moveContinuous(WHITE_QUEENS_ROOK, 0, -1);
+whiteQueensRookRight() = [currentTurn == WHITE_TURN]moveContinuous(WHITE_QUEENS_ROOK, 0, 1);
 
-whiteKingsRookUp() = moveContinuous(WHITE_KINGS_ROOK, 1, 0);
-whiteKingsRookDown() = moveContinuous(WHITE_KINGS_ROOK, -1, 0);
-whiteKingsRookLeft() = moveContinuous(WHITE_KINGS_ROOK, 0, -1);
-whiteKingsRookRight() = moveContinuous(WHITE_KINGS_ROOK, 0, 1);					 
+whiteKingsRookUp() = [currentTurn == WHITE_TURN]moveContinuous(WHITE_KINGS_ROOK, 1, 0);
+whiteKingsRookDown() = [currentTurn == WHITE_TURN]moveContinuous(WHITE_KINGS_ROOK, -1, 0);
+whiteKingsRookLeft() = [currentTurn == WHITE_TURN]moveContinuous(WHITE_KINGS_ROOK, 0, -1);
+whiteKingsRookRight() = [currentTurn == WHITE_TURN]moveContinuous(WHITE_KINGS_ROOK, 0, 1);					 
 
 blackRook() = blackRookUp() [] blackRookDown() [] blackRookLeft() [] blackRookRight();
 
@@ -24,44 +24,44 @@ blackRookDown() = blackQueensRookDown() [] blackKingsRookDown();
 blackRookLeft() = blackQueensRookLeft() [] blackKingsRookLeft();
 blackRookRight() = blackQueensRookRight() [] blackKingsRookRight();
 
-blackQueensRookUp() = moveContinuous(BLACK_QUEENS_ROOK, 1, 0);
-blackQueensRookDown() = moveContinuous(BLACK_QUEENS_ROOK, -1, 0);
-blackQueensRookLeft() = moveContinuous(BLACK_QUEENS_ROOK, 0, -1);
-blackQueensRookRight() = moveContinuous(BLACK_QUEENS_ROOK, 0, 1);
+blackQueensRookUp() = [currentTurn == BLACK_TURN]moveContinuous(BLACK_QUEENS_ROOK, 1, 0);
+blackQueensRookDown() = [currentTurn == BLACK_TURN]moveContinuous(BLACK_QUEENS_ROOK, -1, 0);
+blackQueensRookLeft() = [currentTurn == BLACK_TURN]moveContinuous(BLACK_QUEENS_ROOK, 0, -1);
+blackQueensRookRight() = [currentTurn == BLACK_TURN]moveContinuous(BLACK_QUEENS_ROOK, 0, 1);
 
-blackKingsRookUp() = moveContinuous(BLACK_KINGS_ROOK, 1, 0);
-blackKingsRookDown() = moveContinuous(BLACK_KINGS_ROOK, -1, 0);
-blackKingsRookLeft() = moveContinuous(BLACK_KINGS_ROOK, 0, -1);
-blackKingsRookRight() = moveContinuous(BLACK_KINGS_ROOK, 0, 1);	
+blackKingsRookUp() = [currentTurn == BLACK_TURN]moveContinuous(BLACK_KINGS_ROOK, 1, 0);
+blackKingsRookDown() = [currentTurn == BLACK_TURN]moveContinuous(BLACK_KINGS_ROOK, -1, 0);
+blackKingsRookLeft() = [currentTurn == BLACK_TURN]moveContinuous(BLACK_KINGS_ROOK, 0, -1);
+blackKingsRookRight() = [currentTurn == BLACK_TURN]moveContinuous(BLACK_KINGS_ROOK, 0, 1);	
 
 
 // black rooks assertions
-#define black_queen_rook_move_occupied actualBoard[RANK_6][FILE_A] == BLACK_QUEENS_ROOK;
+#define black_queen_rook_move_occupied_black actualBoard[RANK_6][FILE_A] == BLACK_QUEENS_ROOK;
 #define black_queen_rook_move_diagonal actualBoard[RANK_4][FILE_B] == BLACK_QUEENS_ROOK;
 #define black_queen_rook_move_blocked_black actualBoard[RANK_8][FILE_A] == BLACK_QUEENS_ROOK;
 #define black_king_rook_move_blocked_white actualBoard[RANK_1][FILE_D] == BLACK_KINGS_ROOK;
 
-#assert blackRook() reaches black_queen_rook_move_occupied;
-#assert blackRook() reaches black_queen_rook_move_diagonal;
-#assert blackRook() reaches black_queen_rook_move_blocked_black;
-#assert blackRook() reaches black_king_rook_move_blocked_white;
+#assert moveBlackRook() reaches black_queen_rook_move_occupied_black;
+#assert moveBlackRook() reaches black_queen_rook_move_diagonal;
+#assert moveBlackRook() reaches black_queen_rook_move_blocked_black;
+#assert moveBlackRook() reaches black_king_rook_move_blocked_white;
 
 #define black_king_rook_move_up actualBoard[RANK_8][FILE_H] == BLACK_KINGS_ROOK && 
 	piecePosition[BLACK_KINGS_ROOK][RANK] == RANK_8 && piecePosition[BLACK_KINGS_ROOK][FILE] == FILE_H;
 	
-#define black_king_rook_move_left actualBoard[RANK_1][FILE_F] == BLACK_KINGS_ROOK && 
+#define black_king_rook_move_occupied_white actualBoard[RANK_1][FILE_F] == BLACK_KINGS_ROOK && 
 	piecePosition[BLACK_KINGS_ROOK][RANK] == RANK_1 && piecePosition[BLACK_KINGS_ROOK][FILE] == FILE_F;	
 	
-#define black_queen_rook_move_down actualBoard[RANK_1][FILE_A] == BLACK_QUEENS_ROOK && 
-	piecePosition[BLACK_QUEENS_ROOK][RANK] == RANK_1 && piecePosition[BLACK_QUEENS_ROOK][FILE] == FILE_A;
+#define black_queen_rook_move_occupied_by_white_queen_rook actualBoard[RANK_2][FILE_A] == BLACK_QUEENS_ROOK && 
+	piecePosition[BLACK_QUEENS_ROOK][RANK] == RANK_2 && piecePosition[BLACK_QUEENS_ROOK][FILE] == FILE_A;
 	
-#define black_queen_rook_move_right actualBoard[RANK_5][FILE_G] == BLACK_QUEENS_ROOK && 
-	piecePosition[BLACK_QUEENS_ROOK][RANK] == RANK_5 && piecePosition[BLACK_QUEENS_ROOK][FILE] == FILE_G;	
+#define black_queen_rook_move_right actualBoard[RANK_5][FILE_F] == BLACK_QUEENS_ROOK && 
+	piecePosition[BLACK_QUEENS_ROOK][RANK] == RANK_5 && piecePosition[BLACK_QUEENS_ROOK][FILE] == FILE_F;	
 	
-#assert blackRook() reaches black_king_rook_move_up;
-#assert blackRook() reaches black_king_rook_move_left;
-#assert blackRook() reaches black_queen_rook_move_down;
-#assert blackRook() reaches black_queen_rook_move_right;
+#assert moveBlackRook() reaches black_king_rook_move_up;
+#assert moveBlackRook() reaches black_king_rook_move_occupied_white;
+#assert moveBlackRook() reaches black_queen_rook_move_occupied_by_white_queen_rook;
+#assert moveBlackRook() reaches black_queen_rook_move_right;
 
 
 //white rooks assertions
@@ -71,7 +71,7 @@ blackKingsRookRight() = moveContinuous(BLACK_KINGS_ROOK, 0, 1);
 #assert whiteRook() reaches white_queen_rook_move_diagonal;
 #assert whiteRook() reaches white_queen_rook_move_blocked_black;
 
-#define white_king_rook_move_up actualBoard[RANK_5][FILE_A] == WHITE_QUEENS_ROOK && 
+#define white_king_rook_occupied_by_black_queen_rook actualBoard[RANK_5][FILE_A] == WHITE_QUEENS_ROOK && 
 	piecePosition[WHITE_QUEENS_ROOK][RANK] == RANK_5 && piecePosition[WHITE_QUEENS_ROOK][FILE] == FILE_A;             
 	
 #define white_king_rook_move_right actualBoard[RANK_2][FILE_H] == WHITE_QUEENS_ROOK && 
@@ -83,7 +83,9 @@ blackKingsRookRight() = moveContinuous(BLACK_KINGS_ROOK, 0, 1);
 #define white_queen_rook_occupied_by_white_queen actualBoard[RANK_4][FILE_E] == WHITE_QUEENS_ROOK && 
 	piecePosition[WHITE_QUEENS_ROOK][RANK] == RANK_4 && piecePosition[WHITE_QUEENS_ROOK][FILE] == FILE_E;	
 	
-#assert whiteRook() reaches white_king_rook_move_up;
+#assert whiteRook() reaches white_king_rook_occupied_by_black_queen_rook;
 #assert whiteRook() reaches white_king_rook_move_right;
 #assert whiteRook() reaches white_queen_rook_move_down;
 #assert whiteRook() reaches white_queen_rook_occupied_by_white_queen;
+
+moveBlackRook() = changeTurnToBlackRook{currentTurn = BLACK_TURN;} -> blackRook();
