@@ -147,4 +147,20 @@ blackKingsBishopDownRight() = [currentTurn == BLACK_TURN]moveContinuous(BLACK_KI
 #define goal_white_queen_bishop_fail_occupied_by_black_pawn_1 actualBoard[RANK_7][FILE_A] == WHITE_QUEENS_BISHOP;
 #define goal_white_queen_bishop_fail_occupied_by_white_king_knight actualBoard[RANK_7][FILE_F] == WHITE_QUEENS_BISHOP;
 
-moveBlackBishop() = changeTurnToBlackBishop{currentTurn = BLACK_TURN;} -> blackBishop();
+moveBlackBishop() = changeTurnToBlackBishop{currentTurn = BLACK_TURN} -> blackBishop();
+
+#define goal_black_king_bishop_up_left actualBoard[RANK_3][FILE_A] == BLACK_KINGS_BISHOP && piecePosition[BLACK_KINGS_BISHOP][RANK] == RANK_3 && piecePosition[BLACK_KINGS_BISHOP][FILE] == FILE_A;
+#define goal_black_king_bishop_up_right actualBoard[RANK_2][FILE_F] == BLACK_KINGS_BISHOP && piecePosition[BLACK_KINGS_BISHOP][RANK] == RANK_2 && piecePosition[BLACK_KINGS_BISHOP][FILE] == FILE_F;
+#define goal_black_king_bishop_cannot_move_vertical actualBoard[RANK_3][FILE_C] == BLACK_KINGS_BISHOP && piecePosition[BLACK_KINGS_BISHOP][RANK] == RANK_3 && piecePosition[BLACK_KINGS_BISHOP][FILE] == FILE_C;
+#define goal_black_king_bishop_cannot_move_horizontal actualBoard[RANK_5][FILE_D] == BLACK_KINGS_BISHOP && piecePosition[BLACK_KINGS_BISHOP][RANK] == RANK_5 && piecePosition[BLACK_KINGS_BISHOP][FILE] == FILE_D;
+#define goal_black_king_bishop_cannot_capture_own_piece actualBoard[RANK_7][FILE_A] == BLACK_KINGS_BISHOP && piecePosition[BLACK_KINGS_BISHOP][RANK] == RANK_7 && piecePosition[BLACK_KINGS_BISHOP][FILE] == FILE_A;
+#define goal_black_king_bishop_capture_opponent_piece actualBoard[RANK_6][FILE_D] == BLACK_KINGS_BISHOP && piecePosition[BLACK_KINGS_BISHOP][RANK] == RANK_6 && piecePosition[BLACK_KINGS_BISHOP][FILE] == FILE_D;
+#define goal_black_king_bishop_cannot_jump_over_pieces actualBoard[RANK_8][FILE_F] == BLACK_KINGS_BISHOP && piecePosition[BLACK_KINGS_BISHOP][RANK] == RANK_8 && piecePosition[BLACK_KINGS_BISHOP][FILE] == FILE_F;
+
+#assert moveBlackBishop() reaches goal_black_king_bishop_up_left;
+#assert moveBlackBishop() reaches goal_black_king_bishop_up_right;
+#assert moveBlackBishop() reaches goal_black_king_bishop_cannot_move_vertical;
+#assert moveBlackBishop() reaches goal_black_king_bishop_cannot_move_horizontal;
+#assert moveBlackBishop() reaches goal_black_king_bishop_cannot_capture_own_piece;
+#assert moveBlackBishop() reaches goal_black_king_bishop_capture_opponent_piece;
+#assert moveBlackBishop() reaches goal_black_king_bishop_cannot_jump_over_pieces;

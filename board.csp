@@ -94,7 +94,7 @@ var piecePosition[33][2] = [DEAD, DEAD, // 0 - dummy
 							DEAD, DEAD, // 27 black queen's bishop
 							RANK_7, FILE_D, // 28 black queen
 							RANK_8, FILE_E, // 29 black king
-							DEAD, DEAD, // 30 black king's bishop
+							RANK_5, FILE_C, // 30 black king's bishop
 							DEAD, DEAD, // 31 black king's knight
 							RANK_1, FILE_H // 32 black king's rook
 							];
@@ -103,7 +103,7 @@ var actualBoard[BOARD_SIZE][BOARD_SIZE] = [		0,	0,	WHITE_QUEENS_BISHOP,	0,	WHITE
 		   		 						  		WHITE_QUEENS_ROOK,		0,		0,			0,		0,		0,	0,	0,
 		   		 						  		0,		0,		0,			0,		0,		0,	0,	0,
 		   		 						  		0,		0,		0,			0,		WHITE_QUEEN,		0,	0,	0,
-		   		 						  		BLACK_QUEENS_ROOK,		0,		0,			0,		0,		0,	BLACK_PAWN_7,	0,
+		   		 						  		BLACK_QUEENS_ROOK,		0,		BLACK_KINGS_BISHOP,			0,		0,		0,	BLACK_PAWN_7,	0,
 		   		 						  		BLACK_QUEENS_KNIGHT,		0,		BLACK_PAWN_3,			WHITE_PAWN_4,		0,		WHITE_PAWN_6,	0,	0,
 		   		 						  		BLACK_PAWN_1,		0,		0,			BLACK_QUEEN,		BLACK_PAWN_5,		WHITE_KINGS_KNIGHT,	0,	0,
 		   		 						  		0,		0,		0,			0,	BLACK_KING,	0,	0,	0
