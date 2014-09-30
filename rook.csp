@@ -54,14 +54,11 @@ blackKingsRookRight() = [currentTurn == BLACK_TURN]moveContinuous(BLACK_KINGS_RO
 	
 #define black_queen_rook_move_occupied_by_white_queen_rook actualBoard[RANK_2][FILE_A] == BLACK_QUEENS_ROOK && 
 	piecePosition[BLACK_QUEENS_ROOK][RANK] == RANK_2 && piecePosition[BLACK_QUEENS_ROOK][FILE] == FILE_A;
-	
-#define black_queen_rook_move_right actualBoard[RANK_5][FILE_F] == BLACK_QUEENS_ROOK && 
-	piecePosition[BLACK_QUEENS_ROOK][RANK] == RANK_5 && piecePosition[BLACK_QUEENS_ROOK][FILE] == FILE_F;	
+		
 	
 #assert moveBlackRook() reaches black_king_rook_move_up;
 #assert moveBlackRook() reaches black_king_rook_move_occupied_white;
 #assert moveBlackRook() reaches black_queen_rook_move_occupied_by_white_queen_rook;
-#assert moveBlackRook() reaches black_queen_rook_move_right;
 
 
 //white rooks assertions
