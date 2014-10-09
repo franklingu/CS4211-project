@@ -99,6 +99,7 @@ var piecePosition[33][2] = [DEAD, DEAD, // 0 - dummy
 							RANK_1, FILE_H // 32 black king's rook
 							];
 
+// FEN representation of current board: rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq
 var actualBoard[BOARD_SIZE][BOARD_SIZE] = [		0,	0,	WHITE_QUEENS_BISHOP,	0,	WHITE_KING,	WHITE_KINGS_BISHOP,	0,	BLACK_KINGS_ROOK,
 		   		 						  		WHITE_QUEENS_ROOK,		0,		0,			0,		0,		0,	0,	0,
 		   		 						  		0,		0,		0,			0,		0,		0,		0,		0,
