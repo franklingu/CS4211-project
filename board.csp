@@ -101,7 +101,7 @@ var piecePosition[33][2] = [DEAD, DEAD, // 0 - dummy
 
 var actualBoard[BOARD_SIZE][BOARD_SIZE] = [		0,	0,	WHITE_QUEENS_BISHOP,	0,	WHITE_KING,	WHITE_KINGS_BISHOP,	0,	BLACK_KINGS_ROOK,
 		   		 						  		WHITE_QUEENS_ROOK,		0,		0,			0,		0,		0,	0,	0,
-		   		 						  		0,		0,		0,			0,		0,		0,	0,	0,
+		   		 						  		0,		0,		0,			0,		0,		0,		0,		0,
 		   		 						  		0,		0,		0,			0,		WHITE_QUEEN,		0,	0,	0,
 		   		 						  		BLACK_QUEENS_ROOK,		0,		BLACK_KINGS_BISHOP,			0,		0,		0,	BLACK_PAWN_7,	0,
 		   		 						  		BLACK_QUEENS_KNIGHT,		0,		BLACK_PAWN_3,			WHITE_PAWN_4,		0,		WHITE_PAWN_6,	0,	0,

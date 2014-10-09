@@ -34,8 +34,8 @@ blackKingsRookDown() = [currentTurn == BLACK_TURN]moveContinuous(BLACK_KINGS_ROO
 blackKingsRookLeft() = [currentTurn == BLACK_TURN]moveContinuous(BLACK_KINGS_ROOK, 0, -1);
 blackKingsRookRight() = [currentTurn == BLACK_TURN]moveContinuous(BLACK_KINGS_ROOK, 0, 1);	
 
+moveBlackRook() = changeTurnToBlackRook{currentTurn = BLACK_TURN;} -> blackRook();
 
-// black rooks assertions
 #define black_queen_rook_move_occupied_black actualBoard[RANK_6][FILE_A] == BLACK_QUEENS_ROOK;
 #define black_queen_rook_move_diagonal actualBoard[RANK_4][FILE_B] == BLACK_QUEENS_ROOK;
 #define black_queen_rook_move_blocked_black actualBoard[RANK_8][FILE_A] == BLACK_QUEENS_ROOK;
@@ -84,5 +84,3 @@ blackKingsRookRight() = [currentTurn == BLACK_TURN]moveContinuous(BLACK_KINGS_RO
 #assert whiteRook() reaches white_king_rook_move_right;
 #assert whiteRook() reaches white_queen_rook_move_down;
 #assert whiteRook() reaches white_queen_rook_occupied_by_white_queen;
-
-moveBlackRook() = changeTurnToBlackRook{currentTurn = BLACK_TURN;} -> blackRook();
