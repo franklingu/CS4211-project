@@ -1,0 +1,35 @@
+﻿#include "board.csp";
+#include "rook.csp";
+#include "king.csp";
+#include "queen.csp";
+#include "bishop.csp";
+#include "pawn.csp";
+#include "knight.csp";
+
+#import "ValidityCheck";
+
+// checkStatus = [whiteStatus, blackStatus]
+var checkStatus[2] = [0,0];
+
+game() = whiteMove();
+whiteMove() = whitePlan() ; execute() ; blackMove();
+blackMove() = blackPlan() ; execute() ; whiteMove();
+
+whitePlan() = whiteKing() [] whiteQueen() [] whiteRook() [] whiteBishop() [] whiteKnights() [] whitePawn();
+blackPlan() = blackKing() [] blackQueen() [] blackRook() [] blackBishop() [] blackKnights() [] blackPawn();
+
+execute = if(call(isLegal, actualBoard, piecePosition, currentTurn)){
+	turn {
+		// current player no longer in check if move was legal
+		checkStatus[currentTurn] = 0;
+		// change turn
+		currentTurn = 1 - currentTurn;		 
+	} -> checking
+};
+
+checking = if (call(isCheck, actualBoard, piecePosition, currentTurn)) {
+			check {checkStatus[currentTurn] = 1;} -> Skip
+		};
+		
+#define goal currentTurn == 1;
+#assert game() reaches goal;
