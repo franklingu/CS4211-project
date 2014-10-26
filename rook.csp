@@ -34,7 +34,7 @@ blackKingsRookDown() = [currentTurn == BLACK_TURN]moveContinuous(BLACK_KINGS_ROO
 blackKingsRookLeft() = [currentTurn == BLACK_TURN]moveContinuous(BLACK_KINGS_ROOK, 0, -1);
 blackKingsRookRight() = [currentTurn == BLACK_TURN]moveContinuous(BLACK_KINGS_ROOK, 0, 1);	
 
-moveBlackRook() = changeTurnToBlackRook{currentTurn = BLACK_TURN;} -> blackRook();
+moveBlackRook() = changeTurnToBlack{currentTurn = BLACK_TURN;} -> blackRook();
 
 #define goalSuccessBlackQueensRookDownEnemyPiece actualBoard[RANK_2][FILE_A] == BLACK_QUEENS_ROOK && 
 										piecePosition[BLACK_QUEENS_ROOK][RANK] == RANK_2 && piecePosition[BLACK_QUEENS_ROOK][FILE] == FILE_A;

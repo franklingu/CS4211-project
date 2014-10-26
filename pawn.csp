@@ -87,7 +87,7 @@ blackSixPawnDownRight() = [currentTurn == BLACK_TURN]movePawnDiagonal(BLACK_PAWN
 blackSevenPawnDownRight() = [currentTurn == BLACK_TURN]movePawnDiagonal(BLACK_PAWN_7, -1, 1);
 blackEightPawnDownRight() = [currentTurn == BLACK_TURN]movePawnDiagonal(BLACK_PAWN_8, -1, 1);
 
-moveBlackPawn() = changeTurnToBlackPawn{currentTurn = BLACK_TURN} -> blackPawn();
+moveBlackPawn() = changeTurnToBlack{currentTurn = BLACK_TURN} -> blackPawn();
 
 #define goalSuccessBlackPawnSingle actualBoard[RANK_6][FILE_E] == BLACK_PAWN_5 && 
 										piecePosition[BLACK_PAWN_5][RANK] == RANK_6 && piecePosition[BLACK_PAWN_5][FILE] == FILE_E;	

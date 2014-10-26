@@ -48,7 +48,7 @@ whiteQueensKnight() = whiteQueensKnightUpLeft1() [] whiteQueensKnightUpLeft2() [
                       whiteQueensKnightDownLeft1() [] whiteQueensKnightDownLeft2() [] whiteQueensKnightDownRight1() [] whiteQueensKnightDownRight2();
 whiteKnights() = whiteKingsKnight() [] whiteQueensKnight();
 
-moveBlackKnights() = changeTurnToBlackKnight{currentTurn = BLACK_TURN} -> blackKnights();
+moveBlackKnights() = changeTurnToBlack{currentTurn = BLACK_TURN} -> blackKnights();
 
 #define goalSuccessBlackQueensKnightUpRight1 actualBoard[RANK_8][FILE_B] == BLACK_QUEENS_KNIGHT && 
 											piecePosition[BLACK_QUEENS_KNIGHT][RANK] == RANK_8 && piecePosition[BLACK_QUEENS_KNIGHT][FILE] == FILE_B;

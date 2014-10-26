@@ -24,7 +24,7 @@ whiteQueenDownRight() = [currentTurn == WHITE_TURN]moveContinuous(WHITE_QUEEN, -
 whiteQueen() = whiteQueenUp() [] whiteQueenDown() [] whiteQueenLeft() [] whiteQueenRight() [] 
                whiteQueenUpLeft() [] whiteQueenUpRight() [] whiteQueenDownLeft() [] whiteQueenDownRight();
 
-moveBlackQueen() = changeTurnToBlackQueen{currentTurn = BLACK_TURN} -> blackQueen();
+moveBlackQueen() = changeTurnToBlack{currentTurn = BLACK_TURN} -> blackQueen();
 
 #define goalSuccessWhiteQueenDownLeft actualBoard[RANK_1][FILE_B] == WHITE_QUEEN && 
 								piecePosition[WHITE_QUEEN][RANK] == RANK_1 && piecePosition[WHITE_QUEEN][FILE] == FILE_B;

@@ -34,7 +34,7 @@ blackKingsBishopUpRight() = [currentTurn == BLACK_TURN]moveContinuous(BLACK_KING
 blackKingsBishopDownLeft() = [currentTurn == BLACK_TURN]moveContinuous(BLACK_KINGS_BISHOP, -1, -1);
 blackKingsBishopDownRight() = [currentTurn == BLACK_TURN]moveContinuous(BLACK_KINGS_BISHOP, -1, 1);
 
-moveBlackBishop() = changeTurnToBlackBishop{currentTurn = BLACK_TURN} -> blackBishop();
+moveBlackBishop() = changeTurnToBlack{currentTurn = BLACK_TURN} -> blackBishop();
 
 #define goalSuccessWhiteQueensBishopUpLeft actualBoard[RANK_3][FILE_A] == WHITE_QUEENS_BISHOP && 
 										piecePosition[WHITE_QUEENS_BISHOP][RANK] == RANK_3 && piecePosition[WHITE_QUEENS_BISHOP][FILE] == FILE_A;
