@@ -1,5 +1,10 @@
 ﻿#include "constants.csp";
 #include "board1.csp";
+//#include "board2.csp"
+//#include "board3.csp"
+//#include "board4.csp"
+//#include "board5.csp"
+//#include "board6.csp"
 				 
 moveContinuous(piece, up, right) = if (piecePosition[piece][RANK] != DEAD && piecePosition[piece][FILE] != DEAD )
 {
