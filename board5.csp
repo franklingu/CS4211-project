@@ -1,0 +1,48 @@
+﻿//Test board 3 : Rook one move mate
+
+#include "constants.csp";
+
+var piecePosition[33][2] = [	DEAD, DEAD, // 0 - dummy
+								DEAD, DEAD, // 1 white pawn 1
+								DEAD, DEAD, // 2 white pawn 2
+								DEAD, DEAD, // 3 white pawn 3
+								DEAD, DEAD, // 4 white pawn 4
+								DEAD, DEAD, // 5 white pawn 5
+								DEAD, DEAD, // 6 white pawn 6
+								DEAD, DEAD, // 7 white pawn 7
+								DEAD, DEAD, // 8 white pawn 8
+								RANK_7, FILE_B, // 9 white queens's rook
+								DEAD, DEAD, // 10 white queen's knight
+								DEAD, DEAD, // 11 white queens's bishop
+								DEAD, DEAD, // 12 white queen
+								RANK_1, FILE_E, // 13 white king
+								DEAD, DEAD, // 14 white king's bishop
+								DEAD, DEAD, // 15 white king's knight
+								RANK_2, FILE_H, // 16 white king's rook
+								DEAD, DEAD, // 17 black pawn 1
+								DEAD, DEAD, // 18 black pawn 2
+								DEAD, DEAD, // 19 black pawn 3
+								DEAD, DEAD, // 20 black pawn 4
+								DEAD, DEAD, // 21 black pawn 5
+								DEAD, DEAD, // 22 black pawn 6
+								DEAD, DEAD, // 23 black pawn 7
+								DEAD, DEAD, // 24 black pawn 8
+								DEAD, DEAD, // 25 black queen's rook
+								DEAD, DEAD, // 26 black queen's knight
+								DEAD, DEAD, // 27 black queen's bishop
+								DEAD, DEAD, // 28 black queen
+								RANK_8, FILE_E, // 29 black king
+								DEAD, DEAD, // 30 black king's bishop
+								DEAD, DEAD, // 31 black king's knight
+								DEAD, DEAD // 32 black king's rook
+						];
+									 
+var actualBoard[BOARD_SIZE][BOARD_SIZE] =  [	0,		0,		0,		0,	WHITE_KING,	0,	0,	0,
+		   		 						  		0,		0,		0,		0,		0,		0,	0,	WHITE_KINGS_ROOK,
+		   		 						  		0,		0,		0,		0,		0,		0,	0,	0,
+		   		 						  		0,		0,		0,		0,		0,		0,	0,	0,
+		   		 						  		0,		0,		0,		0,		0,		0,	0,	0,
+		   		 						  		0,		0,		0,		0,		0,		0,	0,	0,
+		   		 						  		0,		WHITE_QUEENS_ROOK,		0,	0,	0,	0,	0,	0,
+		   		 						  		0,		0,		0,		0,	BLACK_KING,	0,	0,	0
+		   		 						 	];
