@@ -1,4 +1,4 @@
-﻿#include "board.csp";
+﻿#include "testboard1.csp";
 #include "rook.csp";
 #include "king.csp";
 #include "queen.csp";
@@ -12,24 +12,44 @@
 var checkStatus[2] = [0,0];
 
 game() = whiteMove();
-whiteMove() = whitePlan() ; execute() ; blackMove();
-blackMove() = blackPlan() ; execute() ; whiteMove();
+whiteMove() = whitePlan();
+blackMove() = blackPlan();
 
 whitePlan() = whiteKing() [] whiteQueen() [] whiteRook() [] whiteBishop() [] whiteKnights() [] whitePawn();
 blackPlan() = blackKing() [] blackQueen() [] blackRook() [] blackBishop() [] blackKnights() [] blackPawn();
 
-execute = if(call(isLegal, actualBoard, piecePosition, currentTurn)){
-	turn {
-		// current player no longer in check if move was legal
-		checkStatus[currentTurn] = 0;
-		// change turn
-		currentTurn = 1 - currentTurn;		 
-	} -> checking
+execute = if(currentTurn == 0){
+	if(call(isLegal, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE])){
+		turn {
+			// current player no longer in check if move was legal
+			checkStatus[currentTurn] = 0;
+			// change turn
+			currentTurn = 1 - currentTurn;		 
+		} -> blackInCheck
+	}
+	else
+	{
+		if(call(isLegal, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE])){
+			turn {
+				// current player no longer in check if move was legal
+				checkStatus[currentTurn] = 0;
+				// change turn
+				currentTurn = 1 - currentTurn;		 
+			} -> whiteInCheck
+		}
+	}
 };
 
-checking = if (call(isCheck, actualBoard, piecePosition, currentTurn)) {
-			check {checkStatus[currentTurn] = 1;} -> Skip
+blackInCheck = if (call(isCheck, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE])) {
+			check {checkStatus[currentTurn] = 1;} -> blackMove()
+		};
+
+whiteInCheck = if (call(isCheck, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE])) {
+			check {checkStatus[currentTurn] = 1;} -> whiteMove()
 		};
 		
+#define goal_queen actualBoard[RANK_1][FILE_D] == WHITE_QUEEN && 
+								piecePosition[WHITE_QUEEN][RANK] == RANK_1 && piecePosition[WHITE_QUEEN][FILE] == FILE_D;
+#assert game() reaches goal_queen;								
 #define goal currentTurn == 1;
 #assert game() reaches goal;
