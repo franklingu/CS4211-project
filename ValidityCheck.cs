@@ -53,20 +53,20 @@ namespace PAT.Lib
 		const int BLACK_KINGS_BISHOP = 30;
 		const int BLACK_KINGS_KNIGHT = 31;
 		const int BLACK_KINGS_ROOK = 32;
-		const int[] WHITE_DIAGONAL = new int[3] {WHITE_QUEENS_BISHOP, WHITE_QUEEN, WHITE_KINGS_BISHOP};
-		const int[] BLACK_DIAGONAL = new int[3] {BLACK_QUEENS_BISHOP, BLACK_QUEEN, BLACK_KINGS_BISHOP};
-		const int[] WHITE_STRAIGHT = new int[3] {WHITE_QUEENS_ROOK, WHITE_QUEEN, WHITE_KINGS_ROOK};
-		const int[] BLACK_STRAIGHT = new int[3] {BLACK_QUEENS_ROOK, BLACK_QUEEN, BLACK_KINGS_ROOK};
-		const int[] WHITE_PAWNS = new int[8] {WHITE_PAWN_1, WHITE_PAWN_2, WHITE_PAWN_3, WHITE_PAWN_4, WHITE_PAWN_5, WHITE_PAWN_6, WHITE_PAWN_7, WHITE_PAWN_8};
-		const int[] BLACK_PAWNS = new int[8] {BLACK_PAWN_1, BLACK_PAWN_2, BLACK_PAWN_3, BLACK_PAWN_4, BLACK_PAWN_5, BLACK_PAWN_6, BLACK_PAWN_7, BLACK_PAWN_8};
-		const int[] WHITE_KNIGHTS = new int[2] {WHITE_QUEENS_KNIGHT, WHITE_KINGS_KNIGHT};
-		const int[] BLACK_KNIGHTS = new int[2] {BLACK_QUEENS_KNIGHT, BLACK_KINGS_KNIGHT};
-		const int[] WHITE_KINGS = new int[1] {WHITE_KING};
-		const int[] BLACK_KINGS = new int[1] {BLACK_KING};
+		static readonly int[] WHITE_DIAGONAL = new int[3] {WHITE_QUEENS_BISHOP, WHITE_QUEEN, WHITE_KINGS_BISHOP};
+		static readonly int[] BLACK_DIAGONAL = new int[3] {BLACK_QUEENS_BISHOP, BLACK_QUEEN, BLACK_KINGS_BISHOP};
+		static readonly int[] WHITE_STRAIGHT = new int[3] {WHITE_QUEENS_ROOK, WHITE_QUEEN, WHITE_KINGS_ROOK};
+		static readonly int[] BLACK_STRAIGHT = new int[3] {BLACK_QUEENS_ROOK, BLACK_QUEEN, BLACK_KINGS_ROOK};
+		static readonly int[] WHITE_PAWNS = new int[8] {WHITE_PAWN_1, WHITE_PAWN_2, WHITE_PAWN_3, WHITE_PAWN_4, WHITE_PAWN_5, WHITE_PAWN_6, WHITE_PAWN_7, WHITE_PAWN_8};
+		static readonly int[] BLACK_PAWNS = new int[8] {BLACK_PAWN_1, BLACK_PAWN_2, BLACK_PAWN_3, BLACK_PAWN_4, BLACK_PAWN_5, BLACK_PAWN_6, BLACK_PAWN_7, BLACK_PAWN_8};
+		static readonly int[] WHITE_KNIGHTS = new int[2] {WHITE_QUEENS_KNIGHT, WHITE_KINGS_KNIGHT};
+		static readonly int[] BLACK_KNIGHTS = new int[2] {BLACK_QUEENS_KNIGHT, BLACK_KINGS_KNIGHT};
+		static readonly int[] WHITE_KINGS = new int[1] {WHITE_KING};
+		static readonly int[] BLACK_KINGS = new int[1] {BLACK_KING};
 		
 	    public static bool isLegal(int turn, int[] board, int kingPositionRank, int kingPositionFile)
         {
-        	return isCheck(board, piecePositions, turn);
+        	return !isCheck(turn, board, kingPositionRank, kingPositionFile);
         }
         
         public static bool isCheck(int turn, int[] board, int kingPositionRank, int kingPositionFile)
@@ -104,17 +104,17 @@ namespace PAT.Lib
 			// white's turn
 			if (turn == 0)
 			{
-				return checkContinuous(board, kingPositionRank, kingPositionFile, BLACK_STRAIGHT, 3, 1, 1) ||
-					checkContinuous(board, kingPositionRank, kingPositionFile, BLACK_STRAIGHT, 3, 1, -1) ||
-					checkContinuous(board, kingPositionRank, kingPositionFile, BLACK_STRAIGHT, 3, -1, 1) ||
-					checkContinuous(board, kingPositionRank, kingPositionFile, BLACK_STRAIGHT, 3, -1, -1);
+				return checkContinuous(board, kingPositionRank, kingPositionFile, BLACK_STRAIGHT, 3, 1, 0) ||
+					checkContinuous(board, kingPositionRank, kingPositionFile, BLACK_STRAIGHT, 3, -1, 0) ||
+					checkContinuous(board, kingPositionRank, kingPositionFile, BLACK_STRAIGHT, 3, 0, 1) ||
+					checkContinuous(board, kingPositionRank, kingPositionFile, BLACK_STRAIGHT, 3, 0, -1);
 			}
 			else // black's turn
 			{
-				checkContinuous(board, kingPositionRank, kingPositionFile, WHITE_STRAIGHT, 3, 1, 1) ||
-					checkContinuous(board, kingPositionRank, kingPositionFile, WHITE_STRAIGHT, 3, 1, -1) ||
-					checkContinuous(board, kingPositionRank, kingPositionFile, WHITE_STRAIGHT, 3, -1, 1) ||
-					checkContinuous(board, kingPositionRank, kingPositionFile, WHITE_STRAIGHT, 3, -1, -1);
+				return checkContinuous(board, kingPositionRank, kingPositionFile, WHITE_STRAIGHT, 3, 1, 0) ||
+					checkContinuous(board, kingPositionRank, kingPositionFile, WHITE_STRAIGHT, 3, -1, 0) ||
+					checkContinuous(board, kingPositionRank, kingPositionFile, WHITE_STRAIGHT, 3, 0, 1) ||
+					checkContinuous(board, kingPositionRank, kingPositionFile, WHITE_STRAIGHT, 3, 0, -1);
 			}
 		}
 		
@@ -204,9 +204,10 @@ namespace PAT.Lib
 					for (int i = 0; i < size; i++)
 					{
 						if (board[location] == pieceList[i])
+						{
 							return true;
-					}
-					
+						}
+					}					
 					return false;
 				}
 				// if it's empty, move forward
@@ -225,7 +226,7 @@ namespace PAT.Lib
 			
 			// if the board is not empty
 			int location = kingPositionRank * 8 + kingPositionFile;
-			if (board[location] != 0)
+			if (withinBoard(kingPositionRank, kingPositionFile) && board[location] != 0)
 			{
 				for (int i = 0; i < size; i++)
 				{
