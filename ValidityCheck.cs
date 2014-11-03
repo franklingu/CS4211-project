@@ -172,7 +172,7 @@ namespace PAT.Lib
 					checkOnce(board, kingPositionRank, kingPositionFile, BLACK_KINGS, 1, 0, -1) ||
 					checkOnce(board, kingPositionRank, kingPositionFile, BLACK_KINGS, 1, -1, 1) ||
 					checkOnce(board, kingPositionRank, kingPositionFile, BLACK_KINGS, 1, -1, 0) ||
-					checkOnce(board, kingPositionRank, kingPositionFile, BLACK_KINGS, 1, -1, 1) ||
+					checkOnce(board, kingPositionRank, kingPositionFile, BLACK_KINGS, 1, -1, -1) ||
 					checkOnce(board, kingPositionRank, kingPositionFile, BLACK_KINGS, 1, 1, -1) ||
 					checkOnce(board, kingPositionRank, kingPositionFile, BLACK_KINGS, 1, 1, 0) ||
 					checkOnce(board, kingPositionRank, kingPositionFile, BLACK_KINGS, 1, 1, 1);
@@ -183,7 +183,7 @@ namespace PAT.Lib
 					checkOnce(board, kingPositionRank, kingPositionFile, WHITE_KINGS, 1, 0, -1) ||
 					checkOnce(board, kingPositionRank, kingPositionFile, WHITE_KINGS, 1, -1, 1) ||
 					checkOnce(board, kingPositionRank, kingPositionFile, WHITE_KINGS, 1, -1, 0) ||
-					checkOnce(board, kingPositionRank, kingPositionFile, WHITE_KINGS, 1, -1, 1) ||
+					checkOnce(board, kingPositionRank, kingPositionFile, WHITE_KINGS, 1, -1, -1) ||
 					checkOnce(board, kingPositionRank, kingPositionFile, WHITE_KINGS, 1, 1, -1) ||
 					checkOnce(board, kingPositionRank, kingPositionFile, WHITE_KINGS, 1, 1, 0) ||
 					checkOnce(board, kingPositionRank, kingPositionFile, WHITE_KINGS, 1, 1, 1);
@@ -220,7 +220,7 @@ namespace PAT.Lib
 		
 		// checks for pieces checking the king in a given position
 		public static bool checkOnce(int[] board, int kingPositionRank, int kingPositionFile, int[] pieceList, int size, int up, int right)
-		{
+		{				
 			kingPositionRank += up;
 			kingPositionFile += right;
 			
