@@ -1,8 +1,8 @@
 ﻿#include "constants.csp";
 //#include "testboard1.csp";
-//#include "board1.csp";
+#include "board1.csp";
 //#include "board2.csp";
-#include "board3.csp";
+//#include "board3.csp";
 //#include "board4.csp";
 //#include "board5.csp";
 //#include "board6.csp";
@@ -90,140 +90,36 @@ else
 	}
 };
 		
-moveOnce(piece, up, right) = if (piecePosition[piece][RANK] != DEAD && piecePosition[piece][FILE] != DEAD )
+moveOnce(piece, up, right) = 
+// if space is empty
+if(actualBoard[piecePosition[piece][RANK] + up][piecePosition[piece][FILE] + right] == 0)  
 {
-	// movement is within board
-	if ( piecePosition[piece][RANK] + up >= 0 && piecePosition[piece][RANK] + up <= BOARD_SIZE - 1 &&
-		piecePosition[piece][FILE] + right >= 0 && piecePosition[piece][FILE] + right <= BOARD_SIZE - 1 )
-	{
-		if (piece >= WHITE_PAWN_1 && piece <= WHITE_KINGS_ROOK) // white
-		{
-			// if space is empty
-			if(actualBoard[piecePosition[piece][RANK] + up][piecePosition[piece][FILE] + right] == 0)  
-			{
-				move{
-					// update the old position
-					actualBoard[piecePosition[piece][RANK]][piecePosition[piece][FILE]] = 0;
-					// update new position
-					piecePosition[piece][RANK] = piecePosition[piece][RANK] + up;
-					piecePosition[piece][FILE] = piecePosition[piece][FILE] + right;
-					actualBoard[piecePosition[piece][RANK]][piecePosition[piece][FILE]] = piece;
-					currentMove[RANK] = piecePosition[piece][RANK];
-					currentMove[FILE] = piecePosition[piece][FILE];
-					} -> execute()
-			}
-			// if space is occupied by an enemy piece
-			else if(actualBoard[piecePosition[piece][RANK] + up][piecePosition[piece][FILE] + right] >= BLACK_PAWN_1)
-			{
-				eat{
-					// kill the enemy piece!!!
-					piecePosition[actualBoard[piecePosition[piece][RANK] + up][piecePosition[piece][FILE] + right]][RANK] = DEAD;
-					piecePosition[actualBoard[piecePosition[piece][RANK] + up][piecePosition[piece][FILE] + right]][FILE] = DEAD;
-					// updating previous position to empty
-					actualBoard[piecePosition[piece][RANK]][piecePosition[piece][FILE]] = 0;
-					piecePosition[piece][RANK] = piecePosition[piece][RANK] + up;
-					piecePosition[piece][FILE] = piecePosition[piece][FILE] + right;
-					actualBoard[piecePosition[piece][RANK]][piecePosition[piece][FILE]] = piece;
-					currentMove[RANK] = piecePosition[piece][RANK];
-					currentMove[FILE] = piecePosition[piece][FILE];
-				} -> execute()
-			}
-			else
-			{
-				if(piece < WHITE_KINGS_ROOK)
-				{
-					whiteMakesNoMoves{
-						whiteNoMoves = 1;
-					} -> Skip
-				}
-				else
-				{
-					blackMakesNoMoves{
-						blackNoMoves = 1;
-					} -> Skip
-				}
-			}
-		}
-		else // black
-		{
-			// if space is empty
-			if(actualBoard[piecePosition[piece][RANK] + up][piecePosition[piece][FILE] + right] == 0)  
-			{
-				move{
-					// update the old position
-					actualBoard[piecePosition[piece][RANK]][piecePosition[piece][FILE]] = 0;
-					// update new position
-					piecePosition[piece][RANK] = piecePosition[piece][RANK] + up;
-					piecePosition[piece][FILE] = piecePosition[piece][FILE] + right;
-					actualBoard[piecePosition[piece][RANK]][piecePosition[piece][FILE]] = piece;
-					currentMove[RANK] = piecePosition[piece][RANK];
-					currentMove[FILE] = piecePosition[piece][FILE];
-				} -> execute()
-			}
-			// if space is occupied by an enemy piece
-			else if(actualBoard[piecePosition[piece][RANK] + up][piecePosition[piece][FILE] + right] <= WHITE_KINGS_ROOK)
-			{
-					eat{
-						// kill the enemy piece!!!
-						piecePosition[actualBoard[piecePosition[piece][RANK] + up][piecePosition[piece][FILE] + right]][RANK] = DEAD;
-						piecePosition[actualBoard[piecePosition[piece][RANK] + up][piecePosition[piece][FILE] + right]][FILE] = DEAD;
-						// update the old position
-						actualBoard[piecePosition[piece][RANK]][piecePosition[piece][FILE]] = 0;
-						// update new position
-						piecePosition[piece][RANK] = piecePosition[piece][RANK] + up;
-						piecePosition[piece][FILE] = piecePosition[piece][FILE] + right;
-						actualBoard[piecePosition[piece][RANK]][piecePosition[piece][FILE]] = piece;
-						currentMove[RANK] = piecePosition[piece][RANK];
-						currentMove[FILE] = piecePosition[piece][FILE];
-					} -> execute()
-			}
-			else
-			{
-				if(piece < WHITE_KINGS_ROOK)
-				{
-					whiteMakesNoMoves{
-						whiteNoMoves = 1;
-					} -> Skip
-				}
-				else
-				{
-					blackMakesNoMoves{
-						blackNoMoves = 1;
-					} -> Skip
-				}
-			}
-		}
-	}
-	else
-	{
-		if(piece < WHITE_KINGS_ROOK)
-		{
-			whiteMakesNoMoves{
-				whiteNoMoves = 1;
-			} -> Skip
-		}
-		else
-		{
-			blackMakesNoMoves{
-				blackNoMoves = 1;
-			} -> Skip
-		}
-	}
+	move{
+		// update the old position
+		actualBoard[piecePosition[piece][RANK]][piecePosition[piece][FILE]] = 0;
+		// update new position
+		piecePosition[piece][RANK] = piecePosition[piece][RANK] + up;
+		piecePosition[piece][FILE] = piecePosition[piece][FILE] + right;
+		actualBoard[piecePosition[piece][RANK]][piecePosition[piece][FILE]] = piece;
+		currentMove[RANK] = piecePosition[piece][RANK];
+		currentMove[FILE] = piecePosition[piece][FILE];
+		} -> execute()
 }
-else
+// if space is occupied by an enemy piece
+else 
 {
-	if(piece < WHITE_KINGS_ROOK)
-	{
-		whiteMakesNoMoves{
-			whiteNoMoves = 1;
-		} -> Skip
-	}
-	else
-	{
-		blackMakesNoMoves{
-			blackNoMoves = 1;
-		} -> Skip
-	}
+	eat{
+		// kill the enemy piece!!!
+		piecePosition[actualBoard[piecePosition[piece][RANK] + up][piecePosition[piece][FILE] + right]][RANK] = DEAD;
+		piecePosition[actualBoard[piecePosition[piece][RANK] + up][piecePosition[piece][FILE] + right]][FILE] = DEAD;
+		// updating previous position to empty
+		actualBoard[piecePosition[piece][RANK]][piecePosition[piece][FILE]] = 0;
+		piecePosition[piece][RANK] = piecePosition[piece][RANK] + up;
+		piecePosition[piece][FILE] = piecePosition[piece][FILE] + right;
+		actualBoard[piecePosition[piece][RANK]][piecePosition[piece][FILE]] = piece;
+		currentMove[RANK] = piecePosition[piece][RANK];
+		currentMove[FILE] = piecePosition[piece][FILE];
+	} -> execute()
 };
 
 
