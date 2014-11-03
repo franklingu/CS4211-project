@@ -63,6 +63,9 @@
 
 var currentTurn = WHITE_TURN;
 
+var numMoves = 0;
+var currentMove[2] = [0,0];
+
 // piece position keeps track of each piece's position
 /*var piecePosition[33][2] = [	DEAD, DEAD, // 0 - dummy
 								DEAD, DEAD, // 1 white pawn 1
