@@ -1,19 +1,105 @@
 ﻿#include "constants.csp";
-#include "board1.csp";
-//#include "board2.csp"
-//#include "board3.csp"
-//#include "board4.csp"
-//#include "board5.csp"
-//#include "board6.csp"
+//#include "testboard1.csp";
+//#include "board1.csp";
+//#include "board2.csp";
+#include "board3.csp";
+//#include "board4.csp";
+//#include "board5.csp";
+//#include "board6.csp";
 				 
 moveContinuous(piece, up, right) = if (piecePosition[piece][RANK] != DEAD && piecePosition[piece][FILE] != DEAD )
 {
 	// movement is within board
 	if ( piecePosition[piece][RANK] + up >= 0 && piecePosition[piece][RANK] + up <= BOARD_SIZE - 1 &&
 		piecePosition[piece][FILE] + right >= 0 && piecePosition[piece][FILE] + right <= BOARD_SIZE - 1 )
+	{
+		// if space is empty
+		if(actualBoard[piecePosition[piece][RANK] + up][piecePosition[piece][FILE] + right] == 0)
+		{
+			move{
+				// update the old position
+				actualBoard[piecePosition[piece][RANK]][piecePosition[piece][FILE]] = 0;
+				// update new position
+				piecePosition[piece][RANK] = piecePosition[piece][RANK] + up;
+				piecePosition[piece][FILE] = piecePosition[piece][FILE] + right;
+				actualBoard[piecePosition[piece][RANK]][piecePosition[piece][FILE]] = piece;
+				currentMove[RANK] = piecePosition[piece][RANK];
+				currentMove[FILE] = piecePosition[piece][FILE];
+			} -> (moveContinuous(piece, up, right) [] execute())
+		}
+		// if target is occupied by an enemy piece
+		else if((piece <= WHITE_KINGS_ROOK && actualBoard[piecePosition[piece][RANK] + up][piecePosition[piece][FILE] + right] >= BLACK_PAWN_1) ||
+				(piece >= BLACK_PAWN_1 && actualBoard[piecePosition[piece][RANK] + up][piecePosition[piece][FILE] + right] <= WHITE_KINGS_ROOK))
+		{
+			eat{
+				// kill the enemy piece!!!
+				piecePosition[actualBoard[piecePosition[piece][RANK] + up][piecePosition[piece][FILE] + right]][RANK] = DEAD;
+				piecePosition[actualBoard[piecePosition[piece][RANK] + up][piecePosition[piece][FILE] + right]][FILE] = DEAD;
+				// updating previous position to empty
+				actualBoard[piecePosition[piece][RANK]][piecePosition[piece][FILE]] = 0;
+				piecePosition[piece][RANK] = piecePosition[piece][RANK] + up;
+				piecePosition[piece][FILE] = piecePosition[piece][FILE] + right;
+				actualBoard[piecePosition[piece][RANK]][piecePosition[piece][FILE]] = piece;
+				currentMove[RANK] = piecePosition[piece][RANK];
+				currentMove[FILE] = piecePosition[piece][FILE];
+			} -> execute()
+		}			
+		else 
+		{
+			if(piece < WHITE_KINGS_ROOK)
+			{
+				whiteMakesNoMoves{
+					whiteNoMoves = 1;
+				} -> Skip
+			}
+			else
+			{
+				blackMakesNoMoves{
+					blackNoMoves = 1;
+				} -> Skip
+			}
+		}
+	} else {
+		if(piece < WHITE_KINGS_ROOK)
+		{
+			whiteMakesNoMoves{
+				whiteNoMoves = 1;
+			} -> Skip
+		}
+		else
+		{
+			blackMakesNoMoves{
+				blackNoMoves = 1;
+			} -> Skip
+		}
+	}
+}
+else
+{
+	if(piece < WHITE_KINGS_ROOK)
+	{
+		whiteMakesNoMoves{
+			whiteNoMoves = 1;
+		} -> Skip
+	}
+	else
+	{
+		blackMakesNoMoves{
+			blackNoMoves = 1;
+		} -> Skip
+	}
+};
+		
+moveOnce(piece, up, right) = if (piecePosition[piece][RANK] != DEAD && piecePosition[piece][FILE] != DEAD )
+{
+	// movement is within board
+	if ( piecePosition[piece][RANK] + up >= 0 && piecePosition[piece][RANK] + up <= BOARD_SIZE - 1 &&
+		piecePosition[piece][FILE] + right >= 0 && piecePosition[piece][FILE] + right <= BOARD_SIZE - 1 )
+	{
+		if (piece >= WHITE_PAWN_1 && piece <= WHITE_KINGS_ROOK) // white
 		{
 			// if space is empty
-			if(actualBoard[piecePosition[piece][RANK] + up][piecePosition[piece][FILE] + right] == 0)
+			if(actualBoard[piecePosition[piece][RANK] + up][piecePosition[piece][FILE] + right] == 0)  
 			{
 				move{
 					// update the old position
@@ -22,63 +108,122 @@ moveContinuous(piece, up, right) = if (piecePosition[piece][RANK] != DEAD && pie
 					piecePosition[piece][RANK] = piecePosition[piece][RANK] + up;
 					piecePosition[piece][FILE] = piecePosition[piece][FILE] + right;
 					actualBoard[piecePosition[piece][RANK]][piecePosition[piece][FILE]] = piece;
-				} -> moveContinuous(piece, up, right) [] validateWhite()
+					currentMove[RANK] = piecePosition[piece][RANK];
+					currentMove[FILE] = piecePosition[piece][FILE];
+					} -> execute()
 			}
-			// if target is occupied by a black piece and you are white
-			else if((piece <= WHITE_KINGS_ROOK && actualBoard[piecePosition[piece][RANK] + up][piecePosition[piece][FILE] + right] >= BLACK_PAWN_1) ||
-					(piece >= BLACK_PAWN_1 && actualBoard[piecePosition[piece][RANK] + up][piecePosition[piece][FILE] + right] <= WHITE_KINGS_ROOK))
+			// if space is occupied by an enemy piece
+			else if(actualBoard[piecePosition[piece][RANK] + up][piecePosition[piece][FILE] + right] >= BLACK_PAWN_1)
 			{
 				eat{
+					// kill the enemy piece!!!
+					piecePosition[actualBoard[piecePosition[piece][RANK] + up][piecePosition[piece][FILE] + right]][RANK] = DEAD;
+					piecePosition[actualBoard[piecePosition[piece][RANK] + up][piecePosition[piece][FILE] + right]][FILE] = DEAD;
+					// updating previous position to empty
 					actualBoard[piecePosition[piece][RANK]][piecePosition[piece][FILE]] = 0;
 					piecePosition[piece][RANK] = piecePosition[piece][RANK] + up;
 					piecePosition[piece][FILE] = piecePosition[piece][FILE] + right;
 					actualBoard[piecePosition[piece][RANK]][piecePosition[piece][FILE]] = piece;
-				} -> validateWhite()
-			}			
-			else {Stop}
-		} else {
-			Stop
+					currentMove[RANK] = piecePosition[piece][RANK];
+					currentMove[FILE] = piecePosition[piece][FILE];
+				} -> execute()
+			}
+			else
+			{
+				if(piece < WHITE_KINGS_ROOK)
+				{
+					whiteMakesNoMoves{
+						whiteNoMoves = 1;
+					} -> Skip
+				}
+				else
+				{
+					blackMakesNoMoves{
+						blackNoMoves = 1;
+					} -> Skip
+				}
+			}
 		}
-	}else{Stop};
-		
-moveOnce(piece, up, right) = if (piecePosition[piece][RANK] != DEAD && piecePosition[piece][FILE] != DEAD )
-{
-	// movement is within board
-	if ( piecePosition[piece][RANK] + up >= 0 && piecePosition[piece][RANK] + up <= BOARD_SIZE - 1 &&
-		piecePosition[piece][FILE] + right >= 0 && piecePosition[piece][FILE] + right <= BOARD_SIZE - 1 )
+		else // black
 		{
-			if (piece >= WHITE_PAWN_1 && piece <= WHITE_KINGS_ROOK) 
+			// if space is empty
+			if(actualBoard[piecePosition[piece][RANK] + up][piecePosition[piece][FILE] + right] == 0)  
 			{
-				// if space is empty
-				if(actualBoard[piecePosition[piece][RANK] + up][piecePosition[piece][FILE] + right] == 0 || 
-					actualBoard[piecePosition[piece][RANK] + up][piecePosition[piece][FILE] + right] >= BLACK_PAWN_1)
-				{
-						move{
-							// update the old position
-							actualBoard[piecePosition[piece][RANK]][piecePosition[piece][FILE]] = 0;
-							// update new position
-							piecePosition[piece][RANK] = piecePosition[piece][RANK] + up;
-							piecePosition[piece][FILE] = piecePosition[piece][FILE] + right;
-							actualBoard[piecePosition[piece][RANK]][piecePosition[piece][FILE]] = piece;
-							} -> validateWhite()
-				}
+				move{
+					// update the old position
+					actualBoard[piecePosition[piece][RANK]][piecePosition[piece][FILE]] = 0;
+					// update new position
+					piecePosition[piece][RANK] = piecePosition[piece][RANK] + up;
+					piecePosition[piece][FILE] = piecePosition[piece][FILE] + right;
+					actualBoard[piecePosition[piece][RANK]][piecePosition[piece][FILE]] = piece;
+					currentMove[RANK] = piecePosition[piece][RANK];
+					currentMove[FILE] = piecePosition[piece][FILE];
+				} -> execute()
 			}
-			else 
+			// if space is occupied by an enemy piece
+			else if(actualBoard[piecePosition[piece][RANK] + up][piecePosition[piece][FILE] + right] <= WHITE_KINGS_ROOK)
 			{
-				// if space is empty
-				if(actualBoard[piecePosition[piece][RANK] + up][piecePosition[piece][FILE] + right] <= WHITE_KINGS_ROOK)
+					eat{
+						// kill the enemy piece!!!
+						piecePosition[actualBoard[piecePosition[piece][RANK] + up][piecePosition[piece][FILE] + right]][RANK] = DEAD;
+						piecePosition[actualBoard[piecePosition[piece][RANK] + up][piecePosition[piece][FILE] + right]][FILE] = DEAD;
+						// update the old position
+						actualBoard[piecePosition[piece][RANK]][piecePosition[piece][FILE]] = 0;
+						// update new position
+						piecePosition[piece][RANK] = piecePosition[piece][RANK] + up;
+						piecePosition[piece][FILE] = piecePosition[piece][FILE] + right;
+						actualBoard[piecePosition[piece][RANK]][piecePosition[piece][FILE]] = piece;
+						currentMove[RANK] = piecePosition[piece][RANK];
+						currentMove[FILE] = piecePosition[piece][FILE];
+					} -> execute()
+			}
+			else
+			{
+				if(piece < WHITE_KINGS_ROOK)
 				{
-						move{
-							// update the old position
-							actualBoard[piecePosition[piece][RANK]][piecePosition[piece][FILE]] = 0;
-							// update new position
-							piecePosition[piece][RANK] = piecePosition[piece][RANK] + up;
-							piecePosition[piece][FILE] = piecePosition[piece][FILE] + right;
-							actualBoard[piecePosition[piece][RANK]][piecePosition[piece][FILE]] = piece;
-						} -> validateWhite()
+					whiteMakesNoMoves{
+						whiteNoMoves = 1;
+					} -> Skip
+				}
+				else
+				{
+					blackMakesNoMoves{
+						blackNoMoves = 1;
+					} -> Skip
 				}
 			}
 		}
+	}
+	else
+	{
+		if(piece < WHITE_KINGS_ROOK)
+		{
+			whiteMakesNoMoves{
+				whiteNoMoves = 1;
+			} -> Skip
+		}
+		else
+		{
+			blackMakesNoMoves{
+				blackNoMoves = 1;
+			} -> Skip
+		}
+	}
+}
+else
+{
+	if(piece < WHITE_KINGS_ROOK)
+	{
+		whiteMakesNoMoves{
+			whiteNoMoves = 1;
+		} -> Skip
+	}
+	else
+	{
+		blackMakesNoMoves{
+			blackNoMoves = 1;
+		} -> Skip
+	}
 };
 
 
@@ -86,19 +231,67 @@ movePawnOnce(piece, up) = if (piecePosition[piece][RANK] != DEAD && piecePositio
 {
 	// movement is within board, taking advantage of pawns are never on the final row of either side
 	if ( piecePosition[piece][RANK] + up >= 0 && piecePosition[piece][RANK] + up <= BOARD_SIZE - 1)
+	{
+		// if space is empty
+		if(actualBoard[piecePosition[piece][RANK] + up][piecePosition[piece][FILE]] == 0)
 		{
-			// if space is empty
-			if(actualBoard[piecePosition[piece][RANK] + up][piecePosition[piece][FILE]] == 0)
+			move{
+				// update the old position
+				actualBoard[piecePosition[piece][RANK]][piecePosition[piece][FILE]] = 0;
+				
+				// update new position
+				piecePosition[piece][RANK] = piecePosition[piece][RANK] + up;
+				actualBoard[piecePosition[piece][RANK]][piecePosition[piece][FILE]] = piece;
+				currentMove[RANK] = piecePosition[piece][RANK];
+				currentMove[FILE] = piecePosition[piece][FILE];
+			} -> execute()
+		}
+		else
+		{
+			if(piece < WHITE_KINGS_ROOK)
 			{
-				move{
-					// update the old position
-					actualBoard[piecePosition[piece][RANK]][piecePosition[piece][FILE]] = 0;
-					// update new position
-					piecePosition[piece][RANK] = piecePosition[piece][RANK] + up;
-					actualBoard[piecePosition[piece][RANK]][piecePosition[piece][FILE]] = piece;
-					} -> validateWhite()
+				whiteMakesNoMoves{
+					whiteNoMoves = 1;
+				} -> Skip
+			}
+			else
+			{
+				blackMakesNoMoves{
+					blackNoMoves = 1;
+				} -> Skip
 			}
 		}
+	}
+	else
+	{
+		if(piece < WHITE_KINGS_ROOK)
+		{
+			whiteMakesNoMoves{
+				whiteNoMoves = 1;
+			} -> Skip
+		}
+		else
+		{
+			blackMakesNoMoves{
+				blackNoMoves = 1;
+			} -> Skip
+		}
+	}
+}
+else
+{
+	if(piece < WHITE_KINGS_ROOK)
+	{
+		whiteMakesNoMoves{
+			whiteNoMoves = 1;
+		} -> Skip
+	}
+	else
+	{
+		blackMakesNoMoves{
+			blackNoMoves = 1;
+		} -> Skip
+	}
 };
 
 movePawnDiagonal(piece, up, right) = if (piecePosition[piece][RANK] != DEAD && piecePosition[piece][FILE] != DEAD)
@@ -111,13 +304,33 @@ movePawnDiagonal(piece, up, right) = if (piecePosition[piece][RANK] != DEAD && p
 			if (actualBoard[piecePosition[piece][RANK] + up][piecePosition[piece][FILE] + right] >= BLACK_PAWN_1)                    //if target is occupied by black pieces then white pawns can kill it
 			{
 				eat{
+					// kill the enemy piece!!!
+					piecePosition[actualBoard[piecePosition[piece][RANK] + up][piecePosition[piece][FILE] + right]][RANK] = DEAD;
+					piecePosition[actualBoard[piecePosition[piece][RANK] + up][piecePosition[piece][FILE] + right]][FILE] = DEAD;
+					// updating previous position to empty
 					actualBoard[piecePosition[piece][RANK]][piecePosition[piece][FILE]] = 0;
 					piecePosition[piece][RANK] = piecePosition[piece][RANK] + up;
 					piecePosition[piece][FILE] = piecePosition[piece][FILE] + right;
 					actualBoard[piecePosition[piece][RANK]][piecePosition[piece][FILE]] = piece;
-				} -> validateWhite()
+					currentMove[RANK] = piecePosition[piece][RANK];
+					currentMove[FILE] = piecePosition[piece][FILE];
+				} -> execute()
 			}
-			else { Stop }
+			else 
+			{ 
+				if(piece < WHITE_KINGS_ROOK)
+				{
+					whiteMakesNoMoves{
+						whiteNoMoves = 1;
+					} -> Skip
+				}
+				else
+				{
+					blackMakesNoMoves{
+						blackNoMoves = 1;
+					} -> Skip
+				}
+			}
 	  }
 	  else if(piece >= BLACK_PAWN_1)
 	  {
@@ -128,12 +341,57 @@ movePawnDiagonal(piece, up, right) = if (piecePosition[piece][RANK] != DEAD && p
 					piecePosition[piece][RANK] = piecePosition[piece][RANK] + up;
 					piecePosition[piece][FILE] = piecePosition[piece][FILE] + right;
 					actualBoard[piecePosition[piece][RANK]][piecePosition[piece][FILE]] = piece;
-				} -> validateBlack()
+					currentMove[RANK] = piecePosition[piece][RANK];
+					currentMove[FILE] = piecePosition[piece][FILE];
+				} -> execute()
 			}
-			else { Stop }
+			else 
+			{
+				if(piece < WHITE_KINGS_ROOK)
+				{
+					whiteMakesNoMoves{
+						whiteNoMoves = 1;
+					} -> Skip
+				}
+				else
+				{
+					blackMakesNoMoves{
+						blackNoMoves = 1;
+					} -> Skip
+				}
+			}
 	  }
 	}
-	else { Stop }
+	else 
+	{ 
+		if(piece < WHITE_KINGS_ROOK)
+		{
+			whiteMakesNoMoves{
+				whiteNoMoves = 1;
+			} -> Skip
+		}
+		else
+		{
+			blackMakesNoMoves{
+				blackNoMoves = 1;
+			} -> Skip
+		}
+	}
+}
+else
+{
+	if(piece < WHITE_KINGS_ROOK)
+	{
+		whiteMakesNoMoves{
+			whiteNoMoves = 1;
+		} -> Skip
+	}
+	else
+	{
+		blackMakesNoMoves{
+			blackNoMoves = 1;
+		} -> Skip
+	}
 };
 
 movePawnDouble(piece, up) = if (piecePosition[piece][RANK] != DEAD && piecePosition[piece][FILE] != DEAD)
@@ -149,9 +407,25 @@ movePawnDouble(piece, up) = if (piecePosition[piece][RANK] != DEAD && piecePosit
 					// update new position
 					piecePosition[piece][RANK] = piecePosition[piece][RANK] + up + up;
 					actualBoard[piecePosition[piece][RANK]][piecePosition[piece][FILE]] = piece;
-			} -> validateWhite()
+					currentMove[RANK] = piecePosition[piece][RANK];
+					currentMove[FILE] = piecePosition[piece][FILE];
+			} -> execute()
 		}
-		else { Stop }
+		else 
+		{
+			if(piece < WHITE_KINGS_ROOK)
+			{
+				whiteMakesNoMoves{
+					whiteNoMoves = 1;
+				} -> Skip
+			}
+			else
+			{
+				blackMakesNoMoves{
+					blackNoMoves = 1;
+				} -> Skip
+			}
+		}
 	}
 	else if(piece >= BLACK_PAWN_1)
 	{
@@ -164,11 +438,39 @@ movePawnDouble(piece, up) = if (piecePosition[piece][RANK] != DEAD && piecePosit
 					// update new position
 					piecePosition[piece][RANK] = piecePosition[piece][RANK] + up + up;
 					actualBoard[piecePosition[piece][RANK]][piecePosition[piece][FILE]] = piece;
-			} -> validateBlack()
+					currentMove[RANK] = piecePosition[piece][RANK];
+					currentMove[FILE] = piecePosition[piece][FILE];
+			} -> execute()
 		}
-		else { Stop }
+		else 
+		{
+			if(piece < WHITE_KINGS_ROOK)
+			{
+				whiteMakesNoMoves{
+					whiteNoMoves = 1;
+				} -> Skip
+			}
+			else
+			{
+				blackMakesNoMoves{
+					blackNoMoves = 1;
+				} -> Skip
+			}
+		}
+	}
+}
+else
+{
+	if(piece < WHITE_KINGS_ROOK)
+	{
+		whiteMakesNoMoves{
+			whiteNoMoves = 1;
+		} -> Skip
+	}
+	else
+	{
+		blackMakesNoMoves{
+			blackNoMoves = 1;
+		} -> Skip
 	}
 };
-										  
-validateWhite() = Stop;
-validateBlack() = Stop;
