@@ -1,5 +1,4 @@
-﻿#include "testboard1.csp";
-#include "rook.csp";
+﻿#include "rook.csp";
 #include "king.csp";
 #include "queen.csp";
 #include "bishop.csp";
@@ -10,42 +9,78 @@
 
 // checkStatus = [whiteStatus, blackStatus]
 var checkStatus[2] = [0,0];
+// flag for legal checks
+var whiteIllegal = 0;
+var blackIllegal = 0;
+// flag for invalid checks
+var whiteNoMoves = 0;
+var blackNoMoves = 0;
 
 game() = whiteMove();
+
 whiteMove() = whitePlan();
-blackMove() = blackPlan();
 
-whitePlan() = whiteKing() [] whiteQueen() [] whiteRook() [] whiteBishop() [] whiteKnights() [] whitePawn();
-blackPlan() = blackKing() [] blackQueen() [] blackRook() [] blackBishop() [] blackKnights() [] blackPawn();
+blackMove() = if(numMoves <= 1)
+{
+	blackPlan()
+};
 
-execute = if(currentTurn == 0){
+whitePlan() = whiteKing() [] whiteQueen(); // [] whiteRook() [] whiteBishop() [] whiteKnights() [] whitePawn();
+blackPlan() = blackKing(); //[] blackQueen() [] blackRook() [] blackBishop() [] blackKnights() [] blackPawn();
+
+execute = if(currentTurn == 0)
+{
 	if(call(isLegal, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE])){
-		turn {
+		changeTurn {
 			// current player no longer in check if move was legal
 			checkStatus[currentTurn] = 0;
 			// change turn
-			currentTurn = 1 - currentTurn;		 
+			currentTurn = 1 - currentTurn;	
+			// increase numMoves
+			numMoves = 1 + numMoves;
 		} -> blackInCheck
 	}
 	else
 	{
-		if(call(isLegal, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE])){
-			turn {
-				// current player no longer in check if move was legal
-				checkStatus[currentTurn] = 0;
-				// change turn
-				currentTurn = 1 - currentTurn;		 
-			} -> whiteInCheck
-		}
+		makeIllegal {
+			whiteIllegal = 1;
+		} -> Skip
+	}
+}
+else
+{
+	if(call(isLegal, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE])){
+		changeTurn {
+			// current player no longer in check if move was legal
+			checkStatus[currentTurn] = 0;
+			// change turn
+			currentTurn = 1 - currentTurn;		
+			// increase numMoves
+			numMoves = 1 + numMoves;			
+		} -> whiteInCheck
+	}
+	else
+	{
+		makeIllegal {
+			blackIllegal = 1;
+		} -> Skip
 	}
 };
 
 blackInCheck = if (call(isCheck, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE])) {
 			check {checkStatus[currentTurn] = 1;} -> blackMove()
+		}
+		else
+		{
+			check {checkStatus[currentTurn] = 0;} -> blackMove()
 		};
 
 whiteInCheck = if (call(isCheck, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE])) {
 			check {checkStatus[currentTurn] = 1;} -> whiteMove()
+		}
+		else
+		{
+			check {checkStatus[currentTurn] = 0;} -> whiteMove()
 		};
 		
 #define goal_queen actualBoard[RANK_1][FILE_D] == WHITE_QUEEN && 
@@ -53,3 +88,22 @@ whiteInCheck = if (call(isCheck, currentTurn, actualBoard, piecePosition[WHITE_K
 #assert game() reaches goal_queen;								
 #define goal currentTurn == 1;
 #assert game() reaches goal;
+
+#define blackNotInCheck checkStatus[1] == 0;
+#define blackCheck checkStatus[1] == 1;
+#define blackTurn currentTurn == BLACK_TURN;
+#define whiteHasMoved numMoves == 1;
+#define impossible numMoves == 4;
+#define whiteTurnAgain numMoves == 2;
+#define blackAlwaysIllegal blackIllegal == 1;
+#define blackAlwaysLegal blackIllegal == 0 && blackNoMoves == 0;
+#define whiteAlwaysIllegal whiteIllegal == 1 || whiteNoMoves == 1;
+
+#assert game() |= blackCheck R whiteTurnAgain;
+#assert game() reaches blackCheck;
+#assert game() |= []!(<> blackTurn && <> blackCheck && !<>[](whiteTurnAgain));
+#assert game() |= []!((<>blackCheck) U whiteTurnAgain);
+#assert game() |= ((<>blackCheck) U []!whiteTurnAgain);
+#assert game() |= []!(whiteHasMoved && blackCheck && ([]<>(blackAlwaysIllegal)));
+
+#assert game() |= !(impossible);
