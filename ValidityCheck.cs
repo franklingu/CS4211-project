@@ -64,9 +64,41 @@ namespace PAT.Lib
 		static readonly int[] WHITE_KINGS = new int[1] {WHITE_KING};
 		static readonly int[] BLACK_KINGS = new int[1] {BLACK_KING};
 		
-	    public static bool isLegal(int turn, int[] board, int kingPositionRank, int kingPositionFile)
+	    public static bool isLegal(int turn, int[] board, int kingPositionRank, int kingPositionFile, int startRank, int startFile, int up, int right)
         {
-        	return !isCheck(turn, board, kingPositionRank, kingPositionFile);
+			if ((8 * (startRank + up) + (startFile + right)) > 63)
+				return false;
+			// update if the king is moving
+			if (kingPositionRank == startRank && kingPositionFile == startFile)
+			{
+				kingPositionRank += up;
+				kingPositionFile += right;
+			}
+			// check if there is a piece in between
+			int tempRank = startRank;
+			int tempFile = startFile;
+			int unitUp = up > 0 ? 1 : (up < 0 ? -1 : 0);
+			int unitRight = right > 0 ? 1 : (right < 0 ? -1 : 0);
+			int i = 0;
+			for (i = 0; i < 8; i++)
+			{
+				tempRank += unitUp;
+				tempFile += unitRight;
+				
+				if (tempRank == (startRank + up) && tempFile == (startFile + right))
+					break;
+				else if(board[8 * tempRank + tempFile] > 0)
+					return false;
+			}
+			if (i == 8)
+				return false;
+			
+			int pieceInDest = board[8 * (startRank + up) + (startFile + right)];
+			board = updateBoard(board, startRank, startFile, startRank + up, startFile + right);
+        	bool answer = !isCheck(turn, board, kingPositionRank, kingPositionFile);
+			board = updateBoard(board, startRank + up, startFile + right, startRank, startFile);
+			board[8 * (startRank + up) + (startFile + right)] = pieceInDest;
+			return answer;
         }
         
         public static bool isCheck(int turn, int[] board, int kingPositionRank, int kingPositionFile)
@@ -237,6 +269,13 @@ namespace PAT.Lib
 			}
 
 			return false;
+		}
+		
+		public static int[] updateBoard(int[] board, int startRank, int startFile, int endRank, int endFile)
+		{
+			board[8 * endRank + endFile] = board[8 * startRank + startFile];
+			board[8 * startRank + startFile] = 0;
+			return board;
 		}
 		
 		// checks whether a given position is inside the board
