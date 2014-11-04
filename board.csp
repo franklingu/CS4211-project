@@ -1,12 +1,36 @@
 ﻿#include "constants.csp";
-#include "testboard1.csp";
+//#include "testboard1.csp";
 //#include "board1.csp";
 //#include "board2.csp";
 //#include "board3.csp";
-//#include "board4.csp";
+#include "board4.csp";
 //#include "board5.csp";
 //#include "board6.csp";
-				 
+
+moveOn(piece, up, right) = 
+// if space is empty
+[actualBoard[piecePosition[piece][RANK] + up][piecePosition[piece][FILE] + right] == 0]
+	move.pieceNames[piece].files[(piecePosition[piece][FILE] + right)].(piecePosition[piece][RANK] + up + 1){
+		// update the old position
+		actualBoard[piecePosition[piece][RANK]][piecePosition[piece][FILE]] = 0;
+		// update new position
+		piecePosition[piece][RANK] = piecePosition[piece][RANK] + up;
+		piecePosition[piece][FILE] = piecePosition[piece][FILE] + right;
+		actualBoard[piecePosition[piece][RANK]][piecePosition[piece][FILE]] = piece;
+	} -> execute()
+[]
+[actualBoard[piecePosition[piece][RANK] + up][piecePosition[piece][FILE] + right] != 0]
+	eat.pieceNames[piece].files[(piecePosition[piece][FILE] + right + 1)].(piecePosition[piece][RANK] + up + 1){
+		// kill the enemy piece!!!
+		piecePosition[actualBoard[piecePosition[piece][RANK] + up][piecePosition[piece][FILE] + right]][RANK] = DEAD;
+		piecePosition[actualBoard[piecePosition[piece][RANK] + up][piecePosition[piece][FILE] + right]][FILE] = DEAD;
+		// updating previous position to empty
+		actualBoard[piecePosition[piece][RANK]][piecePosition[piece][FILE]] = 0;
+		piecePosition[piece][RANK] = piecePosition[piece][RANK] + up;
+		piecePosition[piece][FILE] = piecePosition[piece][FILE] + right;
+		actualBoard[piecePosition[piece][RANK]][piecePosition[piece][FILE]] = piece;
+	} -> execute();
+
 moveContinuous(piece, up, right) = 
 // if space is empty
 if(actualBoard[piecePosition[piece][RANK] + up][piecePosition[piece][FILE] + right] == 0)
@@ -20,8 +44,6 @@ if(actualBoard[piecePosition[piece][RANK] + up][piecePosition[piece][FILE] + rig
 			piecePosition[piece][RANK] = piecePosition[piece][RANK] + up;
 			piecePosition[piece][FILE] = piecePosition[piece][FILE] + right;
 			actualBoard[piecePosition[piece][RANK]][piecePosition[piece][FILE]] = piece;
-			currentMove[RANK] = piecePosition[piece][RANK];
-			currentMove[FILE] = piecePosition[piece][FILE];
 		} -> ([( piecePosition[piece][RANK] + up >= 0 && piecePosition[piece][RANK] + up <= BOARD_SIZE - 1 && piecePosition[piece][FILE] + right >= 0 && piecePosition[piece][FILE] + right <= BOARD_SIZE - 1 ) && !(actualBoard[piecePosition[piece][RANK] + up][piecePosition[piece][FILE] + right] >= WHITE_PAWN_1 && actualBoard[piecePosition[piece][RANK] + up][piecePosition[piece][FILE] + right] <= WHITE_KINGS_ROOK)]moveContinuous(piece, up, right) [] execute())
 	}
 	else
@@ -33,8 +55,6 @@ if(actualBoard[piecePosition[piece][RANK] + up][piecePosition[piece][FILE] + rig
 			piecePosition[piece][RANK] = piecePosition[piece][RANK] + up;
 			piecePosition[piece][FILE] = piecePosition[piece][FILE] + right;
 			actualBoard[piecePosition[piece][RANK]][piecePosition[piece][FILE]] = piece;
-			currentMove[RANK] = piecePosition[piece][RANK];
-			currentMove[FILE] = piecePosition[piece][FILE];
 		} -> ([( piecePosition[piece][RANK] + up >= 0 && piecePosition[piece][RANK] + up <= BOARD_SIZE - 1 && piecePosition[piece][FILE] + right >= 0 && piecePosition[piece][FILE] + right <= BOARD_SIZE - 1 ) && !(actualBoard[piecePosition[piece][RANK] + up][piecePosition[piece][FILE] + right] >= BLACK_PAWN_1 && actualBoard[piecePosition[piece][RANK] + up][piecePosition[piece][FILE] + right] <= BLACK_KINGS_ROOK)]moveContinuous(piece, up, right) [] execute())
 	}
 }
@@ -50,8 +70,6 @@ else
 		piecePosition[piece][RANK] = piecePosition[piece][RANK] + up;
 		piecePosition[piece][FILE] = piecePosition[piece][FILE] + right;
 		actualBoard[piecePosition[piece][RANK]][piecePosition[piece][FILE]] = piece;
-		currentMove[RANK] = piecePosition[piece][RANK];
-		currentMove[FILE] = piecePosition[piece][FILE];
 	} -> execute()
 };
 		
@@ -65,9 +83,7 @@ if(actualBoard[piecePosition[piece][RANK] + up][piecePosition[piece][FILE] + rig
 		// update new position
 		piecePosition[piece][RANK] = piecePosition[piece][RANK] + up;
 		piecePosition[piece][FILE] = piecePosition[piece][FILE] + right;
-		actualBoard[piecePosition[piece][RANK]][piecePosition[piece][FILE]] = piece;
-		currentMove[RANK] = piecePosition[piece][RANK];
-		currentMove[FILE] = piecePosition[piece][FILE];
+		actualBoard[piecePosition[piece][RANK]][piecePosition[piece][FILE]] = piece;	
 	} -> execute()
 }
 // if space is occupied by an enemy piece
@@ -82,8 +98,6 @@ else
 		piecePosition[piece][RANK] = piecePosition[piece][RANK] + up;
 		piecePosition[piece][FILE] = piecePosition[piece][FILE] + right;
 		actualBoard[piecePosition[piece][RANK]][piecePosition[piece][FILE]] = piece;
-		currentMove[RANK] = piecePosition[piece][RANK];
-		currentMove[FILE] = piecePosition[piece][FILE];
 	} -> execute()
 };
 
@@ -103,8 +117,6 @@ movePawnOnce(piece, up) = if (piecePosition[piece][RANK] != DEAD && piecePositio
 				// update new position
 				piecePosition[piece][RANK] = piecePosition[piece][RANK] + up;
 				actualBoard[piecePosition[piece][RANK]][piecePosition[piece][FILE]] = piece;
-				currentMove[RANK] = piecePosition[piece][RANK];
-				currentMove[FILE] = piecePosition[piece][FILE];
 			} -> execute()
 		}
 		else
@@ -173,8 +185,6 @@ movePawnDiagonal(piece, up, right) = if (piecePosition[piece][RANK] != DEAD && p
 					piecePosition[piece][RANK] = piecePosition[piece][RANK] + up;
 					piecePosition[piece][FILE] = piecePosition[piece][FILE] + right;
 					actualBoard[piecePosition[piece][RANK]][piecePosition[piece][FILE]] = piece;
-					currentMove[RANK] = piecePosition[piece][RANK];
-					currentMove[FILE] = piecePosition[piece][FILE];
 				} -> execute()
 			}
 			else 
@@ -202,8 +212,6 @@ movePawnDiagonal(piece, up, right) = if (piecePosition[piece][RANK] != DEAD && p
 					piecePosition[piece][RANK] = piecePosition[piece][RANK] + up;
 					piecePosition[piece][FILE] = piecePosition[piece][FILE] + right;
 					actualBoard[piecePosition[piece][RANK]][piecePosition[piece][FILE]] = piece;
-					currentMove[RANK] = piecePosition[piece][RANK];
-					currentMove[FILE] = piecePosition[piece][FILE];
 				} -> execute()
 			}
 			else 
@@ -268,8 +276,6 @@ movePawnDouble(piece, up) = if (piecePosition[piece][RANK] != DEAD && piecePosit
 					// update new position
 					piecePosition[piece][RANK] = piecePosition[piece][RANK] + up + up;
 					actualBoard[piecePosition[piece][RANK]][piecePosition[piece][FILE]] = piece;
-					currentMove[RANK] = piecePosition[piece][RANK];
-					currentMove[FILE] = piecePosition[piece][FILE];
 			} -> execute()
 		}
 		else 
@@ -299,8 +305,6 @@ movePawnDouble(piece, up) = if (piecePosition[piece][RANK] != DEAD && piecePosit
 					// update new position
 					piecePosition[piece][RANK] = piecePosition[piece][RANK] + up + up;
 					actualBoard[piecePosition[piece][RANK]][piecePosition[piece][FILE]] = piece;
-					currentMove[RANK] = piecePosition[piece][RANK];
-					currentMove[FILE] = piecePosition[piece][FILE];
 			} -> execute()
 		}
 		else 
