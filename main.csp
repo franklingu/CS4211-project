@@ -9,41 +9,42 @@
 
 game() = whiteMove();
 
-whiteMove() = whitePlan();
+whiteMove() = [numMoves <= 2] whitePlan();
+blackMove() = [numMoves <= 2] blackPlan();
 
-blackMove() = if(numMoves <= 2)
-{
-	blackPlan()
-};
-
-whitePlan() = whiteKing() [] whiteRook(); // [] whiteQueen() [] whiteBishop() [] whiteKnights() [] whitePawn();
-blackPlan() = blackKing() [] blackRook(); //[] blackQueen() [] blackRook() [] blackBishop() [] blackKnights() [] blackPawn();
+whitePlan() = whiteKing() [] whiteRook() [] whiteQueen();// [] whiteBishop() [] whiteKnights() [] whitePawn();
+blackPlan() = blackKing() [] blackRook() [] blackQueen();// [] blackRook() [] blackBishop() [] blackKnights() [] blackPawn();
 
 execute() = 
-	changeTurn {
+	[currentTurn == 1] whiteToPlay {
 		// current player no longer in check if move was legal
 		checkStatus[currentTurn] = 0;
 		// change turn
 		currentTurn = 1 - currentTurn;	
 		// increase numMoves
 		numMoves = 1 + numMoves;
-	} -> (([currentTurn == 1] blackInCheck) [] ([currentTurn == 0] whiteInCheck));
+	} -> whiteInCheck()
+	[]
+	[currentTurn == 0] blackToPlay {
+		// current player no longer in check if move was legal
+		checkStatus[currentTurn] = 0;
+		// change turn
+		currentTurn = 1 - currentTurn;	
+		// increase numMoves
+		numMoves = 1 + numMoves;
+	} -> blackInCheck();
 
-blackInCheck = if (call(isCheck, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE])) {
-			check {checkStatus[currentTurn] = 1;} -> blackMove()
-		}
-		else
-		{
-			check {checkStatus[currentTurn] = 0;} -> blackMove()
-		};
+blackInCheck = [call(isCheck, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE])]
+			blackIsInCheck {checkStatus[currentTurn] = 1;} -> blackMove()
+			[]
+			[!call(isCheck, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE])]
+			blackIsNotInCheck {checkStatus[currentTurn] = 0;} -> blackMove();
 
-whiteInCheck = if (call(isCheck, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE])) {
-			check {checkStatus[currentTurn] = 1;} -> whiteMove()
-		}
-		else
-		{
-			check {checkStatus[currentTurn] = 0;} -> whiteMove()
-		};
+whiteInCheck = [call(isCheck, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE])]
+			whiteIsInCheck {checkStatus[currentTurn] = 1;} -> whiteMove()
+			[]
+			[!call(isCheck, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE])]
+			whiteIsNotInCheck {checkStatus[currentTurn] = 0;} -> whiteMove();
 		
 #define goal_queen actualBoard[RANK_1][FILE_D] == WHITE_QUEEN && 
 								piecePosition[WHITE_QUEEN][RANK] == RANK_1 && piecePosition[WHITE_QUEEN][FILE] == FILE_D;
