@@ -66,7 +66,13 @@ namespace PAT.Lib
 		
 	    public static bool isLegal(int turn, int[] board, int kingPositionRank, int kingPositionFile, int startRank, int startFile, int up, int right)
         {
-			if ((8 * (startRank + up) + (startFile + right)) > 63)
+			int endRank = (startRank + up);
+			int endFile = (startFile + right);
+			if (isDead(startRank, startFile))
+				return false;
+			if (!withinBoard(endRank, endFile))
+				return false;
+			if (isSame(board, startRank, startFile, endRank, endFile))
 				return false;
 			// update if the king is moving
 			if (kingPositionRank == startRank && kingPositionFile == startFile)
@@ -284,5 +290,30 @@ namespace PAT.Lib
 			return x > -1 && x < 8 && y > -1 && y < 8;
 		}
 		
+		// checks whether a piece is dead
+		public static bool isDead(int rank, int file)
+		{
+			return rank == -1 || file == -1;
+		}
+		
+		// checks whether a piece is white
+		public static bool isWhite(int[] board, int x, int y)
+		{
+			int piece = board[8 * x + y];
+			return (piece >= WHITE_PAWN_1) && (piece <= WHITE_KINGS_ROOK);
+		}
+		
+		// checks whether a piece is black
+		public static bool isBlack(int[] board, int x, int y)
+		{
+			int piece = board[8 * x + y];
+			return (piece >= BLACK_PAWN_1) && (piece <= BLACK_KINGS_ROOK);
+		}
+		
+		// checks whether two pieces are of the same color
+		public static bool isSame(int[] board, int movingFile, int movingRank, int targetFile, int targetRank)
+		{
+			return (isWhite(board, movingFile, movingRank) && isWhite(board, targetFile, targetRank)) || (isBlack(board, movingFile, movingRank) && isBlack(board, targetFile, targetRank));
+		}
     }
 }
