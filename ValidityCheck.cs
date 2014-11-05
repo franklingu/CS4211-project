@@ -2,25 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-//the namespace must be PAT.Lib, the class and method names can be arbitrary
 namespace PAT.Lib
 {
-    /// <summary>
-    /// The math library that can be used in your model.
-    /// all methods should be declared as public static.
-    /// 
-    /// The parameters must be of type "int", or "int array"
-    /// The number of parameters can be 0 or many
-    /// 
-    /// The return type can be bool, int or int[] only.
-    /// 
-    /// The method name will be used directly in your model.
-    /// e.g. call(max, 10, 2), call(dominate, 3, 2), call(amax, [1,3,5]),
-    /// 
-    /// Note: method names are case sensetive
-    /// </summary>
     public class Validity
     {
+		// constants declaration
     	const int WHITE_PAWN_1 = 1;
 		const int WHITE_PAWN_2 = 2;
 		const int WHITE_PAWN_3 = 3;
@@ -53,6 +39,7 @@ namespace PAT.Lib
 		const int BLACK_KINGS_BISHOP = 30;
 		const int BLACK_KINGS_KNIGHT = 31;
 		const int BLACK_KINGS_ROOK = 32;
+		// piece group lists
 		static readonly int[] WHITE_DIAGONAL = new int[3] {WHITE_QUEENS_BISHOP, WHITE_QUEEN, WHITE_KINGS_BISHOP};
 		static readonly int[] BLACK_DIAGONAL = new int[3] {BLACK_QUEENS_BISHOP, BLACK_QUEEN, BLACK_KINGS_BISHOP};
 		static readonly int[] WHITE_STRAIGHT = new int[3] {WHITE_QUEENS_ROOK, WHITE_QUEEN, WHITE_KINGS_ROOK};
@@ -64,6 +51,7 @@ namespace PAT.Lib
 		static readonly int[] WHITE_KINGS = new int[1] {WHITE_KING};
 		static readonly int[] BLACK_KINGS = new int[1] {BLACK_KING};
 		
+		// checks whether a move starting from (startRank, startFile) is legal (i.e the king is not in check after the move) in the direction (up, right)
 	    public static bool isLegal(int turn, int[] board, int kingPositionRank, int kingPositionFile, int startRank, int startFile, int up, int right)
         {
 			int endRank = (startRank + up);
@@ -93,6 +81,7 @@ namespace PAT.Lib
 			return answer;
         }
         
+		// checks whether the king is in check from a given board position
         public static bool isCheck(int turn, int[] board, int kingPositionRank, int kingPositionFile)
         {       	
         	return checkDiagonal(turn, board, kingPositionRank, kingPositionFile) ||
@@ -308,6 +297,7 @@ namespace PAT.Lib
 			return (isWhite(board, movingFile, movingRank) && isWhite(board, targetFile, targetRank)) || (isBlack(board, movingFile, movingRank) && isBlack(board, targetFile, targetRank));
 		}
 		
+		// checks whether there is a piece between initial position and destination
 		public static bool isPathClear(int[] board, int startRank, int startFile, int up, int right)
 		{
 			// check if there is a piece in between
@@ -331,6 +321,7 @@ namespace PAT.Lib
 			return true;
 		}
 		
+		// checks whether a piece is a knight
 		public static bool isKnight (int piece)
 		{
 			return piece == WHITE_QUEENS_KNIGHT || piece == WHITE_KINGS_KNIGHT || piece == BLACK_QUEENS_KNIGHT || piece == BLACK_KINGS_KNIGHT;
