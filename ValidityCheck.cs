@@ -74,30 +74,16 @@ namespace PAT.Lib
 				return false;
 			if (isSame(board, startRank, startFile, endRank, endFile))
 				return false;
+			int piece = board[8 * (startRank) + (startFile)];
+			if (!isKnight(piece) && !isPathClear(board, startRank, startFile, up, right))
+				return false;
+				
 			// update if the king is moving
 			if (kingPositionRank == startRank && kingPositionFile == startFile)
 			{
 				kingPositionRank += up;
 				kingPositionFile += right;
 			}
-			// check if there is a piece in between
-			int tempRank = startRank;
-			int tempFile = startFile;
-			int unitUp = up > 0 ? 1 : (up < 0 ? -1 : 0);
-			int unitRight = right > 0 ? 1 : (right < 0 ? -1 : 0);
-			int i = 0;
-			for (i = 0; i < 8; i++)
-			{
-				tempRank += unitUp;
-				tempFile += unitRight;
-				
-				if (tempRank == (startRank + up) && tempFile == (startFile + right))
-					break;
-				else if(board[8 * tempRank + tempFile] > 0)
-					return false;
-			}
-			if (i == 8)
-				return false;
 			
 			int pieceInDest = board[8 * (startRank + up) + (startFile + right)];
 			board = updateBoard(board, startRank, startFile, startRank + up, startFile + right);
@@ -162,13 +148,13 @@ namespace PAT.Lib
 			// white's turn
 			if (turn == 0)
 			{
-				return checkOnce(board, kingPositionRank, kingPositionFile, BLACK_PAWNS, 8, -1, 1) ||
-					checkOnce(board, kingPositionRank, kingPositionFile, BLACK_PAWNS, 8, -1, -1);
+				return checkOnce(board, kingPositionRank, kingPositionFile, BLACK_PAWNS, 8, 1, 1) ||
+					checkOnce(board, kingPositionRank, kingPositionFile, BLACK_PAWNS, 8, 1, -1);
 			}
 			else // black's turn
 			{
-				return checkOnce(board, kingPositionRank, kingPositionFile, WHITE_PAWNS, 8, 1, 1) ||
-					checkOnce(board, kingPositionRank, kingPositionFile, WHITE_PAWNS, 8, 1, -1);
+				return checkOnce(board, kingPositionRank, kingPositionFile, WHITE_PAWNS, 8, -1, 1) ||
+					checkOnce(board, kingPositionRank, kingPositionFile, WHITE_PAWNS, 8, -1, -1);
 			}
 		}
 		
@@ -296,6 +282,12 @@ namespace PAT.Lib
 			return rank == -1 || file == -1;
 		}
 		
+		// checks whether a tile is empty
+		public static bool isEmpty(int[] board, int rank, int file)
+		{
+			return !isWhite(board, rank, file) && !isBlack(board, rank, file);
+		}
+		
 		// checks whether a piece is white
 		public static bool isWhite(int[] board, int x, int y)
 		{
@@ -314,6 +306,34 @@ namespace PAT.Lib
 		public static bool isSame(int[] board, int movingFile, int movingRank, int targetFile, int targetRank)
 		{
 			return (isWhite(board, movingFile, movingRank) && isWhite(board, targetFile, targetRank)) || (isBlack(board, movingFile, movingRank) && isBlack(board, targetFile, targetRank));
+		}
+		
+		public static bool isPathClear(int[] board, int startRank, int startFile, int up, int right)
+		{
+			// check if there is a piece in between
+			int tempRank = startRank;
+			int tempFile = startFile;
+			int unitUp = up > 0 ? 1 : (up < 0 ? -1 : 0);
+			int unitRight = right > 0 ? 1 : (right < 0 ? -1 : 0);
+			int i = 0;
+			for (i = 0; i < 8; i++)
+			{
+				tempRank += unitUp;
+				tempFile += unitRight;
+				
+				if (tempRank == (startRank + up) && tempFile == (startFile + right))
+					break;
+				else if(board[8 * tempRank + tempFile] > 0)
+					return false;
+			}
+			if (i == 8)
+				return false;
+			return true;
+		}
+		
+		public static bool isKnight (int piece)
+		{
+			return piece == WHITE_QUEENS_KNIGHT || piece == WHITE_KINGS_KNIGHT || piece == BLACK_QUEENS_KNIGHT || piece == BLACK_KINGS_KNIGHT;
 		}
     }
 }
