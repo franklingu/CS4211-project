@@ -5,13 +5,23 @@
 #include "pawn.csp";
 #include "knight.csp";
 
+//#include "testboard1.csp";
+//#include "board1.csp";
+//#include "board2.csp";
+//#include "board3.csp";
+//#include "board4.csp";
+//#include "board5.csp";
+#include "board6.csp";
+
 #import "ValidityCheck";
 
+// the game starts with white to play
 game() = whiteMove();
 
 whiteMove() = [numMoves <= 2] whitePlan();
 blackMove() = [numMoves <= 2] blackPlan();
 
+// each side can move any of its pieces
 whitePlan() = whiteKing() [] whiteRook() [] whiteQueen() [] whiteBishop() [] whitePawn() [] whiteKnights();
 blackPlan() = blackKing() [] blackRook() [] blackQueen() [] blackBishop() [] blackPawn() [] blackKnights();
 
@@ -34,6 +44,7 @@ execute() =
 		numMoves = 1 + numMoves;
 	} -> blackInCheck();
 
+// updates the check status for the side that is about to play
 blackInCheck = [call(isCheck, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE])]
 			blackIsInCheck {checkStatus[currentTurn] = 1;} -> blackMove()
 			[]

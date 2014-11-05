@@ -1,11 +1,4 @@
 ﻿#include "constants.csp";
-#include "testboard1.csp";
-//#include "board1.csp";
-//#include "board2.csp";
-//#include "board3.csp";
-//#include "board4.csp";
-//#include "board5.csp";
-//#include "board6.csp";
 
 movePiece(piece, up, right) = 
 // if space is empty
