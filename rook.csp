@@ -1,4 +1,4 @@
-﻿#include "board.csp";
+﻿#include "move.csp";
 
 whiteRook() = whiteRookMove(1) [] whiteRookMove(2) [] whiteRookMove(3) [] whiteRookMove(4) [] whiteRookMove(5) [] whiteRookMove(6) [] whiteRookMove(7);
 
@@ -9,15 +9,15 @@ whiteRookDown(i) = whiteQueensRookDown(i) [] whiteKingsRookDown(i);
 whiteRookLeft(i) = whiteQueensRookLeft(i) [] whiteKingsRookLeft(i);
 whiteRookRight(i) = whiteQueensRookRight(i) [] whiteKingsRookRight(i);
 
-whiteQueensRookUp(i) = [call(isLegal, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE], piecePosition[WHITE_QUEENS_ROOK][RANK], piecePosition[WHITE_QUEENS_ROOK][FILE], i, 0)]moveOn(WHITE_QUEENS_ROOK, i, 0);
-whiteQueensRookDown(i) = [call(isLegal, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE], piecePosition[WHITE_QUEENS_ROOK][RANK], piecePosition[WHITE_QUEENS_ROOK][FILE], -i, 0)]moveOn(WHITE_QUEENS_ROOK, -i, 0);
-whiteQueensRookLeft(i) = [call(isLegal, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE], piecePosition[WHITE_QUEENS_ROOK][RANK], piecePosition[WHITE_QUEENS_ROOK][FILE], 0, -i)]moveOn(WHITE_QUEENS_ROOK, 0, -i);
-whiteQueensRookRight(i) = [call(isLegal, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE], piecePosition[WHITE_QUEENS_ROOK][RANK], piecePosition[WHITE_QUEENS_ROOK][FILE], 0, i)]moveOn(WHITE_QUEENS_ROOK, 0, i);
+whiteQueensRookUp(i) = [call(isLegal, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE], piecePosition[WHITE_QUEENS_ROOK][RANK], piecePosition[WHITE_QUEENS_ROOK][FILE], i, 0)]movePiece(WHITE_QUEENS_ROOK, i, 0);
+whiteQueensRookDown(i) = [call(isLegal, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE], piecePosition[WHITE_QUEENS_ROOK][RANK], piecePosition[WHITE_QUEENS_ROOK][FILE], -i, 0)]movePiece(WHITE_QUEENS_ROOK, -i, 0);
+whiteQueensRookLeft(i) = [call(isLegal, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE], piecePosition[WHITE_QUEENS_ROOK][RANK], piecePosition[WHITE_QUEENS_ROOK][FILE], 0, -i)]movePiece(WHITE_QUEENS_ROOK, 0, -i);
+whiteQueensRookRight(i) = [call(isLegal, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE], piecePosition[WHITE_QUEENS_ROOK][RANK], piecePosition[WHITE_QUEENS_ROOK][FILE], 0, i)]movePiece(WHITE_QUEENS_ROOK, 0, i);
 
-whiteKingsRookUp(i) = [call(isLegal, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE], piecePosition[WHITE_KINGS_ROOK][RANK], piecePosition[WHITE_KINGS_ROOK][FILE], i, 0)]moveOn(WHITE_KINGS_ROOK, i, 0);
-whiteKingsRookDown(i) = [call(isLegal, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE], piecePosition[WHITE_KINGS_ROOK][RANK], piecePosition[WHITE_KINGS_ROOK][FILE], -i, 0)]moveOn(WHITE_KINGS_ROOK, -i, 0);
-whiteKingsRookLeft(i) = [call(isLegal, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE], piecePosition[WHITE_KINGS_ROOK][RANK], piecePosition[WHITE_KINGS_ROOK][FILE], 0, -i)]moveOn(WHITE_KINGS_ROOK, 0, -i);
-whiteKingsRookRight(i) = [call(isLegal, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE], piecePosition[WHITE_KINGS_ROOK][RANK], piecePosition[WHITE_KINGS_ROOK][FILE], 0, i)]moveOn(WHITE_KINGS_ROOK, 0, i);					 
+whiteKingsRookUp(i) = [call(isLegal, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE], piecePosition[WHITE_KINGS_ROOK][RANK], piecePosition[WHITE_KINGS_ROOK][FILE], i, 0)]movePiece(WHITE_KINGS_ROOK, i, 0);
+whiteKingsRookDown(i) = [call(isLegal, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE], piecePosition[WHITE_KINGS_ROOK][RANK], piecePosition[WHITE_KINGS_ROOK][FILE], -i, 0)]movePiece(WHITE_KINGS_ROOK, -i, 0);
+whiteKingsRookLeft(i) = [call(isLegal, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE], piecePosition[WHITE_KINGS_ROOK][RANK], piecePosition[WHITE_KINGS_ROOK][FILE], 0, -i)]movePiece(WHITE_KINGS_ROOK, 0, -i);
+whiteKingsRookRight(i) = [call(isLegal, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE], piecePosition[WHITE_KINGS_ROOK][RANK], piecePosition[WHITE_KINGS_ROOK][FILE], 0, i)]movePiece(WHITE_KINGS_ROOK, 0, i);					 
 
 blackRook() = blackRookMove(1) [] blackRookMove(2) [] blackRookMove(3) [] blackRookMove(4) [] blackRookMove(5) [] blackRookMove(6) [] blackRookMove(7);
 
@@ -28,15 +28,15 @@ blackRookDown(i) = blackQueensRookDown(i) [] blackKingsRookDown(i);
 blackRookLeft(i) = blackQueensRookLeft(i) [] blackKingsRookLeft(i);
 blackRookRight(i) = blackQueensRookRight(i) [] blackKingsRookRight(i);
 
-blackQueensRookUp(i) = [call(isLegal, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE], piecePosition[BLACK_QUEENS_ROOK][RANK], piecePosition[BLACK_QUEENS_ROOK][FILE], i, 0)]moveOn(BLACK_QUEENS_ROOK, i, 0);
-blackQueensRookDown(i) = [call(isLegal, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE], piecePosition[BLACK_QUEENS_ROOK][RANK], piecePosition[BLACK_QUEENS_ROOK][FILE], -7, 0)]moveOn(BLACK_QUEENS_ROOK, -i, 0);
-blackQueensRookLeft(i) = [call(isLegal, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE], piecePosition[BLACK_QUEENS_ROOK][RANK], piecePosition[BLACK_QUEENS_ROOK][FILE], 0, -i)]moveOn(BLACK_QUEENS_ROOK, 0, -i);
-blackQueensRookRight(i) = [call(isLegal, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE], piecePosition[BLACK_QUEENS_ROOK][RANK], piecePosition[BLACK_QUEENS_ROOK][FILE], 0, i)]moveOn(BLACK_QUEENS_ROOK, 0, i);
+blackQueensRookUp(i) = [call(isLegal, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE], piecePosition[BLACK_QUEENS_ROOK][RANK], piecePosition[BLACK_QUEENS_ROOK][FILE], i, 0)]movePiece(BLACK_QUEENS_ROOK, i, 0);
+blackQueensRookDown(i) = [call(isLegal, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE], piecePosition[BLACK_QUEENS_ROOK][RANK], piecePosition[BLACK_QUEENS_ROOK][FILE], -7, 0)]movePiece(BLACK_QUEENS_ROOK, -i, 0);
+blackQueensRookLeft(i) = [call(isLegal, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE], piecePosition[BLACK_QUEENS_ROOK][RANK], piecePosition[BLACK_QUEENS_ROOK][FILE], 0, -i)]movePiece(BLACK_QUEENS_ROOK, 0, -i);
+blackQueensRookRight(i) = [call(isLegal, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE], piecePosition[BLACK_QUEENS_ROOK][RANK], piecePosition[BLACK_QUEENS_ROOK][FILE], 0, i)]movePiece(BLACK_QUEENS_ROOK, 0, i);
 
-blackKingsRookUp(i) = [call(isLegal, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE], piecePosition[BLACK_KINGS_ROOK][RANK], piecePosition[BLACK_KINGS_ROOK][FILE], i, 0)]moveOn(BLACK_KINGS_ROOK, i, 0);
-blackKingsRookDown(i) = [call(isLegal, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE], piecePosition[BLACK_KINGS_ROOK][RANK], piecePosition[BLACK_KINGS_ROOK][FILE], -i, 0)]moveOn(BLACK_KINGS_ROOK, -i, 0);
-blackKingsRookLeft(i) = [call(isLegal, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE], piecePosition[BLACK_KINGS_ROOK][RANK], piecePosition[BLACK_KINGS_ROOK][FILE], 0, -i)]moveOn(BLACK_KINGS_ROOK, 0, -i);
-blackKingsRookRight(i) = [call(isLegal, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE], piecePosition[BLACK_KINGS_ROOK][RANK], piecePosition[BLACK_KINGS_ROOK][FILE], 0, i)]moveOn(BLACK_KINGS_ROOK, 0, i);	
+blackKingsRookUp(i) = [call(isLegal, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE], piecePosition[BLACK_KINGS_ROOK][RANK], piecePosition[BLACK_KINGS_ROOK][FILE], i, 0)]movePiece(BLACK_KINGS_ROOK, i, 0);
+blackKingsRookDown(i) = [call(isLegal, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE], piecePosition[BLACK_KINGS_ROOK][RANK], piecePosition[BLACK_KINGS_ROOK][FILE], -i, 0)]movePiece(BLACK_KINGS_ROOK, -i, 0);
+blackKingsRookLeft(i) = [call(isLegal, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE], piecePosition[BLACK_KINGS_ROOK][RANK], piecePosition[BLACK_KINGS_ROOK][FILE], 0, -i)]movePiece(BLACK_KINGS_ROOK, 0, -i);
+blackKingsRookRight(i) = [call(isLegal, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE], piecePosition[BLACK_KINGS_ROOK][RANK], piecePosition[BLACK_KINGS_ROOK][FILE], 0, i)]movePiece(BLACK_KINGS_ROOK, 0, i);	
 
 moveBlackRook() = changeTurnToBlack{currentTurn = BLACK_TURN;} -> blackRook();
 
