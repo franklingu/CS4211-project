@@ -10,7 +10,13 @@ movePiece(piece, up, right) =
 		piecePosition[piece][RANK] = piecePosition[piece][RANK] + up;
 		piecePosition[piece][FILE] = piecePosition[piece][FILE] + right;
 		actualBoard[piecePosition[piece][RANK]][piecePosition[piece][FILE]] = piece;
-	} -> execute()
+		// current player no longer in check if move was legal
+		checkStatus[currentTurn] = 0;
+		// change turn
+		currentTurn = 1 - currentTurn;	
+		// increase numMoves
+		numMoves = 1 + numMoves;
+	} -> (([currentTurn == 1] blackInCheck()) [] ([currentTurn == 0] whiteInCheck()))
 []
 [actualBoard[piecePosition[piece][RANK] + up][piecePosition[piece][FILE] + right] != 0]
 	eat.pieceNames[piece].files[(piecePosition[piece][FILE] + right)].(piecePosition[piece][RANK] + up + 1){
@@ -22,4 +28,10 @@ movePiece(piece, up, right) =
 		piecePosition[piece][RANK] = piecePosition[piece][RANK] + up;
 		piecePosition[piece][FILE] = piecePosition[piece][FILE] + right;
 		actualBoard[piecePosition[piece][RANK]][piecePosition[piece][FILE]] = piece;
-	} -> execute();
+		// current player no longer in check if move was legal
+		checkStatus[currentTurn] = 0;
+		// change turn
+		currentTurn = 1 - currentTurn;	
+		// increase numMoves
+		numMoves = 1 + numMoves;
+	} -> (([currentTurn == 1] blackInCheck()) [] ([currentTurn == 0] whiteInCheck()));

@@ -25,25 +25,6 @@ blackMove() = [numMoves <= 2] blackPlan();
 whitePlan() = whiteKing() [] whiteRook() [] whiteQueen() [] whiteBishop() [] whitePawn() [] whiteKnights();
 blackPlan() = blackKing() [] blackRook() [] blackQueen() [] blackBishop() [] blackPawn() [] blackKnights();
 
-execute() = 
-	[currentTurn == 1] whiteToPlay {
-		// current player no longer in check if move was legal
-		checkStatus[currentTurn] = 0;
-		// change turn
-		currentTurn = 1 - currentTurn;	
-		// increase numMoves
-		numMoves = 1 + numMoves;
-	} -> whiteInCheck()
-	[]
-	[currentTurn == 0] blackToPlay {
-		// current player no longer in check if move was legal
-		checkStatus[currentTurn] = 0;
-		// change turn
-		currentTurn = 1 - currentTurn;	
-		// increase numMoves
-		numMoves = 1 + numMoves;
-	} -> blackInCheck();
-
 // updates the check status for the side that is about to play
 blackInCheck = [call(isCheck, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE])]
 			blackIsInCheck {checkStatus[currentTurn] = 1;} -> blackMove()
@@ -56,29 +37,9 @@ whiteInCheck = [call(isCheck, currentTurn, actualBoard, piecePosition[WHITE_KING
 			[]
 			[!call(isCheck, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE])]
 			whiteIsNotInCheck {checkStatus[currentTurn] = 0;} -> whiteMove();
-		
-#define goal_queen actualBoard[RANK_1][FILE_D] == WHITE_QUEEN && 
-								piecePosition[WHITE_QUEEN][RANK] == RANK_1 && piecePosition[WHITE_QUEEN][FILE] == FILE_D;
-#assert game() reaches goal_queen;								
-#define goal currentTurn == 1;
-#assert game() reaches goal;
 
 #define blackNotInCheck checkStatus[1] == 0;
-#define blackCheck checkStatus[1] == 1;
-#define blackTurn currentTurn == BLACK_TURN;
-#define whiteHasMoved numMoves == 1;
-#define impossible numMoves == 4;
 #define whiteTurnAgain numMoves >= 2;
-#define blackAlwaysIllegal blackIllegal == 1;
-#define blackAlwaysLegal blackIllegal == 0 && blackNoMoves == 0;
-#define whiteAlwaysIllegal whiteIllegal == 1 || whiteNoMoves == 1;
 
-#assert game() |= blackCheck R whiteTurnAgain;
-#assert game() reaches blackCheck;
-#assert game() |= []!(<> blackTurn && <> blackCheck && !<>[](whiteTurnAgain));
-#assert game() |= []!((<>blackCheck) U whiteTurnAgain);
-#assert game() |= ((<>blackCheck) U []!whiteTurnAgain);
-#assert game() |= []!(whiteHasMoved && blackCheck && ([]<>(blackAlwaysIllegal)));
-
-#assert game() |= !(impossible);
+// assertion for one-move checkmate
 #assert game() |= <>[](whiteTurnAgain || blackNotInCheck);
