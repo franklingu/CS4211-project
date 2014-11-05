@@ -64,9 +64,33 @@ namespace PAT.Lib
 		static readonly int[] WHITE_KINGS = new int[1] {WHITE_KING};
 		static readonly int[] BLACK_KINGS = new int[1] {BLACK_KING};
 		
-	    public static bool isLegal(int turn, int[] board, int kingPositionRank, int kingPositionFile)
+	    public static bool isLegal(int turn, int[] board, int kingPositionRank, int kingPositionFile, int startRank, int startFile, int up, int right)
         {
-        	return !isCheck(turn, board, kingPositionRank, kingPositionFile);
+			int endRank = (startRank + up);
+			int endFile = (startFile + right);
+			if (isDead(startRank, startFile))
+				return false;
+			if (!withinBoard(endRank, endFile))
+				return false;
+			if (isSame(board, startRank, startFile, endRank, endFile))
+				return false;
+			int piece = board[8 * (startRank) + (startFile)];
+			if (!isKnight(piece) && !isPathClear(board, startRank, startFile, up, right))
+				return false;
+				
+			// update if the king is moving
+			if (kingPositionRank == startRank && kingPositionFile == startFile)
+			{
+				kingPositionRank += up;
+				kingPositionFile += right;
+			}
+			
+			int pieceInDest = board[8 * (startRank + up) + (startFile + right)];
+			board = updateBoard(board, startRank, startFile, startRank + up, startFile + right);
+        	bool answer = !isCheck(turn, board, kingPositionRank, kingPositionFile);
+			board = updateBoard(board, startRank + up, startFile + right, startRank, startFile);
+			board[8 * (startRank + up) + (startFile + right)] = pieceInDest;
+			return answer;
         }
         
         public static bool isCheck(int turn, int[] board, int kingPositionRank, int kingPositionFile)
@@ -124,13 +148,13 @@ namespace PAT.Lib
 			// white's turn
 			if (turn == 0)
 			{
-				return checkOnce(board, kingPositionRank, kingPositionFile, BLACK_PAWNS, 8, -1, 1) ||
-					checkOnce(board, kingPositionRank, kingPositionFile, BLACK_PAWNS, 8, -1, -1);
+				return checkOnce(board, kingPositionRank, kingPositionFile, BLACK_PAWNS, 8, 1, 1) ||
+					checkOnce(board, kingPositionRank, kingPositionFile, BLACK_PAWNS, 8, 1, -1);
 			}
 			else // black's turn
 			{
-				return checkOnce(board, kingPositionRank, kingPositionFile, WHITE_PAWNS, 8, 1, 1) ||
-					checkOnce(board, kingPositionRank, kingPositionFile, WHITE_PAWNS, 8, 1, -1);
+				return checkOnce(board, kingPositionRank, kingPositionFile, WHITE_PAWNS, 8, -1, 1) ||
+					checkOnce(board, kingPositionRank, kingPositionFile, WHITE_PAWNS, 8, -1, -1);
 			}
 		}
 		
@@ -239,11 +263,77 @@ namespace PAT.Lib
 			return false;
 		}
 		
+		public static int[] updateBoard(int[] board, int startRank, int startFile, int endRank, int endFile)
+		{
+			board[8 * endRank + endFile] = board[8 * startRank + startFile];
+			board[8 * startRank + startFile] = 0;
+			return board;
+		}
+		
 		// checks whether a given position is inside the board
 		public static bool withinBoard(int x, int y)
 		{
 			return x > -1 && x < 8 && y > -1 && y < 8;
 		}
 		
+		// checks whether a piece is dead
+		public static bool isDead(int rank, int file)
+		{
+			return rank == -1 || file == -1;
+		}
+		
+		// checks whether a tile is empty
+		public static bool isEmpty(int[] board, int rank, int file)
+		{
+			return !isWhite(board, rank, file) && !isBlack(board, rank, file);
+		}
+		
+		// checks whether a piece is white
+		public static bool isWhite(int[] board, int x, int y)
+		{
+			int piece = board[8 * x + y];
+			return (piece >= WHITE_PAWN_1) && (piece <= WHITE_KINGS_ROOK);
+		}
+		
+		// checks whether a piece is black
+		public static bool isBlack(int[] board, int x, int y)
+		{
+			int piece = board[8 * x + y];
+			return (piece >= BLACK_PAWN_1) && (piece <= BLACK_KINGS_ROOK);
+		}
+		
+		// checks whether two pieces are of the same color
+		public static bool isSame(int[] board, int movingFile, int movingRank, int targetFile, int targetRank)
+		{
+			return (isWhite(board, movingFile, movingRank) && isWhite(board, targetFile, targetRank)) || (isBlack(board, movingFile, movingRank) && isBlack(board, targetFile, targetRank));
+		}
+		
+		public static bool isPathClear(int[] board, int startRank, int startFile, int up, int right)
+		{
+			// check if there is a piece in between
+			int tempRank = startRank;
+			int tempFile = startFile;
+			int unitUp = up > 0 ? 1 : (up < 0 ? -1 : 0);
+			int unitRight = right > 0 ? 1 : (right < 0 ? -1 : 0);
+			int i = 0;
+			for (i = 0; i < 8; i++)
+			{
+				tempRank += unitUp;
+				tempFile += unitRight;
+				
+				if (tempRank == (startRank + up) && tempFile == (startFile + right))
+					break;
+				else if(board[8 * tempRank + tempFile] > 0)
+					return false;
+			}
+			if (i == 8)
+				return false;
+			return true;
+		}
+		
+		public static bool isKnight (int piece)
+		{
+			return piece == WHITE_QUEENS_KNIGHT || piece == WHITE_KINGS_KNIGHT || piece == BLACK_QUEENS_KNIGHT || piece == BLACK_KINGS_KNIGHT;
+		}
     }
 }

@@ -1,28 +1,32 @@
-﻿#include "board.csp";
+﻿#include "move.csp";
 
-blackQueenUp() = [currentTurn == BLACK_TURN]moveContinuous(BLACK_QUEEN, 1, 0);
-blackQueenDown() = [currentTurn == BLACK_TURN]moveContinuous(BLACK_QUEEN, -1, 0);
-blackQueenLeft() = [currentTurn == BLACK_TURN]moveContinuous(BLACK_QUEEN, 0, -1);
-blackQueenRight() = [currentTurn == BLACK_TURN]moveContinuous(BLACK_QUEEN, 0, 1);
-blackQueenUpLeft() = [currentTurn == BLACK_TURN]moveContinuous(BLACK_QUEEN, 1, -1);
-blackQueenUpRight() = [currentTurn == BLACK_TURN]moveContinuous(BLACK_QUEEN, 1, 1);
-blackQueenDownLeft() = [currentTurn == BLACK_TURN]moveContinuous(BLACK_QUEEN, -1, -1);
-blackQueenDownRight() = [currentTurn == BLACK_TURN]moveContinuous(BLACK_QUEEN, -1, 1);
+blackQueenUp(i) = [call(isLegal, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE], piecePosition[BLACK_QUEEN][RANK], piecePosition[BLACK_QUEEN][FILE], i, 0)]movePiece(BLACK_QUEEN, i, 0);
+blackQueenDown(i) = [call(isLegal, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE], piecePosition[BLACK_QUEEN][RANK], piecePosition[BLACK_QUEEN][FILE], -i, 0)]movePiece(BLACK_QUEEN, -i, 0);
+blackQueenLeft(i) = [call(isLegal, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE], piecePosition[BLACK_QUEEN][RANK], piecePosition[BLACK_QUEEN][FILE], 0, -i)]movePiece(BLACK_QUEEN, 0, -i);
+blackQueenRight(i) = [call(isLegal, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE], piecePosition[BLACK_QUEEN][RANK], piecePosition[BLACK_QUEEN][FILE], 0, i)]movePiece(BLACK_QUEEN, 0, i);
+blackQueenUpLeft(i) = [call(isLegal, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE], piecePosition[BLACK_QUEEN][RANK], piecePosition[BLACK_QUEEN][FILE], i, -i)]movePiece(BLACK_QUEEN, i, -i);
+blackQueenUpRight(i) = [call(isLegal, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE], piecePosition[BLACK_QUEEN][RANK], piecePosition[BLACK_QUEEN][FILE], i, i)]movePiece(BLACK_QUEEN, i, i);
+blackQueenDownLeft(i) = [call(isLegal, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE], piecePosition[BLACK_QUEEN][RANK], piecePosition[BLACK_QUEEN][FILE], -i, -i)]movePiece(BLACK_QUEEN, -i, -i);
+blackQueenDownRight(i) = [call(isLegal, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE], piecePosition[BLACK_QUEEN][RANK], piecePosition[BLACK_QUEEN][FILE], -i, i)]movePiece(BLACK_QUEEN, -i, i);
 
-blackQueen() = blackQueenUp() [] blackQueenDown() [] blackQueenLeft() [] blackQueenRight() [] 
-               blackQueenUpLeft() [] blackQueenUpRight() [] blackQueenDownLeft() [] blackQueenDownRight();
+blackQueen() = blackQueenMove(1) [] blackQueenMove(2) [] blackQueenMove(3) [] blackQueenMove(4) [] blackQueenMove(5) [] blackQueenMove(6) [] blackQueenMove(7);
 
-whiteQueenUp() = [currentTurn == WHITE_TURN]moveContinuous(WHITE_QUEEN, 1, 0);
-whiteQueenDown() = [currentTurn == WHITE_TURN]moveContinuous(WHITE_QUEEN, -1, 0);
-whiteQueenLeft() = [currentTurn == WHITE_TURN]moveContinuous(WHITE_QUEEN, 0, -1);
-whiteQueenRight() = [currentTurn == WHITE_TURN]moveContinuous(WHITE_QUEEN, 0, 1);
-whiteQueenUpLeft() = [currentTurn == WHITE_TURN]moveContinuous(WHITE_QUEEN, 1, -1);
-whiteQueenUpRight() = [currentTurn == WHITE_TURN]moveContinuous(WHITE_QUEEN, 1, 1);
-whiteQueenDownLeft() = [currentTurn == WHITE_TURN]moveContinuous(WHITE_QUEEN, -1, -1);
-whiteQueenDownRight() = [currentTurn == WHITE_TURN]moveContinuous(WHITE_QUEEN, -1, 1);
+blackQueenMove(i) = blackQueenUp(i) [] blackQueenDown(i) [] blackQueenLeft(i) [] blackQueenRight(i) [] 
+               blackQueenUpLeft(i) [] blackQueenUpRight(i) [] blackQueenDownLeft(i) [] blackQueenDownRight(i);
 
-whiteQueen() = whiteQueenUp() [] whiteQueenDown() [] whiteQueenLeft() [] whiteQueenRight() [] 
-               whiteQueenUpLeft() [] whiteQueenUpRight() [] whiteQueenDownLeft() [] whiteQueenDownRight();
+whiteQueenUp(i) = [call(isLegal, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE], piecePosition[WHITE_QUEEN][RANK], piecePosition[WHITE_QUEEN][FILE], i, 0)]movePiece(WHITE_QUEEN, i, 0);
+whiteQueenDown(i) = [call(isLegal, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE], piecePosition[WHITE_QUEEN][RANK], piecePosition[WHITE_QUEEN][FILE], -i, 0)]movePiece(WHITE_QUEEN, -i, 0);
+whiteQueenLeft(i) = [call(isLegal, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE], piecePosition[WHITE_QUEEN][RANK], piecePosition[WHITE_QUEEN][FILE], 0, -i)]movePiece(WHITE_QUEEN, 0, -i);
+whiteQueenRight(i) = [call(isLegal, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE], piecePosition[WHITE_QUEEN][RANK], piecePosition[WHITE_QUEEN][FILE], 0, i)]movePiece(WHITE_QUEEN, 0, i);
+whiteQueenUpLeft(i) = [call(isLegal, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE], piecePosition[WHITE_QUEEN][RANK], piecePosition[WHITE_QUEEN][FILE], i, -i)]movePiece(WHITE_QUEEN, i, -i);
+whiteQueenUpRight(i) = [call(isLegal, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE], piecePosition[WHITE_QUEEN][RANK], piecePosition[WHITE_QUEEN][FILE], i, i)]movePiece(WHITE_QUEEN, i, i);
+whiteQueenDownLeft(i) = [call(isLegal, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE], piecePosition[WHITE_QUEEN][RANK], piecePosition[WHITE_QUEEN][FILE], -i, -i)]movePiece(WHITE_QUEEN, -i, -i);
+whiteQueenDownRight(i) = [call(isLegal, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE], piecePosition[WHITE_QUEEN][RANK], piecePosition[WHITE_QUEEN][FILE], -i, i)]movePiece(WHITE_QUEEN, -i, i);
+
+whiteQueen() =  whiteQueenMove(1) [] whiteQueenMove(2) [] whiteQueenMove(3) [] whiteQueenMove(4) [] whiteQueenMove(5) [] whiteQueenMove(6) [] whiteQueenMove(7);
+
+whiteQueenMove(i) = whiteQueenUp(i) [] whiteQueenDown(i) [] whiteQueenLeft(i) [] whiteQueenRight(i) [] 
+               whiteQueenUpLeft(i) [] whiteQueenUpRight(i) [] whiteQueenDownLeft(i) [] whiteQueenDownRight(i);
 
 moveBlackQueen() = changeTurnToBlack{currentTurn = BLACK_TURN} -> blackQueen();
 
