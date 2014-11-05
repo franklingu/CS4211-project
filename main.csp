@@ -12,8 +12,8 @@ game() = whiteMove();
 whiteMove() = [numMoves <= 2] whitePlan();
 blackMove() = [numMoves <= 2] blackPlan();
 
-whitePlan() = whiteKing() [] whiteRook() [] whiteQueen();// [] whiteBishop() [] whiteKnights() [] whitePawn();
-blackPlan() = blackKing() [] blackRook() [] blackQueen();// [] blackRook() [] blackBishop() [] blackKnights() [] blackPawn();
+whitePlan() = whiteKing() [] whiteRook() [] whiteQueen() [] whiteBishop() [] whitePawn() [] whiteKnights();
+blackPlan() = blackKing() [] blackRook() [] blackQueen() [] blackBishop() [] blackPawn() [] blackKnights();
 
 execute() = 
 	[currentTurn == 1] whiteToPlay {
