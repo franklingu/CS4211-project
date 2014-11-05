@@ -326,5 +326,23 @@ namespace PAT.Lib
 		{
 			return piece == WHITE_QUEENS_KNIGHT || piece == WHITE_KINGS_KNIGHT || piece == BLACK_QUEENS_KNIGHT || piece == BLACK_KINGS_KNIGHT;
 		}
+		
+		// converts a given list of piecePositions to the board
+		public static int[,] convert (int[] piecePosition) {
+			int[,] board = new int[8, 8];
+			
+			for (int i = 0; i < 8 ; i++) {
+				for (int j = 0; j < 8; j++) {
+					board[i, j] = 0;
+				}
+			}
+			
+			for (int i = 2; i < 66; i += 2) {
+				if (piecePosition[i] != -1 && piecePosition[i+1] != -1) {
+					board[piecePosition[i], piecePosition[i+1]] = (i/2);
+				}
+			}
+			return board;
+		}
     }
 }
