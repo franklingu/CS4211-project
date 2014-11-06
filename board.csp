@@ -7,6 +7,9 @@
 //#include "board6.csp"
 //#include "board7.csp"
 //#include "board8.csp"
+//#include "board10.csp"
+//#include "board11.csp"
+//#include "board12.csp"
 				 
 moveContinuous(piece, up, right) = if (piecePosition[piece][RANK] != DEAD && piecePosition[piece][FILE] != DEAD )
 {
