@@ -14,15 +14,15 @@
 //#include "board6.csp";
 //#include "board7.csp";
 //#include "board8.csp";
-#include "board9.csp";
 //#include "board10.csp";
 //#include "board11.csp";
-//#include "board12.csp";
+#include "board12.csp";
 
 #import "ValidityCheck";
 
 // the game starts with white to play
-game() = whiteMove();
+whiteGame() = initialiseTurn{currentTurn = WHITE_TURN} -> whiteMove();
+blackGame() = initialiseTurn{currentTurn = BLACK_TURN} -> blackMove();
 
 whiteMove() = [numMoves <= 2] whitePlan();
 blackMove() = [numMoves <= 2] blackPlan();
@@ -45,7 +45,10 @@ whiteInCheck = [call(isCheck, currentTurn, actualBoard, piecePosition[WHITE_KING
 			whiteIsNotInCheck {checkStatus[currentTurn] = 0;} -> whiteMove();
 
 #define blackNotInCheck checkStatus[1] == 0;
-#define whiteTurnAgain numMoves >= 2;
+#define whiteNotInCheck checkStatus[0] == 0;
+#define twoMovesElapsed numMoves >= 2;
 
-// assertion for one-move checkmate
-#assert game() |= <>[](whiteTurnAgain || blackNotInCheck);
+// assertion for white's one-move checkmate
+#assert whiteGame() |= <>[](twoMovesElapsed || blackNotInCheck);
+// assertion for black's one-move checkmate
+#assert blackGame() |= <>[](twoMovesElapsed || whiteNotInCheck);
