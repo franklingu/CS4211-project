@@ -76,7 +76,7 @@
 
 #define DEAD -1;
 
-var currentTurn = WHITE_TURN;
+var currentTurn = -1;
 
 var numMoves = 0;
 
