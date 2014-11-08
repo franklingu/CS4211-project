@@ -1,4 +1,4 @@
-﻿//Test board 12 : Two knights and king mate
+//Empty board
 
 #include "constants.csp";
 
@@ -12,12 +12,12 @@ var piecePosition[33][2] = [	DEAD, DEAD, // 0 - dummy
 								DEAD, DEAD, // 7 white pawn 7
 								DEAD, DEAD, // 8 white pawn 8
 								DEAD, DEAD, // 9 white queens's rook
-								RANK_5, FILE_B, // 10 white queen's knight
+								DEAD, DEAD, // 10 white queen's knight
 								DEAD, DEAD, // 11 white queens's bishop
 								DEAD, DEAD, // 12 white queen
-								RANK_8, FILE_C, // 13 white king
-								DEAD, DEAD, // 14 white king's bishop
-								RANK_6, FILE_G, // 15 white king's knight
+								RANK_6, FILE_G, // 13 white king
+								RANK_7, FILE_H, // 14 white king's bishop
+								RANK_8, FILE_D, // 15 white king's knight
 								DEAD, DEAD, // 16 white king's rook
 								DEAD, DEAD, // 17 black pawn 1
 								DEAD, DEAD, // 18 black pawn 2
@@ -31,18 +31,18 @@ var piecePosition[33][2] = [	DEAD, DEAD, // 0 - dummy
 								DEAD, DEAD, // 26 black queen's knight
 								DEAD, DEAD, // 27 black queen's bishop
 								DEAD, DEAD, // 28 black queen
-								RANK_8, FILE_E, // 29 black king
+								RANK_8, FILE_H, // 29 black king
 								DEAD, DEAD, // 30 black king's bishop
 								DEAD, DEAD, // 31 black king's knight
 								DEAD, DEAD // 32 black king's rook
 						];
 									 
-var actualBoard[BOARD_SIZE][BOARD_SIZE] =  [	0,		0,		0,		0,	0,	0,	0,	0,
-		   		 						  		0,		0,		0,		0,		0,		0,	0,	0,
-		   		 						  		0,		0,		0,		0,		0,		0,	0,	0,
-		   		 						  		0,		0,		0,		0,		0,		0,	0,	0,
-		   		 						  		0,		WHITE_QUEENS_KNIGHT,		0,		0,		0,		0,	0,	0,
-		   		 						  		0,		0,		0,		0,		0,		0,	WHITE_KINGS_KNIGHT,	0,
-		   		 						  		0,		0,		0,	0,	0,	0,	0,	0,
-		   		 						  		0,		0,		WHITE_KING,		0,		BLACK_KING,		0,	0,	0
+var actualBoard[BOARD_SIZE][BOARD_SIZE] =  [	0,	0,	0,	0,	0,	0,	0,	0,
+		   		 						  		0,	0,	0,	0,	0,	0,	0,	0,
+												0,	0,	0,	0,	0,	0,	0,	0,
+												0,	0,	0,	0,	0,	0,	0,	0,
+												0,	0,	0,	0,	0,	0,	0,	0,
+												0,	0,	0,	0,	0,	0,	WHITE_KING,	0,
+												0,	0,	0,	0,	0,	0,	0,	WHITE_KINGS_BISHOP,
+												0,	0,	0,	WHITE_KINGS_KNIGHT,	0,	0,	0,	BLACK_KING
 		   		 						 	];

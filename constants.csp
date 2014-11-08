@@ -56,6 +56,21 @@
 #define RANK_7 6;
 #define RANK_8 7;
 
+// defines for naming the pieces
+#define P1 0;
+#define P2 0;
+#define P3 0;
+#define P4 0;
+#define P5 0;
+#define P6 0;
+#define P7 0;
+#define P8 0;
+#define R 0;
+#define N 0;
+#define B 0;
+#define Q 0;
+#define K 0;
+
 #define WHITE_TURN 0;
 #define BLACK_TURN 1;
 
@@ -63,39 +78,16 @@
 
 var currentTurn = WHITE_TURN;
 
-// piece position keeps track of each piece's position
-/*var piecePosition[33][2] = [	DEAD, DEAD, // 0 - dummy
-								DEAD, DEAD, // 1 white pawn 1
-								DEAD, DEAD, // 2 white pawn 2
-								DEAD, DEAD, // 3 white pawn 3
-								RANK_6, FILE_D, // 4 white pawn 4
-								DEAD, DEAD, // 5 white pawn 5
-								RANK_6, FILE_F, // 6 white pawn 6
-								DEAD, DEAD, // 7 white pawn 7
-								DEAD, DEAD, // 8 white pawn 8
-								RANK_2, FILE_A, // 9 white queens's rook
-								DEAD, DEAD, // 10 white queen's knight
-								RANK_1, FILE_C, // 11 white queens's bishop
-								RANK_4, FILE_E, // 12 white queen
-								RANK_1, FILE_E, // 13 white king
-								RANK_1, FILE_F, // 14 white king's bishop
-								RANK_7, FILE_F, // 15 white king's knight
-								DEAD, DEAD, // 16 white king's rook
-								RANK_7, FILE_A, // 17 black pawn 1
-								DEAD, DEAD, // 18 black pawn 2
-								RANK_6, FILE_C, // 19 black pawn 3
-								DEAD, DEAD, // 20 black pawn 4
-								RANK_7, FILE_E, // 21 black pawn 5
-								DEAD, DEAD, // 22 black pawn 6
-								RANK_5, FILE_G, // 23 black pawn 7
-								DEAD, DEAD, // 24 black pawn 8
-								RANK_5, FILE_A, // 25 black queen's rook
-								RANK_6, FILE_A, // 26 black queen's knight
-								DEAD, DEAD, // 27 black queen's bishop
-								RANK_7, FILE_D, // 28 black queen
-								RANK_8, FILE_E, // 29 black king
-								RANK_5, FILE_C, // 30 black king's bishop
-								DEAD, DEAD, // 31 black king's knight
-								RANK_1, FILE_H // 32 black king's rook
-							];*/
+var numMoves = 0;
 
+// checkStatus = [whiteStatus, blackStatus]
+var checkStatus[2] = [0,0];
+// flag for legal checks
+var whiteIllegal = 0;
+var blackIllegal = 0;
+// flag for invalid checks
+var whiteNoMoves = 0;
+var blackNoMoves = 0;
+
+var pieceNames[33] = [0, P1, P2, P3, P4, P5, P6, P7, P8, R, N, B, Q, K, B, N, R, P1, P2, P3, P4, P5, P6, P7, P8, R, N, B, Q, K, B, N, R];
+var files[8] = [FILE_A, FILE_B, FILE_C, FILE_D, FILE_E, FILE_F, FILE_G, FILE_H];

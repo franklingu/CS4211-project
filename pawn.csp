@@ -1,4 +1,4 @@
-﻿#include "board.csp";
+﻿#include "move.csp";
 
 whitePawn() = whitePawnStraight() [] whitePawnDouble() [] whitePawnUpLeft() [] whitePawnUpRight();
 
@@ -7,42 +7,41 @@ whitePawnDouble() = whiteOnePawnDouble() [] whiteTwoPawnDouble() [] whiteThreePa
 whitePawnUpLeft() = whiteOnePawnUpLeft() [] whiteTwoPawnUpLeft() [] whiteThreePawnUpLeft() [] whiteFourPawnUpLeft() [] whiteFivePawnUpLeft() [] whiteSixPawnUpLeft() [] whiteSevenPawnUpLeft() [] whiteEightPawnUpLeft();
 whitePawnUpRight() = whiteOnePawnUpRight() [] whiteTwoPawnUpRight() [] whiteThreePawnUpRight() [] whiteFourPawnUpRight() [] whiteFivePawnUpRight() [] whiteSixPawnUpRight() [] whiteSevenPawnUpRight() [] whiteEightPawnUpRight();
 
-whiteOnePawnStraight() = [currentTurn == WHITE_TURN]movePawnOnce(WHITE_PAWN_1, 1);
-whiteTwoPawnStraight() = [currentTurn == WHITE_TURN]movePawnOnce(WHITE_PAWN_2, 1);
-whiteThreePawnStraight() = [currentTurn == WHITE_TURN]movePawnOnce(WHITE_PAWN_3, 1);
-whiteFourPawnStraight() = [currentTurn == WHITE_TURN]movePawnOnce(WHITE_PAWN_4, 1);
-whiteFivePawnStraight() = [currentTurn == WHITE_TURN]movePawnOnce(WHITE_PAWN_5, 1);
-whiteSixPawnStraight() = [currentTurn == WHITE_TURN]movePawnOnce(WHITE_PAWN_6, 1);
-whiteSevenPawnStraight() = [currentTurn == WHITE_TURN]movePawnOnce(WHITE_PAWN_7, 1);
-whiteEightPawnStraight() = [currentTurn == WHITE_TURN]movePawnOnce(WHITE_PAWN_8, 1);
+whiteOnePawnStraight() = [call(isLegal, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE], piecePosition[WHITE_PAWN_1][RANK], piecePosition[WHITE_PAWN_1][FILE], 1, 0) && call(isEmpty, actualBoard, piecePosition[WHITE_PAWN_1][RANK] + 1, piecePosition[WHITE_PAWN_1][FILE])]movePiece(WHITE_PAWN_1, 1, 0);
+whiteTwoPawnStraight() = [call(isLegal, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE], piecePosition[WHITE_PAWN_2][RANK], piecePosition[WHITE_PAWN_2][FILE], 1, 0) && call(isEmpty, actualBoard, piecePosition[WHITE_PAWN_2][RANK] + 1, piecePosition[WHITE_PAWN_2][FILE])]movePiece(WHITE_PAWN_2, 1, 0);
+whiteThreePawnStraight() = [call(isLegal, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE], piecePosition[WHITE_PAWN_3][RANK], piecePosition[WHITE_PAWN_3][FILE], 1, 0) && call(isEmpty, actualBoard, piecePosition[WHITE_PAWN_3][RANK] + 1, piecePosition[WHITE_PAWN_3][FILE])]movePiece(WHITE_PAWN_3, 1, 0);
+whiteFourPawnStraight() = [call(isLegal, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE], piecePosition[WHITE_PAWN_4][RANK], piecePosition[WHITE_PAWN_4][FILE], 1, 0) && call(isEmpty, actualBoard, piecePosition[WHITE_PAWN_4][RANK] + 1, piecePosition[WHITE_PAWN_4][FILE])]movePiece(WHITE_PAWN_4, 1, 0);
+whiteFivePawnStraight() = [call(isLegal, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE], piecePosition[WHITE_PAWN_5][RANK], piecePosition[WHITE_PAWN_5][FILE], 1, 0) && call(isEmpty, actualBoard, piecePosition[WHITE_PAWN_5][RANK] + 1, piecePosition[WHITE_PAWN_5][FILE])]movePiece(WHITE_PAWN_5, 1, 0);
+whiteSixPawnStraight() = [call(isLegal, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE], piecePosition[WHITE_PAWN_6][RANK], piecePosition[WHITE_PAWN_6][FILE], 1, 0) && call(isEmpty, actualBoard, piecePosition[WHITE_PAWN_6][RANK] + 1, piecePosition[WHITE_PAWN_6][FILE])]movePiece(WHITE_PAWN_6, 1, 0);
+whiteSevenPawnStraight() = [call(isLegal, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE], piecePosition[WHITE_PAWN_7][RANK], piecePosition[WHITE_PAWN_7][FILE], 1, 0) && call(isEmpty, actualBoard, piecePosition[WHITE_PAWN_7][RANK] + 1, piecePosition[WHITE_PAWN_7][FILE])]movePiece(WHITE_PAWN_7, 1, 0);
+whiteEightPawnStraight() = [call(isLegal, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE], piecePosition[WHITE_PAWN_8][RANK], piecePosition[WHITE_PAWN_8][FILE], 1, 0) && call(isEmpty, actualBoard, piecePosition[WHITE_PAWN_8][RANK] + 1, piecePosition[WHITE_PAWN_8][FILE])]movePiece(WHITE_PAWN_8, 1, 0);
 
-whiteOnePawnDouble() = [currentTurn == WHITE_TURN]movePawnDouble(WHITE_PAWN_1, 1);
-whiteTwoPawnDouble() = [currentTurn == WHITE_TURN]movePawnDouble(WHITE_PAWN_2, 1);
-whiteThreePawnDouble() = [currentTurn == WHITE_TURN]movePawnDouble(WHITE_PAWN_3, 1);
-whiteFourPawnDouble() = [currentTurn == WHITE_TURN]movePawnDouble(WHITE_PAWN_4, 1);
-whiteFivePawnDouble() = [currentTurn == WHITE_TURN]movePawnDouble(WHITE_PAWN_5, 1);
-whiteSixPawnDouble() = [currentTurn == WHITE_TURN]movePawnDouble(WHITE_PAWN_6, 1);
-whiteSevenPawnDouble() = [currentTurn == WHITE_TURN]movePawnDouble(WHITE_PAWN_7, 1);
-whiteEightPawnDouble() = [currentTurn == WHITE_TURN]movePawnDouble(WHITE_PAWN_8, 1);
+whiteOnePawnDouble() = [call(isLegal, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE], piecePosition[WHITE_PAWN_1][RANK], piecePosition[WHITE_PAWN_1][FILE], 2, 0) && piecePosition[WHITE_PAWN_1][RANK] == RANK_2 && call(isEmpty, actualBoard, piecePosition[WHITE_PAWN_1][RANK] + 2, piecePosition[WHITE_PAWN_1][FILE])]movePiece(WHITE_PAWN_1, 2, 0);
+whiteTwoPawnDouble() = [call(isLegal, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE], piecePosition[WHITE_PAWN_2][RANK], piecePosition[WHITE_PAWN_2][FILE], 2, 0) && piecePosition[WHITE_PAWN_2][RANK] == RANK_2 && call(isEmpty, actualBoard, piecePosition[WHITE_PAWN_2][RANK] + 2, piecePosition[WHITE_PAWN_2][FILE])]movePiece(WHITE_PAWN_2, 2, 0);
+whiteThreePawnDouble() = [call(isLegal, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE], piecePosition[WHITE_PAWN_3][RANK], piecePosition[WHITE_PAWN_3][FILE], 2, 0) && piecePosition[WHITE_PAWN_3][RANK] == RANK_2 && call(isEmpty, actualBoard, piecePosition[WHITE_PAWN_3][RANK] + 2, piecePosition[WHITE_PAWN_3][FILE])]movePiece(WHITE_PAWN_3, 2, 0);
+whiteFourPawnDouble() = [call(isLegal, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE], piecePosition[WHITE_PAWN_4][RANK], piecePosition[WHITE_PAWN_4][FILE], 2, 0) && piecePosition[WHITE_PAWN_4][RANK] == RANK_2 && call(isEmpty, actualBoard, piecePosition[WHITE_PAWN_4][RANK] + 2, piecePosition[WHITE_PAWN_4][FILE])]movePiece(WHITE_PAWN_4, 2, 0);
+whiteFivePawnDouble() = [call(isLegal, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE], piecePosition[WHITE_PAWN_5][RANK], piecePosition[WHITE_PAWN_5][FILE], 2, 0) && piecePosition[WHITE_PAWN_5][RANK] == RANK_2 && call(isEmpty, actualBoard, piecePosition[WHITE_PAWN_5][RANK] + 2, piecePosition[WHITE_PAWN_5][FILE])]movePiece(WHITE_PAWN_5, 2, 0);
+whiteSixPawnDouble() = [call(isLegal, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE], piecePosition[WHITE_PAWN_6][RANK], piecePosition[WHITE_PAWN_6][FILE], 2, 0) && piecePosition[WHITE_PAWN_6][RANK] == RANK_2 && call(isEmpty, actualBoard, piecePosition[WHITE_PAWN_6][RANK] + 2, piecePosition[WHITE_PAWN_6][FILE])]movePiece(WHITE_PAWN_6, 2, 0);
+whiteSevenPawnDouble() = [call(isLegal, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE], piecePosition[WHITE_PAWN_7][RANK], piecePosition[WHITE_PAWN_7][FILE], 2, 0) && piecePosition[WHITE_PAWN_7][RANK] == RANK_2 && call(isEmpty, actualBoard, piecePosition[WHITE_PAWN_7][RANK] + 2, piecePosition[WHITE_PAWN_7][FILE])]movePiece(WHITE_PAWN_7, 2, 0);
+whiteEightPawnDouble() = [call(isLegal, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE], piecePosition[WHITE_PAWN_8][RANK], piecePosition[WHITE_PAWN_8][FILE], 2, 0) && piecePosition[WHITE_PAWN_8][RANK] == RANK_2 && call(isEmpty, actualBoard, piecePosition[WHITE_PAWN_8][RANK] + 2, piecePosition[WHITE_PAWN_8][FILE])]movePiece(WHITE_PAWN_8, 2, 0);
 
-whiteOnePawnUpLeft() = [currentTurn == WHITE_TURN]movePawnDiagonal(WHITE_PAWN_1, 1, -1);
-whiteTwoPawnUpLeft() = [currentTurn == WHITE_TURN]movePawnDiagonal(WHITE_PAWN_2, 1, -1);
-whiteThreePawnUpLeft() = [currentTurn == WHITE_TURN]movePawnDiagonal(WHITE_PAWN_3, 1, -1);
-whiteFourPawnUpLeft() = [currentTurn == WHITE_TURN]movePawnDiagonal(WHITE_PAWN_4, 1, -1);
-whiteFivePawnUpLeft() = [currentTurn == WHITE_TURN]movePawnDiagonal(WHITE_PAWN_5, 1, -1);
-whiteSixPawnUpLeft() = [currentTurn == WHITE_TURN]movePawnDiagonal(WHITE_PAWN_6, 1, -1);
-whiteSevenPawnUpLeft() = [currentTurn == WHITE_TURN]movePawnDiagonal(WHITE_PAWN_7, 1, -1);
-whiteEightPawnUpLeft() = [currentTurn == WHITE_TURN]movePawnDiagonal(WHITE_PAWN_8, 1, -1);
+whiteOnePawnUpLeft() = [call(isLegal, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE], piecePosition[WHITE_PAWN_1][RANK], piecePosition[WHITE_PAWN_1][FILE], 1, -1) && call(isBlack, actualBoard, piecePosition[WHITE_PAWN_1][RANK] + 1, piecePosition[WHITE_PAWN_1][FILE] - 1)]movePiece(WHITE_PAWN_1, 1, -1);
+whiteTwoPawnUpLeft() = [call(isLegal, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE], piecePosition[WHITE_PAWN_2][RANK], piecePosition[WHITE_PAWN_2][FILE], 1, -1) && call(isBlack, actualBoard, piecePosition[WHITE_PAWN_2][RANK] + 1, piecePosition[WHITE_PAWN_2][FILE] - 1)]movePiece(WHITE_PAWN_2, 1, -1);
+whiteThreePawnUpLeft() = [call(isLegal, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE], piecePosition[WHITE_PAWN_3][RANK], piecePosition[WHITE_PAWN_3][FILE], 1, -1) && call(isBlack, actualBoard, piecePosition[WHITE_PAWN_3][RANK] + 1, piecePosition[WHITE_PAWN_3][FILE] - 1)]movePiece(WHITE_PAWN_3, 1, -1);
+whiteFourPawnUpLeft() = [call(isLegal, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE], piecePosition[WHITE_PAWN_4][RANK], piecePosition[WHITE_PAWN_4][FILE], 1, -1) && call(isBlack, actualBoard, piecePosition[WHITE_PAWN_4][RANK] + 1, piecePosition[WHITE_PAWN_4][FILE] - 1)]movePiece(WHITE_PAWN_4, 1, -1);
+whiteFivePawnUpLeft() = [call(isLegal, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE], piecePosition[WHITE_PAWN_5][RANK], piecePosition[WHITE_PAWN_5][FILE], 1, -1) && call(isBlack, actualBoard, piecePosition[WHITE_PAWN_5][RANK] + 1, piecePosition[WHITE_PAWN_5][FILE] - 1)]movePiece(WHITE_PAWN_5, 1, -1);
+whiteSixPawnUpLeft() = [call(isLegal, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE], piecePosition[WHITE_PAWN_6][RANK], piecePosition[WHITE_PAWN_6][FILE], 1, -1) && call(isBlack, actualBoard, piecePosition[WHITE_PAWN_6][RANK] + 1, piecePosition[WHITE_PAWN_6][FILE] - 1)]movePiece(WHITE_PAWN_6, 1, -1);
+whiteSevenPawnUpLeft() = [call(isLegal, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE], piecePosition[WHITE_PAWN_7][RANK], piecePosition[WHITE_PAWN_7][FILE], 1, -1) && call(isBlack, actualBoard, piecePosition[WHITE_PAWN_7][RANK] + 1, piecePosition[WHITE_PAWN_7][FILE] - 1)]movePiece(WHITE_PAWN_7, 1, -1);
+whiteEightPawnUpLeft() = [call(isLegal, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE], piecePosition[WHITE_PAWN_8][RANK], piecePosition[WHITE_PAWN_8][FILE], 1, -1) && call(isBlack, actualBoard, piecePosition[WHITE_PAWN_8][RANK] + 1, piecePosition[WHITE_PAWN_8][FILE] - 1)]movePiece(WHITE_PAWN_8, 1, -1);
 
-whiteOnePawnUpRight() = [currentTurn == WHITE_TURN]movePawnDiagonal(WHITE_PAWN_1, 1, 1);
-whiteTwoPawnUpRight() = [currentTurn == WHITE_TURN]movePawnDiagonal(WHITE_PAWN_2, 1, 1);
-whiteThreePawnUpRight() = [currentTurn == WHITE_TURN]movePawnDiagonal(WHITE_PAWN_3, 1, 1);
-whiteFourPawnUpRight() = [currentTurn == WHITE_TURN]movePawnDiagonal(WHITE_PAWN_4, 1, 1);
-whiteFivePawnUpRight() = [currentTurn == WHITE_TURN]movePawnDiagonal(WHITE_PAWN_5, 1, 1);
-whiteSixPawnUpRight() = [currentTurn == WHITE_TURN]movePawnDiagonal(WHITE_PAWN_6, 1, 1);
-whiteSevenPawnUpRight() = [currentTurn == WHITE_TURN]movePawnDiagonal(WHITE_PAWN_7, 1, 1);
-whiteEightPawnUpRight() = [currentTurn == WHITE_TURN]movePawnDiagonal(WHITE_PAWN_8, 1, 1);
-
+whiteOnePawnUpRight() = [call(isLegal, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE], piecePosition[WHITE_PAWN_1][RANK], piecePosition[WHITE_PAWN_1][FILE], 1, 1) && call(isBlack, actualBoard, piecePosition[WHITE_PAWN_1][RANK] + 1, piecePosition[WHITE_PAWN_1][FILE] + 1)]movePiece(WHITE_PAWN_1, 1, 1);
+whiteTwoPawnUpRight() = [call(isLegal, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE], piecePosition[WHITE_PAWN_2][RANK], piecePosition[WHITE_PAWN_2][FILE], 1, 1) && call(isBlack, actualBoard, piecePosition[WHITE_PAWN_2][RANK] + 1, piecePosition[WHITE_PAWN_2][FILE] + 1)]movePiece(WHITE_PAWN_2, 1, 1);
+whiteThreePawnUpRight() = [call(isLegal, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE], piecePosition[WHITE_PAWN_3][RANK], piecePosition[WHITE_PAWN_3][FILE], 1, 1) && call(isBlack, actualBoard, piecePosition[WHITE_PAWN_3][RANK] + 1, piecePosition[WHITE_PAWN_3][FILE] + 1)]movePiece(WHITE_PAWN_3, 1, 1);
+whiteFourPawnUpRight() = [call(isLegal, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE], piecePosition[WHITE_PAWN_4][RANK], piecePosition[WHITE_PAWN_4][FILE], 1, 1) && call(isBlack, actualBoard, piecePosition[WHITE_PAWN_4][RANK] + 1, piecePosition[WHITE_PAWN_4][FILE] + 1)]movePiece(WHITE_PAWN_4, 1, 1);
+whiteFivePawnUpRight() = [call(isLegal, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE], piecePosition[WHITE_PAWN_5][RANK], piecePosition[WHITE_PAWN_5][FILE], 1, 1) && call(isBlack, actualBoard, piecePosition[WHITE_PAWN_5][RANK] + 1, piecePosition[WHITE_PAWN_5][FILE] + 1)]movePiece(WHITE_PAWN_5, 1, 1);
+whiteSixPawnUpRight() = [call(isLegal, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE], piecePosition[WHITE_PAWN_6][RANK], piecePosition[WHITE_PAWN_6][FILE], 1, 1) && call(isBlack, actualBoard, piecePosition[WHITE_PAWN_6][RANK] + 1, piecePosition[WHITE_PAWN_6][FILE] + 1)]movePiece(WHITE_PAWN_6, 1, 1);
+whiteSevenPawnUpRight() = [call(isLegal, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE], piecePosition[WHITE_PAWN_7][RANK], piecePosition[WHITE_PAWN_7][FILE], 1, 1) && call(isBlack, actualBoard, piecePosition[WHITE_PAWN_7][RANK] + 1, piecePosition[WHITE_PAWN_7][FILE] + 1)]movePiece(WHITE_PAWN_7, 1, 1);
+whiteEightPawnUpRight() = [call(isLegal, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE], piecePosition[WHITE_PAWN_8][RANK], piecePosition[WHITE_PAWN_8][FILE], 1, 1) && call(isBlack, actualBoard, piecePosition[WHITE_PAWN_8][RANK] + 1, piecePosition[WHITE_PAWN_8][FILE] + 1)]movePiece(WHITE_PAWN_8, 1, 1);
 
 blackPawn() = blackPawnStraight() [] blackPawnDouble() [] blackPawnDownLeft() [] blackPawnDownRight();
 
@@ -51,43 +50,43 @@ blackPawnDouble() = blackOnePawnDouble() [] blackTwoPawnDouble() [] blackThreePa
 blackPawnDownLeft() = blackOnePawnDownLeft() [] blackTwoPawnDownLeft() [] blackThreePawnDownLeft() [] blackFourPawnDownLeft() [] blackFivePawnDownLeft() [] blackSixPawnDownLeft() [] blackSevenPawnDownLeft() [] blackEightPawnDownLeft();
 blackPawnDownRight() = blackOnePawnDownRight() [] blackTwoPawnDownRight() [] blackThreePawnDownRight() [] blackFourPawnDownRight() [] blackFivePawnDownRight() [] blackSixPawnDownRight() [] blackSevenPawnDownRight() [] blackEightPawnDownRight();
 
-blackOnePawnStraight() = [currentTurn == BLACK_TURN]movePawnOnce(BLACK_PAWN_1, -1);
-blackTwoPawnStraight() = [currentTurn == BLACK_TURN]movePawnOnce(BLACK_PAWN_2, -1);
-blackThreePawnStraight() = [currentTurn == BLACK_TURN]movePawnOnce(BLACK_PAWN_3, -1);
-blackFourPawnStraight() = [currentTurn == BLACK_TURN]movePawnOnce(BLACK_PAWN_4, -1);
-blackFivePawnStraight() = [currentTurn == BLACK_TURN]movePawnOnce(BLACK_PAWN_5, -1);
-blackSixPawnStraight() = [currentTurn == BLACK_TURN]movePawnOnce(BLACK_PAWN_6, -1);
-blackSevenPawnStraight() = [currentTurn == BLACK_TURN]movePawnOnce(BLACK_PAWN_7, -1);
-blackEightPawnStraight() = [currentTurn == BLACK_TURN]movePawnOnce(BLACK_PAWN_8, -1);
+blackOnePawnStraight() = [call(isLegal, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE], piecePosition[BLACK_PAWN_1][RANK], piecePosition[BLACK_PAWN_1][FILE], -1, 0) && call(isEmpty, actualBoard, piecePosition[BLACK_PAWN_1][RANK] - 1, piecePosition[BLACK_PAWN_1][FILE])]movePiece(BLACK_PAWN_1, -1, 0);
+blackTwoPawnStraight() = [call(isLegal, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE], piecePosition[BLACK_PAWN_2][RANK], piecePosition[BLACK_PAWN_2][FILE], -1, 0) && call(isEmpty, actualBoard, piecePosition[BLACK_PAWN_2][RANK] - 1, piecePosition[BLACK_PAWN_2][FILE])]movePiece(BLACK_PAWN_2, -1, 0);
+blackThreePawnStraight() = [call(isLegal, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE], piecePosition[BLACK_PAWN_3][RANK], piecePosition[BLACK_PAWN_3][FILE], -1, 0) && call(isEmpty, actualBoard, piecePosition[BLACK_PAWN_3][RANK] - 1, piecePosition[BLACK_PAWN_3][FILE])]movePiece(BLACK_PAWN_3, -1, 0);
+blackFourPawnStraight() = [call(isLegal, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE], piecePosition[BLACK_PAWN_4][RANK], piecePosition[BLACK_PAWN_4][FILE], -1, 0) && call(isEmpty, actualBoard, piecePosition[BLACK_PAWN_4][RANK] - 1, piecePosition[BLACK_PAWN_4][FILE])]movePiece(BLACK_PAWN_4, -1, 0);
+blackFivePawnStraight() = [call(isLegal, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE], piecePosition[BLACK_PAWN_5][RANK], piecePosition[BLACK_PAWN_5][FILE], -1, 0) && call(isEmpty, actualBoard, piecePosition[BLACK_PAWN_5][RANK] - 1, piecePosition[BLACK_PAWN_5][FILE])]movePiece(BLACK_PAWN_5, -1, 0);
+blackSixPawnStraight() = [call(isLegal, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE], piecePosition[BLACK_PAWN_6][RANK], piecePosition[BLACK_PAWN_6][FILE], -1, 0) && call(isEmpty, actualBoard, piecePosition[BLACK_PAWN_6][RANK] - 1, piecePosition[BLACK_PAWN_6][FILE])]movePiece(BLACK_PAWN_6, -1, 0);
+blackSevenPawnStraight() = [call(isLegal, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE], piecePosition[BLACK_PAWN_7][RANK], piecePosition[BLACK_PAWN_7][FILE], -1, 0) && call(isEmpty, actualBoard, piecePosition[BLACK_PAWN_7][RANK] - 1, piecePosition[BLACK_PAWN_7][FILE])]movePiece(BLACK_PAWN_7, -1, 0);
+blackEightPawnStraight() = [call(isLegal, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE], piecePosition[BLACK_PAWN_8][RANK], piecePosition[BLACK_PAWN_8][FILE], -1, 0) && call(isEmpty, actualBoard, piecePosition[BLACK_PAWN_8][RANK] - 1, piecePosition[BLACK_PAWN_8][FILE])]movePiece(BLACK_PAWN_8, -1, 0);
 
-blackOnePawnDouble() = [currentTurn == BLACK_TURN]movePawnDouble(BLACK_PAWN_1, -1);
-blackTwoPawnDouble() = [currentTurn == BLACK_TURN]movePawnDouble(BLACK_PAWN_2, -1);
-blackThreePawnDouble() = [currentTurn == BLACK_TURN]movePawnDouble(BLACK_PAWN_3, -1);
-blackFourPawnDouble() = [currentTurn == BLACK_TURN]movePawnDouble(BLACK_PAWN_4, -1);
-blackFivePawnDouble() = [currentTurn == BLACK_TURN]movePawnDouble(BLACK_PAWN_5, -1);
-blackSixPawnDouble() = [currentTurn == BLACK_TURN]movePawnDouble(BLACK_PAWN_6, -1);
-blackSevenPawnDouble() = [currentTurn == BLACK_TURN]movePawnDouble(BLACK_PAWN_7, -1);
-blackEightPawnDouble() = [currentTurn == BLACK_TURN]movePawnDouble(BLACK_PAWN_8, -1);
+blackOnePawnDouble() = [call(isLegal, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE], piecePosition[BLACK_PAWN_1][RANK], piecePosition[BLACK_PAWN_1][FILE], -2, 0) && piecePosition[BLACK_PAWN_1][RANK] == RANK_7 && call(isEmpty, actualBoard, piecePosition[BLACK_PAWN_1][RANK] - 2, piecePosition[BLACK_PAWN_1][FILE])]movePiece(BLACK_PAWN_1, -2, 0);
+blackTwoPawnDouble() = [call(isLegal, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE], piecePosition[BLACK_PAWN_2][RANK], piecePosition[BLACK_PAWN_2][FILE], -2, 0) && piecePosition[BLACK_PAWN_2][RANK] == RANK_7 && call(isEmpty, actualBoard, piecePosition[BLACK_PAWN_2][RANK] - 2, piecePosition[BLACK_PAWN_2][FILE])]movePiece(BLACK_PAWN_2, -2, 0);
+blackThreePawnDouble() = [call(isLegal, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE], piecePosition[BLACK_PAWN_3][RANK], piecePosition[BLACK_PAWN_3][FILE], -2, 0) && piecePosition[BLACK_PAWN_3][RANK] == RANK_7 && call(isEmpty, actualBoard, piecePosition[BLACK_PAWN_3][RANK] - 2, piecePosition[BLACK_PAWN_3][FILE])]movePiece(BLACK_PAWN_3, -2, 0);
+blackFourPawnDouble() = [call(isLegal, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE], piecePosition[BLACK_PAWN_4][RANK], piecePosition[BLACK_PAWN_4][FILE], -2, 0) && piecePosition[BLACK_PAWN_4][RANK] == RANK_7 && call(isEmpty, actualBoard, piecePosition[BLACK_PAWN_4][RANK] - 2, piecePosition[BLACK_PAWN_4][FILE])]movePiece(BLACK_PAWN_4, -2, 0);
+blackFivePawnDouble() = [call(isLegal, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE], piecePosition[BLACK_PAWN_5][RANK], piecePosition[BLACK_PAWN_5][FILE], -2, 0) && piecePosition[BLACK_PAWN_5][RANK] == RANK_7 && call(isEmpty, actualBoard, piecePosition[BLACK_PAWN_5][RANK] - 2, piecePosition[BLACK_PAWN_5][FILE])]movePiece(BLACK_PAWN_5, -2, 0);
+blackSixPawnDouble() = [call(isLegal, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE], piecePosition[BLACK_PAWN_6][RANK], piecePosition[BLACK_PAWN_6][FILE], -2, 0) && piecePosition[BLACK_PAWN_6][RANK] == RANK_7 && call(isEmpty, actualBoard, piecePosition[BLACK_PAWN_6][RANK] - 2, piecePosition[BLACK_PAWN_6][FILE])]movePiece(BLACK_PAWN_6, -2, 0);
+blackSevenPawnDouble() = [call(isLegal, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE], piecePosition[BLACK_PAWN_7][RANK], piecePosition[BLACK_PAWN_7][FILE], -2, 0) && piecePosition[BLACK_PAWN_7][RANK] == RANK_7 && call(isEmpty, actualBoard, piecePosition[BLACK_PAWN_7][RANK] - 2, piecePosition[BLACK_PAWN_7][FILE])]movePiece(BLACK_PAWN_7, -2, 0);
+blackEightPawnDouble() = [call(isLegal, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE], piecePosition[BLACK_PAWN_8][RANK], piecePosition[BLACK_PAWN_8][FILE], -2, 0) && piecePosition[BLACK_PAWN_8][RANK] == RANK_7 && call(isEmpty, actualBoard, piecePosition[BLACK_PAWN_8][RANK] - 2, piecePosition[BLACK_PAWN_8][FILE])]movePiece(BLACK_PAWN_8, -2, 0);
 
-blackOnePawnDownLeft() = [currentTurn == BLACK_TURN]movePawnDiagonal(BLACK_PAWN_1, -1, -1);
-blackTwoPawnDownLeft() = [currentTurn == BLACK_TURN]movePawnDiagonal(BLACK_PAWN_2, -1, -1);
-blackThreePawnDownLeft() = [currentTurn == BLACK_TURN]movePawnDiagonal(BLACK_PAWN_3, -1, -1);
-blackFourPawnDownLeft() = [currentTurn == BLACK_TURN]movePawnDiagonal(BLACK_PAWN_4, -1, -1);
-blackFivePawnDownLeft() = [currentTurn == BLACK_TURN]movePawnDiagonal(BLACK_PAWN_5, -1, -1);
-blackSixPawnDownLeft() = [currentTurn == BLACK_TURN]movePawnDiagonal(BLACK_PAWN_6, -1, -1);
-blackSevenPawnDownLeft() = [currentTurn == BLACK_TURN]movePawnDiagonal(BLACK_PAWN_7, -1, -1);
-blackEightPawnDownLeft() = [currentTurn == BLACK_TURN]movePawnDiagonal(BLACK_PAWN_8, -1, -1);
+blackOnePawnDownLeft() = [call(isLegal, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE], piecePosition[BLACK_PAWN_1][RANK], piecePosition[BLACK_PAWN_1][FILE], -1, -1) && call(isWhite, actualBoard, piecePosition[BLACK_PAWN_1][RANK] - 1, piecePosition[BLACK_PAWN_1][FILE] - 1)]movePiece(BLACK_PAWN_1, -1, -1);
+blackTwoPawnDownLeft() = [call(isLegal, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE], piecePosition[BLACK_PAWN_2][RANK], piecePosition[BLACK_PAWN_2][FILE], -1, -1) && call(isWhite, actualBoard, piecePosition[BLACK_PAWN_2][RANK] - 1, piecePosition[BLACK_PAWN_1][FILE] - 1)]movePiece(BLACK_PAWN_2, -1, -1);
+blackThreePawnDownLeft() = [call(isLegal, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE], piecePosition[BLACK_PAWN_3][RANK], piecePosition[BLACK_PAWN_3][FILE], -1, -1) && call(isWhite, actualBoard, piecePosition[BLACK_PAWN_3][RANK] - 1, piecePosition[BLACK_PAWN_1][FILE] - 1)]movePiece(BLACK_PAWN_3, -1, -1);
+blackFourPawnDownLeft() = [call(isLegal, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE], piecePosition[BLACK_PAWN_4][RANK], piecePosition[BLACK_PAWN_4][FILE], -1, -1) && call(isWhite, actualBoard, piecePosition[BLACK_PAWN_4][RANK] - 1, piecePosition[BLACK_PAWN_1][FILE] - 1)]movePiece(BLACK_PAWN_4, -1, -1);
+blackFivePawnDownLeft() = [call(isLegal, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE], piecePosition[BLACK_PAWN_5][RANK], piecePosition[BLACK_PAWN_5][FILE], -1, -1) && call(isWhite, actualBoard, piecePosition[BLACK_PAWN_5][RANK] - 1, piecePosition[BLACK_PAWN_1][FILE] - 1)]movePiece(BLACK_PAWN_5, -1, -1);
+blackSixPawnDownLeft() = [call(isLegal, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE], piecePosition[BLACK_PAWN_6][RANK], piecePosition[BLACK_PAWN_6][FILE], -1, -1) && call(isWhite, actualBoard, piecePosition[BLACK_PAWN_6][RANK] - 1, piecePosition[BLACK_PAWN_1][FILE] - 1)]movePiece(BLACK_PAWN_6, -1, -1);
+blackSevenPawnDownLeft() = [call(isLegal, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE], piecePosition[BLACK_PAWN_7][RANK], piecePosition[BLACK_PAWN_7][FILE], -1, -1) && call(isWhite, actualBoard, piecePosition[BLACK_PAWN_7][RANK] - 1, piecePosition[BLACK_PAWN_1][FILE] - 1)]movePiece(BLACK_PAWN_7, -1, -1);
+blackEightPawnDownLeft() = [call(isLegal, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE], piecePosition[BLACK_PAWN_8][RANK], piecePosition[BLACK_PAWN_8][FILE], -1, -1) && call(isWhite, actualBoard, piecePosition[BLACK_PAWN_8][RANK] - 1, piecePosition[BLACK_PAWN_1][FILE] - 1)]movePiece(BLACK_PAWN_8, -1, -1);
 
-blackOnePawnDownRight() = [currentTurn == BLACK_TURN]movePawnDiagonal(BLACK_PAWN_1, -1, 1);
-blackTwoPawnDownRight() = [currentTurn == BLACK_TURN]movePawnDiagonal(BLACK_PAWN_2, -1, 1);
-blackThreePawnDownRight() = [currentTurn == BLACK_TURN]movePawnDiagonal(BLACK_PAWN_3, -1, 1);
-blackFourPawnDownRight() = [currentTurn == BLACK_TURN]movePawnDiagonal(BLACK_PAWN_4, -1, 1);
-blackFivePawnDownRight() = [currentTurn == BLACK_TURN]movePawnDiagonal(BLACK_PAWN_5, -1, 1);
-blackSixPawnDownRight() = [currentTurn == BLACK_TURN]movePawnDiagonal(BLACK_PAWN_6, -1, 1);
-blackSevenPawnDownRight() = [currentTurn == BLACK_TURN]movePawnDiagonal(BLACK_PAWN_7, -1, 1);
-blackEightPawnDownRight() = [currentTurn == BLACK_TURN]movePawnDiagonal(BLACK_PAWN_8, -1, 1);
+blackOnePawnDownRight() = [call(isLegal, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE], piecePosition[BLACK_PAWN_1][RANK], piecePosition[BLACK_PAWN_1][FILE], -1, 1) && call(isWhite, actualBoard, piecePosition[BLACK_PAWN_1][RANK] - 1, piecePosition[BLACK_PAWN_1][FILE] + 1)]movePiece(BLACK_PAWN_1, -1, 1);
+blackTwoPawnDownRight() = [call(isLegal, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE], piecePosition[BLACK_PAWN_2][RANK], piecePosition[BLACK_PAWN_2][FILE], -1, 1) && call(isWhite, actualBoard, piecePosition[BLACK_PAWN_2][RANK] - 1, piecePosition[BLACK_PAWN_1][FILE] + 1)]movePiece(BLACK_PAWN_2, -1, 1);
+blackThreePawnDownRight() = [call(isLegal, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE], piecePosition[BLACK_PAWN_3][RANK], piecePosition[BLACK_PAWN_3][FILE], -1, 1) && call(isWhite, actualBoard, piecePosition[BLACK_PAWN_3][RANK] - 1, piecePosition[BLACK_PAWN_1][FILE] + 1)]movePiece(BLACK_PAWN_3, -1, 1);
+blackFourPawnDownRight() = [call(isLegal, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE], piecePosition[BLACK_PAWN_4][RANK], piecePosition[BLACK_PAWN_4][FILE], -1, 1) && call(isWhite, actualBoard, piecePosition[BLACK_PAWN_4][RANK] - 1, piecePosition[BLACK_PAWN_1][FILE] + 1)]movePiece(BLACK_PAWN_4, -1, 1);
+blackFivePawnDownRight() = [call(isLegal, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE], piecePosition[BLACK_PAWN_5][RANK], piecePosition[BLACK_PAWN_5][FILE], -1, 1) && call(isWhite, actualBoard, piecePosition[BLACK_PAWN_5][RANK] - 1, piecePosition[BLACK_PAWN_1][FILE] + 1)]movePiece(BLACK_PAWN_5, -1, 1);
+blackSixPawnDownRight() = [call(isLegal, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE], piecePosition[BLACK_PAWN_6][RANK], piecePosition[BLACK_PAWN_6][FILE], -1, 1) && call(isWhite, actualBoard, piecePosition[BLACK_PAWN_6][RANK] - 1, piecePosition[BLACK_PAWN_1][FILE] + 1)]movePiece(BLACK_PAWN_6, -1, 1);
+blackSevenPawnDownRight() = [call(isLegal, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE], piecePosition[BLACK_PAWN_7][RANK], piecePosition[BLACK_PAWN_7][FILE], -1, 1) && call(isWhite, actualBoard, piecePosition[BLACK_PAWN_7][RANK] - 1, piecePosition[BLACK_PAWN_1][FILE] + 1)]movePiece(BLACK_PAWN_7, -1, 1);
+blackEightPawnDownRight() = [call(isLegal, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE], piecePosition[BLACK_PAWN_8][RANK], piecePosition[BLACK_PAWN_8][FILE], -1, 1) && call(isWhite, actualBoard, piecePosition[BLACK_PAWN_8][RANK] - 1, piecePosition[BLACK_PAWN_1][FILE] + 1)]movePiece(BLACK_PAWN_8, -1, 1);
 
-moveBlackPawn() = changeTurnToBlackPawn{currentTurn = BLACK_TURN} -> blackPawn();
+moveBlackPawn() = changeTurnToBlack{currentTurn = BLACK_TURN} -> blackPawn();
 
 #define goalSuccessBlackPawnSingle actualBoard[RANK_6][FILE_E] == BLACK_PAWN_5 && 
 										piecePosition[BLACK_PAWN_5][RANK] == RANK_6 && piecePosition[BLACK_PAWN_5][FILE] == FILE_E;	

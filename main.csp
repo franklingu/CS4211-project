@@ -1,35 +1,50 @@
-﻿#include "board.csp";
-#include "rook.csp";
+﻿#include "rook.csp";
 #include "king.csp";
 #include "queen.csp";
 #include "bishop.csp";
 #include "pawn.csp";
 #include "knight.csp";
 
+//#include "testboard1.csp";
+//#include "board1.csp";
+//#include "board2.csp";
+//#include "board3.csp";
+//#include "board4.csp";
+//#include "board5.csp";
+//#include "board6.csp";
+//#include "board7.csp";
+#include "board8.csp";
+//#include "board10.csp";
+//#include "board11.csp";
+//#include "board12.csp";
+
 #import "ValidityCheck";
 
-// checkStatus = [whiteStatus, blackStatus]
-var checkStatus[2] = [0,0];
-
+// the game starts with white to play
 game() = whiteMove();
-whiteMove() = whitePlan() ; execute() ; blackMove();
-blackMove() = blackPlan() ; execute() ; whiteMove();
 
-whitePlan() = whiteKing() [] whiteQueen() [] whiteRook() [] whiteBishop() [] whiteKnights() [] whitePawn();
-blackPlan() = blackKing() [] blackQueen() [] blackRook() [] blackBishop() [] blackKnights() [] blackPawn();
+whiteMove() = [numMoves <= 2] whitePlan();
+blackMove() = [numMoves <= 2] blackPlan();
 
-execute = if(call(isLegal, actualBoard, piecePosition, currentTurn)){
-	turn {
-		// current player no longer in check if move was legal
-		checkStatus[currentTurn] = 0;
-		// change turn
-		currentTurn = 1 - currentTurn;		 
-	} -> checking
-};
+// each side can move any of its pieces
+whitePlan() = whiteKing() [] whiteRook() [] whiteQueen() [] whiteBishop() [] whitePawn() [] whiteKnights();
+blackPlan() = blackKing() [] blackRook() [] blackQueen() [] blackBishop() [] blackPawn() [] blackKnights();
 
-checking = if (call(isCheck, actualBoard, piecePosition, currentTurn)) {
-			check {checkStatus[currentTurn] = 1;} -> Skip
-		};
-		
-#define goal currentTurn == 1;
-#assert game() reaches goal;
+// updates the check status for the side that is about to play
+blackInCheck = [call(isCheck, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE])]
+			blackIsInCheck {checkStatus[currentTurn] = 1;} -> blackMove()
+			[]
+			[!call(isCheck, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE])]
+			blackIsNotInCheck {checkStatus[currentTurn] = 0;} -> blackMove();
+
+whiteInCheck = [call(isCheck, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE])]
+			whiteIsInCheck {checkStatus[currentTurn] = 1;} -> whiteMove()
+			[]
+			[!call(isCheck, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE])]
+			whiteIsNotInCheck {checkStatus[currentTurn] = 0;} -> whiteMove();
+
+#define blackNotInCheck checkStatus[1] == 0;
+#define whiteTurnAgain numMoves >= 2;
+
+// assertion for one-move checkmate
+#assert game() |= <>[](whiteTurnAgain || blackNotInCheck);
