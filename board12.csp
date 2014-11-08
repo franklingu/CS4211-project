@@ -42,7 +42,7 @@ var actualBoard[BOARD_SIZE][BOARD_SIZE] =  [	0,		0,		0,		0,	0,	0,	0,	0,
 		   		 						  		0,		0,		0,		0,		0,		0,	0,	0,
 		   		 						  		0,		0,		0,		0,		0,		0,	0,	0,
 		   		 						  		0,		WHITE_QUEENS_KNIGHT,		0,		0,		0,		0,	0,	0,
-		   		 						  		0,		0,		0,		0,		0,		WHITE_KINGS_KNIGHT,	0,	0,
+		   		 						  		0,		0,		0,		0,		0,		0,	WHITE_KINGS_KNIGHT,	0,
 		   		 						  		0,		0,		0,	0,	0,	0,	0,	0,
 		   		 						  		0,		0,		WHITE_KING,		0,		BLACK_KING,		0,	0,	0
 		   		 						 	];
