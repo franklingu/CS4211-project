@@ -1,0 +1,48 @@
+﻿//Test board 9 : Two knights and king mate
+
+#include "constants.csp";
+
+var piecePosition[33][2] = [	DEAD, DEAD, // 0 - dummy
+								RANK_2, FILE_A, // 1 white pawn 1
+								RANK_2, FILE_B, // 2 white pawn 2
+								RANK_2, FILE_C, // 3 white pawn 3
+								RANK_2, FILE_D, // 4 white pawn 4
+								RANK_4, FILE_E, // 5 white pawn 5
+								RANK_4, FILE_F, // 6 white pawn 6
+								RANK_2, FILE_G, // 7 white pawn 7
+								RANK_2, FILE_H, // 8 white pawn 8
+								RANK_1, FILE_A, // 9 white queens's rook
+								RANK_1, FILE_B, // 10 white queen's knight
+								RANK_1, FILE_C, // 11 white queens's bishop
+								RANK_1, FILE_D, // 12 white queen
+								RANK_1, FILE_E, // 13 white king
+								RANK_1, FILE_F, // 14 white king's bishop
+								RANK_1, FILE_G, // 15 white king's knight
+								RANK_1, FILE_H, // 16 white king's rook
+								RANK_7, FILE_A, // 17 black pawn 1
+								RANK_7, FILE_B, // 18 black pawn 2
+								RANK_7, FILE_C, // 19 black pawn 3
+								RANK_7, FILE_D, // 20 black pawn 4
+								RANK_7, FILE_E, // 21 black pawn 5
+								RANK_5, FILE_F, // 22 black pawn 6
+								RANK_5, FILE_G, // 23 black pawn 7
+								RANK_7, FILE_H, // 24 black pawn 8
+								RANK_8, FILE_A, // 25 black queen's rook
+								RANK_8, FILE_B, // 26 black queen's knight
+								RANK_8, FILE_C, // 27 black queen's bishop
+								RANK_8, FILE_D, // 28 black queen
+								RANK_8, FILE_E, // 29 black king
+								RANK_8, FILE_F, // 30 black king's bishop
+								RANK_8, FILE_G, // 31 black king's knight
+								RANK_8, FILE_H // 32 black king's rook
+						];
+									 
+var actualBoard[BOARD_SIZE][BOARD_SIZE] =  [	WHITE_QUEENS_ROOK,		WHITE_QUEENS_KNIGHT,		WHITE_QUEENS_BISHOP,		WHITE_QUEEN,		WHITE_KING,		WHITE_KINGS_BISHOP,	WHITE_KINGS_KNIGHT,	WHITE_KINGS_ROOK,
+		   		 						  		WHITE_PAWN_1,		WHITE_PAWN_2,		WHITE_PAWN_3,		WHITE_PAWN_4,		0,		0,	WHITE_PAWN_7,	WHITE_PAWN_8,
+		   		 						  		0,		0,		0,		0,		0,		0,	0,	0,
+		   		 						  		0,		0,		0,		0,		WHITE_PAWN_5,		WHITE_PAWN_6,	0,	0,
+		   		 						  		0,		0,		0,		0,		0,		BLACK_PAWN_6,	BLACK_PAWN_7,	0,
+		   		 						  		0,		0,		0,		0,		0,		0,	0,	0,
+		   		 						  		BLACK_PAWN_1,		BLACK_PAWN_2,		BLACK_PAWN_3,		BLACK_PAWN_4,		BLACK_PAWN_5,		0,	0,	BLACK_PAWN_8,
+		   		 						  		BLACK_QUEENS_ROOK,		BLACK_QUEENS_KNIGHT,		BLACK_QUEENS_BISHOP,		BLACK_QUEEN,		BLACK_KING,		BLACK_KINGS_BISHOP, BLACK_KINGS_KNIGHT,	BLACK_KINGS_ROOK
+		   		 						 	];
