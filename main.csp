@@ -1,12 +1,20 @@
-﻿#include "rook.csp";
+﻿/* main.csp
+ * This code takes care of the game function, turn initialization, consolidating all the pieces,
+ * and checkmate assertion.
+ */
+
+#include "rook.csp";
 #include "king.csp";
 #include "queen.csp";
 #include "bishop.csp";
 #include "pawn.csp";
 #include "knight.csp";
 
+/* Uncomment exactly one board for verification
+ * Corresponding graphical representation of the board is included in the same folder
+ */
 //#include "testboard1.csp";
-//#include "board1.csp";
+#include "board1.csp";
 //#include "board2.csp";
 //#include "board3.csp";
 //#include "board4.csp";
@@ -19,7 +27,7 @@
 //#include "board11.csp";
 //#include "board12.csp";
 //#include "board13.csp";
-#include "board14.csp";
+//#include "board14.csp";
 
 #import "ValidityCheck";
 
@@ -31,8 +39,8 @@ whiteMove() = [numMoves <= 2] whitePlan();
 blackMove() = [numMoves <= 2] blackPlan();
 
 // each side can move any of its pieces
-whitePlan() = whiteKing() [] whiteRook() [] whiteQueen() [] whiteBishop() [] whitePawn() [] whiteKnights();
-blackPlan() = blackKing() [] blackRook() [] blackQueen() [] blackBishop() [] blackPawn() [] blackKnights();
+whitePlan() = whiteKing() [] whiteRook() [] whiteQueen() [] whiteGame() [] whitePawn() [] whiteKnight();
+blackPlan() = blackKing() [] blackRook() [] blackQueen() [] blackBishop() [] blackPawn() [] blackKnight();
 
 // updates the check status for the side that is about to play
 blackInCheck = [call(isCheck, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE])]
@@ -55,3 +63,306 @@ whiteInCheck = [call(isCheck, currentTurn, actualBoard, piecePosition[WHITE_KING
 #assert whiteGame() |= <>[](twoMovesElapsed || blackNotInCheck);
 // assertion for black's one-move checkmate
 #assert blackGame() |= <>[](twoMovesElapsed || whiteNotInCheck);
+
+
+
+
+//===========================================================================//
+//===========================================================================//
+// Piece Movement Assertions Verifcations
+//===========================================================================//
+//===========================================================================//
+
+
+
+//===========================================================================//
+// bishop assertions
+//===========================================================================//
+#define goalSuccessWhiteQueensBishopUpLeft numMoves == 1 && actualBoard[RANK_3][FILE_A] == WHITE_QUEENS_BISHOP && 
+										piecePosition[WHITE_QUEENS_BISHOP][RANK] == RANK_3 && piecePosition[WHITE_QUEENS_BISHOP][FILE] == FILE_A;
+#define goalSuccessWhiteQueensBishopUpRightEnemyPiece numMoves == 1 && actualBoard[RANK_5][FILE_G] == WHITE_QUEENS_BISHOP && 
+										piecePosition[WHITE_QUEENS_BISHOP][RANK] == RANK_5 && piecePosition[WHITE_QUEENS_BISHOP][FILE] == FILE_G;
+#define goalFailureWhiteQueensBishopUpRightBehindEnemyPiece numMoves == 1 && actualBoard[RANK_6][FILE_H] == WHITE_QUEENS_BISHOP && 
+										piecePosition[WHITE_QUEENS_BISHOP][RANK] == RANK_6 && piecePosition[WHITE_QUEENS_BISHOP][FILE] == FILE_H;
+// moving the bishop results in discover check
+#define goalFailureWhiteKingsBishopMove numMoves == 1 && actualBoard[RANK_3][FILE_H] == WHITE_KINGS_BISHOP && 
+										piecePosition[WHITE_KINGS_BISHOP][RANK] == RANK_3 && piecePosition[WHITE_KINGS_BISHOP][FILE] == FILE_H;
+
+moveWhiteBishop() = changeTurnToWhite{currentTurn = WHITE_TURN;} -> whiteBishop();
+										
+#define goalSuccessBlackKingsBishopDownLeft numMoves == 1 && actualBoard[RANK_3][FILE_A] == BLACK_KINGS_BISHOP &&
+										piecePosition[BLACK_KINGS_BISHOP][RANK] == RANK_3 && piecePosition[BLACK_KINGS_BISHOP][FILE] == FILE_A;
+#define goalSuccessBlackKingsBishopDownRight numMoves == 1 && actualBoard[RANK_2][FILE_F] == BLACK_KINGS_BISHOP &&
+										piecePosition[BLACK_KINGS_BISHOP][RANK] == RANK_2 && piecePosition[BLACK_KINGS_BISHOP][FILE] == FILE_F;
+#define goalFailureBlackKingsBishopMoveNotPossible1 numMoves == 1 && actualBoard[RANK_3][FILE_C] == BLACK_KINGS_BISHOP &&
+										piecePosition[BLACK_KINGS_BISHOP][RANK] == RANK_3 && piecePosition[BLACK_KINGS_BISHOP][FILE] == FILE_C;
+#define goalFailureBlackKingsBishopMoveNotPossible2 numMoves == 1 && actualBoard[RANK_5][FILE_D] == BLACK_KINGS_BISHOP &&
+										piecePosition[BLACK_KINGS_BISHOP][RANK] == RANK_5 && piecePosition[BLACK_KINGS_BISHOP][FILE] == FILE_D;
+#define goalSuccessBlackKingsBishopUpLeft numMoves == 1 && actualBoard[RANK_6][FILE_B] == BLACK_KINGS_BISHOP &&
+										piecePosition[BLACK_KINGS_BISHOP][RANK] == RANK_6 && piecePosition[BLACK_KINGS_BISHOP][FILE] == FILE_B;
+#define goalFailureBlackKingsBishopUpLeftSelfPiece numMoves == 1 && actualBoard[RANK_7][FILE_A] == BLACK_KINGS_BISHOP &&
+										piecePosition[BLACK_KINGS_BISHOP][RANK] == RANK_7 && piecePosition[BLACK_KINGS_BISHOP][FILE] == FILE_A;
+#define goalSuccessBlackKingsBishopUpRightEnemyPiece numMoves == 1 && actualBoard[RANK_6][FILE_D] == BLACK_KINGS_BISHOP &&
+										piecePosition[BLACK_KINGS_BISHOP][RANK] == RANK_6 && piecePosition[BLACK_KINGS_BISHOP][FILE] == FILE_D;
+#define goalFailureBlackKingsBishopUpRightBehindEnemyPiece numMoves == 1 && actualBoard[RANK_7][FILE_E] == BLACK_KINGS_BISHOP &&
+										piecePosition[BLACK_KINGS_BISHOP][RANK] == RANK_7 && piecePosition[BLACK_KINGS_BISHOP][FILE] == FILE_E;
+#define goalFailureBlackKingsBishopUpRightBehindSelfPiece numMoves == 1 && actualBoard[RANK_8][FILE_F] == BLACK_KINGS_BISHOP &&
+										piecePosition[BLACK_KINGS_BISHOP][RANK] == RANK_8 && piecePosition[BLACK_KINGS_BISHOP][FILE] == FILE_F;
+
+#assert moveWhiteBishop() reaches goalSuccessWhiteQueensBishopUpLeft;
+#assert moveWhiteBishop() reaches goalSuccessWhiteQueensBishopUpRightEnemyPiece;
+#assert moveWhiteBishop() reaches goalFailureWhiteQueensBishopUpRightBehindEnemyPiece;
+#assert moveWhiteBishop() reaches goalFailureWhiteKingsBishopMove;
+
+#assert moveBlackBishop() reaches goalSuccessBlackKingsBishopDownLeft;
+#assert moveBlackBishop() reaches goalSuccessBlackKingsBishopDownRight;
+#assert moveBlackBishop() reaches goalFailureBlackKingsBishopMoveNotPossible1;
+#assert moveBlackBishop() reaches goalFailureBlackKingsBishopMoveNotPossible2;
+#assert moveBlackBishop() reaches goalSuccessBlackKingsBishopUpLeft;
+#assert moveBlackBishop() reaches goalFailureBlackKingsBishopUpLeftSelfPiece;
+#assert moveBlackBishop() reaches goalSuccessBlackKingsBishopUpRightEnemyPiece;
+#assert moveBlackBishop() reaches goalFailureBlackKingsBishopUpRightBehindEnemyPiece;
+#assert moveBlackBishop() reaches goalFailureBlackKingsBishopUpRightBehindSelfPiece;
+
+//===========================================================================//
+// king assertions
+//===========================================================================//
+#define goalSuccessWhiteKingUp piecePosition[WHITE_KING][0] == RANK_2 && piecePosition[WHITE_KING][1] == FILE_E &&
+						numMoves == 1 && actualBoard[RANK_2][FILE_E] == WHITE_KING;
+#define goalSuccessWhiteKingUpLeft piecePosition[WHITE_KING][0] == RANK_2 && piecePosition[WHITE_KING][1] == FILE_D &&
+							numMoves == 1 && actualBoard[RANK_2][FILE_D] == WHITE_KING;
+// up right square is in check by black bishop
+#define goalFailureWhiteKingUpRight piecePosition[WHITE_KING][0] == RANK_2 && piecePosition[WHITE_KING][1] == FILE_F &&
+							 numMoves == 1 && actualBoard[RANK_2][FILE_F] == WHITE_KING;
+#define goalSuccessWhiteKingLeft piecePosition[WHITE_KING][0] == RANK_1 && piecePosition[WHITE_KING][1] == FILE_D &&
+						  numMoves == 1 && actualBoard[RANK_1][FILE_D] == WHITE_KING;
+#define goalFailureWhiteKingRightSelfPiece numMoves == 1 && piecePosition[WHITE_KING][0] == RANK_1 && piecePosition[WHITE_KING][1] == FILE_F;
+#define goalFailureMoveNotPossible1 numMoves == 1 && piecePosition[WHITE_KING][0] == RANK_3 && piecePosition[WHITE_KING][1] == FILE_E;
+#define goalFailureMoveNotPossible2 numMoves == 1 && piecePosition[WHITE_KING][0] == RANK_3 && piecePosition[WHITE_KING][1] == FILE_E;
+
+moveWhiteKing() = changeTurnToWhite{currentTurn = WHITE_TURN;} -> whiteKing();
+
+#assert moveWhiteKing() reaches goalSuccessWhiteKingUp;
+#assert moveWhiteKing() reaches goalSuccessWhiteKingUpLeft;
+#assert moveWhiteKing() reaches goalFailureWhiteKingUpRight;
+#assert moveWhiteKing() reaches goalSuccessWhiteKingLeft;
+#assert moveWhiteKing() reaches goalFailureWhiteKingRightSelfPiece;
+#assert moveWhiteKing() reaches goalFailureMoveNotPossible1;
+#assert moveWhiteKing() reaches goalFailureMoveNotPossible2;
+
+#define goalSuccessBlackKingDownRightEnemyPiece piecePosition[BLACK_KING][0] == RANK_7 && piecePosition[BLACK_KING][1] == FILE_F &&
+										 numMoves == 1 && actualBoard[RANK_7][FILE_F] == BLACK_KING;
+#define goalFailureBlackKingDownSelfPiece piecePosition[BLACK_KING][0] == RANK_7 && piecePosition[BLACK_KING][1] == FILE_E;
+#define goalFailureBlackKingDownLeftSelfPiece piecePosition[BLACK_KING][0] == RANK_7 && piecePosition[BLACK_KING][1] == FILE_D;
+#define goalSuccessBlackKingRight piecePosition[BLACK_KING][0] == RANK_8 && piecePosition[BLACK_KING][1] == FILE_F &&
+						   		numMoves == 1 && actualBoard[RANK_8][FILE_F] == BLACK_KING;
+// left square is in check by white knight						   		
+#define goalFailureBlackKingLeft piecePosition[BLACK_KING][0] == RANK_8 && piecePosition[BLACK_KING][1] == FILE_D &&
+						   		numMoves == 1 && actualBoard[RANK_8][FILE_D] == BLACK_KING;
+
+moveBlackKing() = changeTurnToBlack{currentTurn = BLACK_TURN;} -> blackKing();
+
+#assert moveBlackKing() reaches goalSuccessBlackKingDownRightEnemyPiece;
+#assert moveBlackKing() reaches goalFailureBlackKingDownSelfPiece;
+#assert moveBlackKing() reaches goalFailureBlackKingDownLeftSelfPiece;
+#assert moveBlackKing() reaches goalSuccessBlackKingRight;
+#assert moveBlackKing() reaches goalFailureBlackKingLeft;
+
+//===========================================================================//
+// knight assertions
+//===========================================================================//
+#define goalSuccessBlackQueensKnightUpRight1 numMoves == 1 && actualBoard[RANK_8][FILE_B] == BLACK_QUEENS_KNIGHT && 
+											piecePosition[BLACK_QUEENS_KNIGHT][RANK] == RANK_8 && piecePosition[BLACK_QUEENS_KNIGHT][FILE] == FILE_B;
+#define goalSuccessBlackQueensKnightDownRight1 numMoves == 1 && actualBoard[RANK_4][FILE_B] == BLACK_QUEENS_KNIGHT && 
+											piecePosition[BLACK_QUEENS_KNIGHT][RANK] == RANK_4 && piecePosition[BLACK_QUEENS_KNIGHT][FILE] == FILE_B;
+#define goalSuccessBlackQueensKnightUpRight2 numMoves == 1 && actualBoard[RANK_7][FILE_C] == BLACK_QUEENS_KNIGHT && 
+											piecePosition[BLACK_QUEENS_KNIGHT][RANK] == RANK_7 && piecePosition[BLACK_QUEENS_KNIGHT][FILE] == FILE_C;
+#define goalFailureBlackQueensKnightDownRight2SelfPiece numMoves == 1 && actualBoard[RANK_5][FILE_C] == BLACK_QUEENS_KNIGHT &&
+											piecePosition[BLACK_QUEENS_KNIGHT][RANK] == RANK_5 && piecePosition[BLACK_QUEENS_KNIGHT][FILE] == FILE_C;
+#define goalFailureBlackQueensKnightMoveNotPossible1 numMoves == 1 && actualBoard[RANK_4][FILE_C] == BLACK_QUEENS_KNIGHT &&
+											piecePosition[BLACK_QUEENS_KNIGHT][RANK] == RANK_4 && piecePosition[BLACK_QUEENS_KNIGHT][FILE] == FILE_C;
+
+#define goalSuccessWhiteKingsKnightUpRight2 numMoves == 1 && actualBoard[RANK_8][FILE_H] == WHITE_KINGS_KNIGHT &&
+    piecePosition[WHITE_KINGS_KNIGHT][RANK] == RANK_8 && piecePosition[WHITE_KINGS_KNIGHT][FILE] == FILE_H;
+#define goalSuccessWhiteKingsKnightDownRight2 numMoves == 1 && actualBoard[RANK_6][FILE_H] == WHITE_KINGS_KNIGHT &&
+    piecePosition[WHITE_KINGS_KNIGHT][RANK] == RANK_6 && piecePosition[WHITE_KINGS_KNIGHT][FILE] == FILE_H;	
+#define goalSuccessWhiteKingsKnightDownLeft1 numMoves == 1 && actualBoard[RANK_5][FILE_E] == WHITE_KINGS_KNIGHT &&
+    piecePosition[WHITE_KINGS_KNIGHT][RANK] == RANK_5 && piecePosition[WHITE_KINGS_KNIGHT][FILE] == FILE_E;
+#define goalSuccessWhiteKingsKnightUpLeft2 numMoves == 1 && actualBoard[RANK_8][FILE_D] == WHITE_KINGS_KNIGHT &&
+    piecePosition[WHITE_KINGS_KNIGHT][RANK] == RANK_8 && piecePosition[WHITE_KINGS_KNIGHT][FILE] == FILE_D;
+#define goalSuccessWhiteKingsKnightDownRight2EnemyPiece numMoves == 1 && actualBoard[RANK_5][FILE_G] == WHITE_KINGS_KNIGHT &&
+    piecePosition[WHITE_KINGS_KNIGHT][RANK] == RANK_5 && piecePosition[WHITE_KINGS_KNIGHT][FILE] == FILE_G;
+#define goalFailureWhiteKingsKnightDownLeft2SelfPiece numMoves == 1 && actualBoard[RANK_6][FILE_D] == WHITE_KINGS_KNIGHT &&
+    piecePosition[WHITE_KINGS_KNIGHT][RANK] == RANK_6 && piecePosition[WHITE_KINGS_KNIGHT][FILE] == FILE_D;
+
+moveWhiteKnight() = changeTurnToWhite{currentTurn = WHITE_TURN;} -> whiteKnight();
+moveBlackKnight() = changeTurnToBlack{currentTurn = BLACK_TURN} -> blackKnight();
+
+#assert moveBlackKnight() reaches goalSuccessBlackQueensKnightUpRight1;
+#assert moveBlackKnight() reaches goalSuccessBlackQueensKnightDownRight1;
+#assert moveBlackKnight() reaches goalSuccessBlackQueensKnightUpRight2;
+#assert moveBlackKnight() reaches goalFailureBlackQueensKnightDownRight2SelfPiece;
+#assert moveBlackKnight() reaches goalFailureBlackQueensKnightMoveNotPossible1;
+
+#assert moveWhiteKnight() reaches goalSuccessWhiteKingsKnightUpRight2;
+#assert moveWhiteKnight() reaches goalSuccessWhiteKingsKnightDownRight2;
+#assert moveWhiteKnight() reaches goalSuccessWhiteKingsKnightDownLeft1;
+#assert moveWhiteKnight() reaches goalSuccessWhiteKingsKnightUpLeft2;
+#assert moveWhiteKnight() reaches goalSuccessWhiteKingsKnightDownRight2EnemyPiece;
+#assert moveWhiteKnight() reaches goalFailureWhiteKingsKnightDownLeft2SelfPiece;
+
+//===========================================================================//
+// pawn assertions
+//===========================================================================//
+
+#define goalSuccessBlackPawnSingle numMoves == 1 && actualBoard[RANK_6][FILE_E] == BLACK_PAWN_5 && 
+										piecePosition[BLACK_PAWN_5][RANK] == RANK_6 && piecePosition[BLACK_PAWN_5][FILE] == FILE_E;	
+#define goalSuccessBlackPawnInitialDouble numMoves == 1 && actualBoard[RANK_5][FILE_E] == BLACK_PAWN_5 && 
+										piecePosition[BLACK_PAWN_5][RANK] == RANK_5 && piecePosition[BLACK_PAWN_5][FILE] == FILE_E;	
+#define goalFailureBlackPawnSingleSelfPiece numMoves == 1 && actualBoard[RANK_6][FILE_A] == BLACK_PAWN_1 && 
+										piecePosition[BLACK_PAWN_1][RANK] == RANK_6 && piecePosition[BLACK_PAWN_1][FILE] == FILE_A;		
+#define goalFailureBlackPawnDoubleBehindSelfPiece numMoves == 1 && actualBoard[RANK_5][FILE_A] == BLACK_PAWN_1 && 
+										piecePosition[BLACK_PAWN_1][RANK] == RANK_5 && piecePosition[BLACK_PAWN_1][FILE] == FILE_A;
+#define goalFailureBlackPawnDoubelNotInitial numMoves == 1 && actualBoard[RANK_4][FILE_C] == BLACK_PAWN_3 && 
+										piecePosition[BLACK_PAWN_3][RANK] == RANK_4 && piecePosition[BLACK_PAWN_3][FILE] == FILE_C;
+#define goalSuccessBlackPawnDiagonalRightEnemyPiece numMoves == 1 && actualBoard[RANK_2][FILE_H] == BLACK_PAWN_2 && 
+										piecePosition[BLACK_PAWN_2][RANK] == RANK_2 && piecePosition[BLACK_PAWN_2][FILE] == FILE_H;
+// results in a discover check
+#define goalFailureBlackPawnDiagonalLeftEnemyPiece numMoves == 1 && actualBoard[RANK_6][FILE_D] == BLACK_PAWN_5 && 
+										piecePosition[BLACK_PAWN_5][RANK] == RANK_6 && piecePosition[BLACK_PAWN_5][FILE] == FILE_D;
+#define goalFailureBlackPawnMoveNotPossible1 numMoves == 1 && actualBoard[RANK_4][FILE_E] == BLACK_PAWN_5 && 
+										piecePosition[BLACK_PAWN_5][RANK] == RANK_4 && piecePosition[BLACK_PAWN_5][FILE] == FILE_E;
+#define goalFailureDiagonalRightNoEnemyPiece numMoves == 1 && actualBoard[RANK_6][FILE_B] == BLACK_PAWN_1 && 
+										piecePosition[BLACK_PAWN_1][RANK] == RANK_6 && piecePosition[BLACK_PAWN_1][FILE] == FILE_B;	
+
+#assert moveBlackPawn() reaches goalSuccessBlackPawnSingle;
+#assert moveBlackPawn() reaches goalFailureBlackPawnSingleSelfPiece;
+#assert moveBlackPawn() reaches goalSuccessBlackPawnInitialDouble;
+#assert moveBlackPawn() reaches goalFailureBlackPawnDoubleBehindSelfPiece;
+#assert moveBlackPawn() reaches goalFailureBlackPawnDoubelNotInitial;
+#assert moveBlackPawn() reaches goalFailureBlackPawnDiagonalLeftEnemyPiece;
+#assert moveBlackPawn() reaches goalSuccessBlackPawnDiagonalRightEnemyPiece;
+#assert moveBlackPawn() reaches goalFailureDiagonalRightNoEnemyPiece;
+#assert moveBlackPawn() reaches goalFailureBlackPawnMoveNotPossible1;
+
+#define goalFailureWhitePawnSingleSelfPiece numMoves == 1 && actualBoard[RANK_7][FILE_F] == WHITE_PAWN_6 && 
+										piecePosition[WHITE_PAWN_6][RANK] == RANK_7 && piecePosition[WHITE_PAWN_6][FILE] == FILE_F;		
+#define goalFailureWhitePawnSingleEnemyPiece numMoves == 1 && actualBoard[RANK_7][FILE_D] == WHITE_PAWN_6 && 
+										piecePosition[WHITE_PAWN_6][RANK] == RANK_7 && piecePosition[WHITE_PAWN_6][FILE] == FILE_D;		
+#define goalSuccessWhitePawnDiagonalEnemyPiece numMoves == 1 && actualBoard[RANK_7][FILE_E] == WHITE_PAWN_6 && 
+										piecePosition[WHITE_PAWN_6][RANK] == RANK_7 && piecePosition[WHITE_PAWN_6][FILE] == FILE_E;
+#define goalFailureWhitePawnDiagonalNoEnemyPiece numMoves == 1 && actualBoard[RANK_7][FILE_C] == WHITE_PAWN_6 && 
+										piecePosition[WHITE_PAWN_6][RANK] == RANK_7 && piecePosition[WHITE_PAWN_6][FILE] == FILE_C;	
+
+moveWhitePawns() = changeTurnToWhite{currentTurn = WHITE_TURN;} -> whitePawn();
+
+#assert moveWhitePawns() reaches goalFailureWhitePawnSingleSelfPiece;
+#assert moveWhitePawns() reaches goalFailureWhitePawnSingleEnemyPiece;
+#assert moveWhitePawns() reaches goalSuccessWhitePawnDiagonalEnemyPiece;
+#assert moveWhitePawns() reaches goalFailureWhitePawnDiagonalNoEnemyPiece;
+
+//===========================================================================//
+// queen assertions
+//===========================================================================//
+
+#define goalSuccessWhiteQueenDownLeft numMoves == 1 && actualBoard[RANK_1][FILE_B] == WHITE_QUEEN && 
+								piecePosition[WHITE_QUEEN][RANK] == RANK_1 && piecePosition[WHITE_QUEEN][FILE] == FILE_B;
+#define goalSuccessWhiteQueenRight numMoves == 1 && actualBoard[RANK_4][FILE_G] == WHITE_QUEEN && 
+								piecePosition[WHITE_QUEEN][RANK] == RANK_4 && piecePosition[WHITE_QUEEN][FILE] == FILE_G;
+#define goalSuccessWhiteQueenUpRight numMoves == 1 && actualBoard[RANK_5][FILE_F] == WHITE_QUEEN && 
+								piecePosition[WHITE_QUEEN][RANK] == RANK_5 && piecePosition[WHITE_QUEEN][FILE] == FILE_F;
+#define goalSuccessWhiteQueenUpLeftEnemyPiece numMoves == 1 && actualBoard[RANK_6][FILE_C] == WHITE_QUEEN && 
+								piecePosition[WHITE_QUEEN][RANK] == RANK_6 && piecePosition[WHITE_QUEEN][FILE] == FILE_C;
+#define goalFailureWhiteQueenUpLeftBehindEnemyPiece numMoves == 1 && actualBoard[RANK_7][FILE_B] == WHITE_QUEEN && 
+								piecePosition[WHITE_QUEEN][RANK] == RANK_7 && piecePosition[WHITE_QUEEN][FILE] == FILE_B;
+#define goalSuccessWhiteQueenDownRightEnemyPiece numMoves == 1 && actualBoard[RANK_1][FILE_H] == WHITE_QUEEN && 
+								piecePosition[WHITE_QUEEN][RANK] == RANK_1 && piecePosition[WHITE_QUEEN][FILE] == FILE_H;
+#define goalFailureWhiteQueenDownSelfPiece numMoves == 1 && actualBoard[RANK_1][FILE_E] == WHITE_QUEEN && 
+								piecePosition[WHITE_QUEEN][RANK] == RANK_1 && piecePosition[WHITE_QUEEN][FILE] == FILE_E;
+#define goalFailureWhiteQueenUpBehindSelfPiece numMoves == 1 && actualBoard[RANK_8][FILE_E] == WHITE_QUEEN && 
+								piecePosition[WHITE_QUEEN][RANK] == RANK_8 && piecePosition[WHITE_QUEEN][FILE] == FILE_E;
+								
+moveWhiteQueen() = changeTurnToWhite{currentTurn = WHITE_TURN;} -> whiteQueen();
+
+#define goalSuccessBlackQueenLeft numMoves == 1 && actualBoard[RANK_7][FILE_B] == BLACK_QUEEN && 
+								piecePosition[BLACK_QUEEN][RANK] == RANK_7 && piecePosition[BLACK_QUEEN][FILE] == FILE_B;
+#define goalSuccessBlackQueenUp numMoves == 1 && actualBoard[RANK_8][FILE_D] == BLACK_QUEEN && 
+								piecePosition[BLACK_QUEEN][RANK] == RANK_8 && piecePosition[BLACK_QUEEN][FILE] == FILE_D;
+#define goalSuccessBlackQueenDownRight numMoves == 1 && actualBoard[RANK_3][FILE_H] == BLACK_QUEEN && 
+								piecePosition[BLACK_QUEEN][RANK] == RANK_3 && piecePosition[BLACK_QUEEN][FILE] == FILE_H;
+#define goalSuccessBlackQueenDownEnemyPiece numMoves == 1 && actualBoard[RANK_6][FILE_D] == BLACK_QUEEN && 
+								piecePosition[BLACK_QUEEN][RANK] == RANK_6 && piecePosition[BLACK_QUEEN][FILE] == FILE_D;
+#define goalFailureBlackQueenUpRightSelfPiece numMoves == 1 && actualBoard[RANK_8][FILE_E] == BLACK_QUEEN && 
+								piecePosition[BLACK_QUEEN][RANK] == RANK_8 && piecePosition[BLACK_QUEEN][FILE] == FILE_E;
+#define goalFailureBlackQueenRightBehindSelfPiece numMoves == 1 && actualBoard[RANK_7][FILE_H] == BLACK_QUEEN && 
+								piecePosition[BLACK_QUEEN][RANK] == RANK_7 && piecePosition[BLACK_QUEEN][FILE] == FILE_H;
+#define goalFailureBlackQueenDownLeftBehindSelfPiece numMoves == 1 && actualBoard[RANK_4][FILE_A] == BLACK_QUEEN && 
+								piecePosition[BLACK_QUEEN][RANK] == RANK_4 && piecePosition[BLACK_QUEEN][FILE] == FILE_A;
+#define goalFailureBlackQueenMoveNotPossible numMoves == 1 && actualBoard[RANK_8][FILE_B] == BLACK_QUEEN && 
+								piecePosition[BLACK_QUEEN][RANK] == RANK_8 && piecePosition[BLACK_QUEEN][FILE] == FILE_B;
+
+#assert moveWhiteQueen() reaches goalSuccessWhiteQueenDownLeft;
+#assert moveWhiteQueen() reaches goalSuccessWhiteQueenRight;
+#assert moveWhiteQueen() reaches goalSuccessWhiteQueenUpRight;
+#assert moveWhiteQueen() reaches goalSuccessWhiteQueenUpLeftEnemyPiece;
+#assert moveWhiteQueen() reaches goalFailureWhiteQueenUpLeftBehindEnemyPiece;
+#assert moveWhiteQueen() reaches goalSuccessWhiteQueenDownRightEnemyPiece;
+#assert moveWhiteQueen() reaches goalFailureWhiteQueenDownSelfPiece;
+#assert moveWhiteQueen() reaches goalFailureWhiteQueenUpBehindSelfPiece;
+
+#assert moveBlackQueen() reaches goalSuccessBlackQueenLeft;
+#assert moveBlackQueen() reaches goalSuccessBlackQueenUp;
+#assert moveBlackQueen() reaches goalSuccessBlackQueenDownRight;
+#assert moveBlackQueen() reaches goalSuccessBlackQueenDownEnemyPiece;
+#assert moveBlackQueen() reaches goalFailureBlackQueenUpRightSelfPiece;
+#assert moveBlackQueen() reaches goalFailureBlackQueenRightBehindSelfPiece;
+#assert moveBlackQueen() reaches goalFailureBlackQueenDownLeftBehindSelfPiece;
+#assert moveBlackQueen() reaches goalFailureBlackQueenMoveNotPossible;
+
+//===========================================================================//
+// rook assertions
+//===========================================================================//
+
+moveBlackRook() = changeTurnToBlack{currentTurn = BLACK_TURN;} -> blackRook();
+
+#define goalSuccessBlackQueensRookDownEnemyPiece actualBoard[RANK_2][FILE_H] == BLACK_KINGS_ROOK && 
+										piecePosition[BLACK_KINGS_ROOK][RANK] == RANK_2 && piecePosition[BLACK_KINGS_ROOK][FILE] == FILE_H && numMoves <= 1;
+#define goalSuccessBlackQueensRookRight actualBoard[RANK_5][FILE_B] == BLACK_QUEENS_ROOK && 
+										piecePosition[BLACK_QUEENS_ROOK][RANK] == RANK_5 && piecePosition[BLACK_QUEENS_ROOK][FILE] == FILE_B && numMoves <= 1;
+#define goalSuccessBlackKingsRookLeftEnemyPiece actualBoard[RANK_1][FILE_F] == BLACK_KINGS_ROOK && 
+										piecePosition[BLACK_KINGS_ROOK][RANK] == RANK_1 && piecePosition[BLACK_KINGS_ROOK][FILE] == FILE_F && numMoves <= 1;
+#define goalFailureBlackQueensRookUpSelfPiece actualBoard[RANK_6][FILE_A] == BLACK_QUEENS_ROOK &&
+										piecePosition[BLACK_QUEENS_ROOK][RANK] == RANK_6 && piecePosition[BLACK_QUEENS_ROOK][FILE] == FILE_A && numMoves <= 1;
+#define goalFailureBlackQueensRookRightSelfPiece actualBoard[RANK_5][FILE_C] == BLACK_QUEENS_ROOK &&
+										piecePosition[BLACK_QUEENS_ROOK][RANK] == RANK_5 && piecePosition[BLACK_QUEENS_ROOK][FILE] == FILE_C && numMoves <= 1;
+#define goalFailureBlackQueensRookMoveNotPossible1 actualBoard[RANK_4][FILE_B] == BLACK_QUEENS_ROOK &&
+										piecePosition[BLACK_QUEENS_ROOK][RANK] == RANK_4 && piecePosition[BLACK_QUEENS_ROOK][FILE] == FILE_B && numMoves <= 1;
+#define goalFailureBlackQueensRookBehindSelfPiece actualBoard[RANK_8][FILE_A] == BLACK_QUEENS_ROOK &&
+										piecePosition[BLACK_QUEENS_ROOK][RANK] == RANK_8 && piecePosition[BLACK_QUEENS_ROOK][FILE] == FILE_A && numMoves <= 1;
+#define goalFailureBlackKingsRookLeftBehindEnemyPiece actualBoard[RANK_1][FILE_E] == BLACK_KINGS_ROOK &&
+										piecePosition[BLACK_KINGS_ROOK][RANK] == RANK_1 && piecePosition[BLACK_KINGS_ROOK][FILE] == FILE_E && numMoves <= 1;
+										
+#assert moveBlackRook() reaches goalSuccessBlackQueensRookDownEnemyPiece;
+#assert moveBlackRook() reaches goalSuccessBlackQueensRookRight;
+#assert moveBlackRook() reaches goalSuccessBlackKingsRookLeftEnemyPiece;
+#assert moveBlackRook() reaches goalFailureBlackQueensRookUpSelfPiece;
+#assert moveBlackRook() reaches goalFailureBlackQueensRookRightSelfPiece;
+#assert moveBlackRook() reaches goalFailureBlackQueensRookMoveNotPossible1;
+#assert moveBlackRook() reaches goalFailureBlackQueensRookBehindSelfPiece;
+#assert moveBlackRook() reaches goalFailureBlackKingsRookLeftBehindEnemyPiece;
+
+#define goalSuccessWhiteQueensRookUpEnemyPiece numMoves == 1 && actualBoard[RANK_5][FILE_A] == WHITE_QUEENS_ROOK && 
+										piecePosition[WHITE_QUEENS_ROOK][RANK] == RANK_5 && piecePosition[WHITE_QUEENS_ROOK][FILE] == FILE_A && numMoves <= 1;
+#define goalSuccessWhiteQueensRookRight numMoves == 1 && actualBoard[RANK_2][FILE_H] == WHITE_QUEENS_ROOK && 
+										piecePosition[WHITE_QUEENS_ROOK][RANK] == RANK_2 && piecePosition[WHITE_QUEENS_ROOK][FILE] == FILE_H && numMoves <= 1;
+#define goalSuccessWhiteKingsRookDown numMoves == 1 && actualBoard[RANK_1][FILE_A] == WHITE_QUEENS_ROOK && 
+										piecePosition[WHITE_QUEENS_ROOK][RANK] == RANK_1 && piecePosition[WHITE_QUEENS_ROOK][FILE] == FILE_A && numMoves <= 1;
+#define goalFailureWhiteQueensRookMoveNotPossible1 numMoves == 1 && actualBoard[RANK_1][FILE_B] == WHITE_QUEENS_ROOK && numMoves <= 1;
+#define goalFailureWhiteQueensRookUpBehindEnemyPiece numMoves == 1 && actualBoard[RANK_6][FILE_A] == WHITE_QUEENS_ROOK && numMoves <= 1;
+
+moveWhiteRook() = changeTurnToWhite{currentTurn = WHITE_TURN;} -> whiteRook();
+	
+#assert moveWhiteRook() reaches goalSuccessWhiteQueensRookUpEnemyPiece;
+#assert moveWhiteRook() reaches goalSuccessWhiteQueensRookRight;
+#assert moveWhiteRook() reaches goalSuccessWhiteKingsRookDown;
+#assert moveWhiteRook() reaches goalFailureWhiteQueensRookUpBehindEnemyPiece;

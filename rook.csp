@@ -1,5 +1,13 @@
-﻿#include "move.csp";
+﻿/* rook.csp
+ * This code takes care of the movement for both black and white rooks.
+ * Each move is split into 4 different directions horizontally or vertically of one to seven unit.
+ */
+ 
+#include "move.csp";
 
+//===========================================================================//
+// white rooks
+//===========================================================================//
 whiteRook() = whiteRookMove(1) [] whiteRookMove(2) [] whiteRookMove(3) [] whiteRookMove(4) [] whiteRookMove(5) [] whiteRookMove(6) [] whiteRookMove(7);
 
 whiteRookMove(i) = whiteRookUp(i) [] whiteRookDown(i) [] whiteRookLeft(i) [] whiteRookRight(i);
@@ -19,6 +27,9 @@ whiteKingsRookDown(i) = [call(isLegal, currentTurn, actualBoard, piecePosition[W
 whiteKingsRookLeft(i) = [call(isLegal, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE], piecePosition[WHITE_KINGS_ROOK][RANK], piecePosition[WHITE_KINGS_ROOK][FILE], 0, -i)]movePiece(WHITE_KINGS_ROOK, 0, -i);
 whiteKingsRookRight(i) = [call(isLegal, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE], piecePosition[WHITE_KINGS_ROOK][RANK], piecePosition[WHITE_KINGS_ROOK][FILE], 0, i)]movePiece(WHITE_KINGS_ROOK, 0, i);					 
 
+//===========================================================================//
+// black rooks
+//===========================================================================//
 blackRook() = blackRookMove(1) [] blackRookMove(2) [] blackRookMove(3) [] blackRookMove(4) [] blackRookMove(5) [] blackRookMove(6) [] blackRookMove(7);
 
 blackRookMove(i) = blackRookUp(i) [] blackRookDown(i) [] blackRookLeft(i) [] blackRookRight(i);
@@ -37,48 +48,3 @@ blackKingsRookUp(i) = [call(isLegal, currentTurn, actualBoard, piecePosition[BLA
 blackKingsRookDown(i) = [call(isLegal, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE], piecePosition[BLACK_KINGS_ROOK][RANK], piecePosition[BLACK_KINGS_ROOK][FILE], -i, 0)]movePiece(BLACK_KINGS_ROOK, -i, 0);
 blackKingsRookLeft(i) = [call(isLegal, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE], piecePosition[BLACK_KINGS_ROOK][RANK], piecePosition[BLACK_KINGS_ROOK][FILE], 0, -i)]movePiece(BLACK_KINGS_ROOK, 0, -i);
 blackKingsRookRight(i) = [call(isLegal, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE], piecePosition[BLACK_KINGS_ROOK][RANK], piecePosition[BLACK_KINGS_ROOK][FILE], 0, i)]movePiece(BLACK_KINGS_ROOK, 0, i);	
-
-moveBlackRook() = changeTurnToBlack{currentTurn = BLACK_TURN;} -> blackRook();
-
-#define goalSuccessBlackQueensRookDownEnemyPiece actualBoard[RANK_2][FILE_A] == BLACK_QUEENS_ROOK && 
-										piecePosition[BLACK_QUEENS_ROOK][RANK] == RANK_2 && piecePosition[BLACK_QUEENS_ROOK][FILE] == FILE_A && numMoves <= 1;
-#define goalSuccessBlackQueensRookRight actualBoard[RANK_5][FILE_B] == BLACK_QUEENS_ROOK && 
-										piecePosition[BLACK_QUEENS_ROOK][RANK] == RANK_5 && piecePosition[BLACK_QUEENS_ROOK][FILE] == FILE_B && numMoves <= 1;
-#define goalSuccessBlackKingsRookUp actualBoard[RANK_8][FILE_H] == BLACK_KINGS_ROOK && 
-										piecePosition[BLACK_KINGS_ROOK][RANK] == RANK_8 && piecePosition[BLACK_KINGS_ROOK][FILE] == FILE_H && numMoves <= 1;
-#define goalSuccessBlackKingsRookLeftEnemyPiece actualBoard[RANK_1][FILE_F] == BLACK_KINGS_ROOK && 
-										piecePosition[BLACK_KINGS_ROOK][RANK] == RANK_1 && piecePosition[BLACK_KINGS_ROOK][FILE] == FILE_F && numMoves <= 1;
-#define goalFailureBlackQueensRookUpSelfPiece actualBoard[RANK_6][FILE_A] == BLACK_QUEENS_ROOK &&
-										piecePosition[BLACK_QUEENS_ROOK][RANK] == RANK_6 && piecePosition[BLACK_QUEENS_ROOK][FILE] == FILE_A && numMoves <= 1;
-#define goalFailureBlackQueensRookRightSelfPiece actualBoard[RANK_5][FILE_C] == BLACK_QUEENS_ROOK &&
-										piecePosition[BLACK_QUEENS_ROOK][RANK] == RANK_5 && piecePosition[BLACK_QUEENS_ROOK][FILE] == FILE_C && numMoves <= 1;
-#define goalFailureBlackQueensRookMoveNotPossible1 actualBoard[RANK_4][FILE_B] == BLACK_QUEENS_ROOK &&
-										piecePosition[BLACK_QUEENS_ROOK][RANK] == RANK_4 && piecePosition[BLACK_QUEENS_ROOK][FILE] == FILE_B && numMoves <= 1;
-#define goalFailureBlackQueensRookBehindSelfPiece actualBoard[RANK_8][FILE_A] == BLACK_QUEENS_ROOK &&
-										piecePosition[BLACK_QUEENS_ROOK][RANK] == RANK_8 && piecePosition[BLACK_QUEENS_ROOK][FILE] == FILE_A && numMoves <= 1;
-#define goalFailureBlackKingsRookLeftBehindEnemyPiece actualBoard[RANK_1][FILE_E] == BLACK_KINGS_ROOK &&
-										piecePosition[BLACK_KINGS_ROOK][RANK] == RANK_1 && piecePosition[BLACK_KINGS_ROOK][FILE] == FILE_E && numMoves <= 1;
-
-#assert moveBlackRook() reaches goalSuccessBlackQueensRookDownEnemyPiece;
-#assert moveBlackRook() reaches goalSuccessBlackQueensRookRight;
-#assert moveBlackRook() reaches goalSuccessBlackKingsRookUp;
-#assert moveBlackRook() reaches goalSuccessBlackKingsRookLeftEnemyPiece;
-#assert moveBlackRook() reaches goalFailureBlackQueensRookUpSelfPiece;
-#assert moveBlackRook() reaches goalFailureBlackQueensRookRightSelfPiece;
-#assert moveBlackRook() reaches goalFailureBlackQueensRookMoveNotPossible1;
-#assert moveBlackRook() reaches goalFailureBlackQueensRookBehindSelfPiece;
-#assert moveBlackRook() reaches goalFailureBlackKingsRookLeftBehindEnemyPiece;
-
-#define goalSuccessWhiteQueensRookUpEnemyPiece actualBoard[RANK_5][FILE_A] == WHITE_QUEENS_ROOK && 
-										piecePosition[WHITE_QUEENS_ROOK][RANK] == RANK_5 && piecePosition[WHITE_QUEENS_ROOK][FILE] == FILE_A && numMoves <= 1;
-#define goalSuccessWhiteQueensRookRight actualBoard[RANK_2][FILE_H] == WHITE_QUEENS_ROOK && 
-										piecePosition[WHITE_QUEENS_ROOK][RANK] == RANK_2 && piecePosition[WHITE_QUEENS_ROOK][FILE] == FILE_H && numMoves <= 1;
-#define goalSuccessWhiteKingsRookDown actualBoard[RANK_1][FILE_A] == WHITE_QUEENS_ROOK && 
-										piecePosition[WHITE_QUEENS_ROOK][RANK] == RANK_1 && piecePosition[WHITE_QUEENS_ROOK][FILE] == FILE_A && numMoves <= 1;
-#define goalFailureWhiteQueensRookMoveNotPossible1 actualBoard[RANK_1][FILE_B] == WHITE_QUEENS_ROOK && numMoves <= 1;
-#define goalFailureWhiteQueensRookUpBehindEnemyPiece actualBoard[RANK_6][FILE_A] == WHITE_QUEENS_ROOK && numMoves <= 1;
-	
-#assert whiteRook() reaches goalSuccessWhiteQueensRookUpEnemyPiece;
-#assert whiteRook() reaches goalSuccessWhiteQueensRookRight;
-#assert whiteRook() reaches goalSuccessWhiteKingsRookDown;
-#assert whiteRook() reaches goalFailureWhiteQueensRookUpBehindEnemyPiece;

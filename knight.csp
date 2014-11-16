@@ -1,5 +1,13 @@
-﻿#include "move.csp";
+﻿/* knight.csp
+ * This code takes care of the movement for both black and white knights.
+ * Each move is split into 8 different directions of its unique jump movement.
+ */
+ 
+#include "move.csp";
 
+//===========================================================================//
+// black knights
+//===========================================================================//
 blackKingsKnightUpLeft1() = [call(isLegal, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE], piecePosition[BLACK_KINGS_KNIGHT][RANK], piecePosition[BLACK_KINGS_KNIGHT][FILE], 1, -2)]movePiece(BLACK_KINGS_KNIGHT, 1, -2);
 blackKingsKnightUpLeft2() = [call(isLegal, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE], piecePosition[BLACK_KINGS_KNIGHT][RANK], piecePosition[BLACK_KINGS_KNIGHT][FILE], 2, -1)]movePiece(BLACK_KINGS_KNIGHT, 2, -1);
 blackKingsKnightUpRight1() = [call(isLegal, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE], piecePosition[BLACK_KINGS_KNIGHT][RANK], piecePosition[BLACK_KINGS_KNIGHT][FILE], 1, 2)]movePiece(BLACK_KINGS_KNIGHT, 1, 2);
@@ -22,8 +30,11 @@ blackKingsKnight() = blackKingsKnightUpLeft1() [] blackKingsKnightUpLeft2() [] b
                      blackKingsKnightDownLeft1() [] blackKingsKnightDownLeft2() [] blackKingsKnightDownRight1() [] blackKingsKnightDownRight2();
 blackQueensKnight() = blackQueensKnightUpLeft1() [] blackQueensKnightUpLeft2() [] blackQueensKnightUpRight1() [] blackQueensKnightUpRight2() []
                       blackQueensKnightDownLeft1() [] blackQueensKnightDownLeft2() [] blackQueensKnightDownRight1() [] blackQueensKnightDownRight2();
-blackKnights() = blackKingsKnight() [] blackQueensKnight();
+blackKnight() = blackKingsKnight() [] blackQueensKnight();
 
+//===========================================================================//
+// white knights
+//===========================================================================//
 whiteKingsKnightUpLeft1() = [call(isLegal, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE], piecePosition[WHITE_KINGS_KNIGHT][RANK], piecePosition[WHITE_KINGS_KNIGHT][FILE], 1, -2)]movePiece(WHITE_KINGS_KNIGHT, 1, -2);
 whiteKingsKnightUpLeft2() = [call(isLegal, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE], piecePosition[WHITE_KINGS_KNIGHT][RANK], piecePosition[WHITE_KINGS_KNIGHT][FILE], 2, -1)]movePiece(WHITE_KINGS_KNIGHT, 2, -1);
 whiteKingsKnightUpRight1() = [call(isLegal, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE], piecePosition[WHITE_KINGS_KNIGHT][RANK], piecePosition[WHITE_KINGS_KNIGHT][FILE], 1, 2)]movePiece(WHITE_KINGS_KNIGHT, 1, 2);
@@ -46,44 +57,4 @@ whiteKingsKnight() = whiteKingsKnightUpLeft1() [] whiteKingsKnightUpLeft2() [] w
                      whiteKingsKnightDownLeft1() [] whiteKingsKnightDownLeft2() [] whiteKingsKnightDownRight1() [] whiteKingsKnightDownRight2();
 whiteQueensKnight() = whiteQueensKnightUpLeft1() [] whiteQueensKnightUpLeft2() [] whiteQueensKnightUpRight1() [] whiteQueensKnightUpRight2() []
                       whiteQueensKnightDownLeft1() [] whiteQueensKnightDownLeft2() [] whiteQueensKnightDownRight1() [] whiteQueensKnightDownRight2();
-whiteKnights() = whiteKingsKnight() [] whiteQueensKnight();
-
-moveBlackKnights() = changeTurnToBlack{currentTurn = BLACK_TURN} -> blackKnights();
-
-#define goalSuccessBlackQueensKnightUpRight1 actualBoard[RANK_8][FILE_B] == BLACK_QUEENS_KNIGHT && 
-											piecePosition[BLACK_QUEENS_KNIGHT][RANK] == RANK_8 && piecePosition[BLACK_QUEENS_KNIGHT][FILE] == FILE_B;
-#define goalSuccessBlackQueensKnightDownRight1 actualBoard[RANK_4][FILE_B] == BLACK_QUEENS_KNIGHT && 
-											piecePosition[BLACK_QUEENS_KNIGHT][RANK] == RANK_4 && piecePosition[BLACK_QUEENS_KNIGHT][FILE] == FILE_B;
-#define goalSuccessBlackQueensKnightUpRight2 actualBoard[RANK_7][FILE_C] == BLACK_QUEENS_KNIGHT && 
-											piecePosition[BLACK_QUEENS_KNIGHT][RANK] == RANK_7 && piecePosition[BLACK_QUEENS_KNIGHT][FILE] == FILE_C;
-#define goalFailureBlackQueensKnightDownRight2SelfPiece actualBoard[RANK_5][FILE_C] == BLACK_QUEENS_KNIGHT &&
-											piecePosition[BLACK_QUEENS_KNIGHT][RANK] == RANK_5 && piecePosition[BLACK_QUEENS_KNIGHT][FILE] == FILE_C;
-#define goalFailureBlackQueensKnightMoveNotPossible1 actualBoard[RANK_4][FILE_C] == BLACK_QUEENS_KNIGHT &&
-											piecePosition[BLACK_QUEENS_KNIGHT][RANK] == RANK_4 && piecePosition[BLACK_QUEENS_KNIGHT][FILE] == FILE_C;
-
-#define goalSuccessWhiteKingsKnightUpRight2 actualBoard[RANK_8][FILE_H] == WHITE_KINGS_KNIGHT &&
-    piecePosition[WHITE_KINGS_KNIGHT][RANK] == RANK_8 && piecePosition[WHITE_KINGS_KNIGHT][FILE] == FILE_H;
-#define goalSuccessWhiteKingsKnightDownRight2 actualBoard[RANK_6][FILE_H] == WHITE_KINGS_KNIGHT &&
-    piecePosition[WHITE_KINGS_KNIGHT][RANK] == RANK_6 && piecePosition[WHITE_KINGS_KNIGHT][FILE] == FILE_H;	
-#define goalSuccessWhiteKingsKnightDownLeft1 actualBoard[RANK_5][FILE_E] == WHITE_KINGS_KNIGHT &&
-    piecePosition[WHITE_KINGS_KNIGHT][RANK] == RANK_5 && piecePosition[WHITE_KINGS_KNIGHT][FILE] == FILE_E;
-#define goalSuccessWhiteKingsKnightUpLeft2 actualBoard[RANK_8][FILE_D] == WHITE_KINGS_KNIGHT &&
-    piecePosition[WHITE_KINGS_KNIGHT][RANK] == RANK_8 && piecePosition[WHITE_KINGS_KNIGHT][FILE] == FILE_D;
-#define goalSuccessWhiteKingsKnightDownRight2EnemyPiece actualBoard[RANK_5][FILE_G] == WHITE_KINGS_KNIGHT &&
-    piecePosition[WHITE_KINGS_KNIGHT][RANK] == RANK_5 && piecePosition[WHITE_KINGS_KNIGHT][FILE] == FILE_G;
-#define goalFailureWhiteKingsKnightDownLeft2SelfPiece actualBoard[RANK_6][FILE_D] == WHITE_KINGS_KNIGHT &&
-    piecePosition[WHITE_KINGS_KNIGHT][RANK] == RANK_6 && piecePosition[WHITE_KINGS_KNIGHT][FILE] == FILE_D;
-
-
-#assert moveBlackKnights() reaches goalSuccessBlackQueensKnightUpRight1;
-#assert moveBlackKnights() reaches goalSuccessBlackQueensKnightDownRight1;
-#assert moveBlackKnights() reaches goalSuccessBlackQueensKnightUpRight2;
-#assert moveBlackKnights() reaches goalFailureBlackQueensKnightDownRight2SelfPiece;
-#assert moveBlackKnights() reaches goalFailureBlackQueensKnightMoveNotPossible1;
-
-#assert whiteKnights() reaches goalSuccessWhiteKingsKnightUpRight2;
-#assert whiteKnights() reaches goalSuccessWhiteKingsKnightDownRight2;
-#assert whiteKnights() reaches goalSuccessWhiteKingsKnightDownLeft1;
-#assert whiteKnights() reaches goalSuccessWhiteKingsKnightUpLeft2;
-#assert whiteKnights() reaches goalSuccessWhiteKingsKnightDownRight2EnemyPiece;
-#assert whiteKnights() reaches goalFailureWhiteKingsKnightDownLeft2SelfPiece;
+whiteKnight() = whiteKingsKnight() [] whiteQueensKnight();

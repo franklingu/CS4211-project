@@ -1,5 +1,13 @@
-﻿#include "move.csp";
+﻿/* queen.csp
+ * This code takes care of the movement for both black and white queen.
+ * Each move is split into 8 different directions of one to seven unit.
+ */
+ 
+#include "move.csp";
 
+//===========================================================================//
+// black queen
+//===========================================================================//
 blackQueenUp(i) = [call(isLegal, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE], piecePosition[BLACK_QUEEN][RANK], piecePosition[BLACK_QUEEN][FILE], i, 0)]movePiece(BLACK_QUEEN, i, 0);
 blackQueenDown(i) = [call(isLegal, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE], piecePosition[BLACK_QUEEN][RANK], piecePosition[BLACK_QUEEN][FILE], -i, 0)]movePiece(BLACK_QUEEN, -i, 0);
 blackQueenLeft(i) = [call(isLegal, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE], piecePosition[BLACK_QUEEN][RANK], piecePosition[BLACK_QUEEN][FILE], 0, -i)]movePiece(BLACK_QUEEN, 0, -i);
@@ -14,6 +22,9 @@ blackQueen() = blackQueenMove(1) [] blackQueenMove(2) [] blackQueenMove(3) [] bl
 blackQueenMove(i) = blackQueenUp(i) [] blackQueenDown(i) [] blackQueenLeft(i) [] blackQueenRight(i) [] 
                blackQueenUpLeft(i) [] blackQueenUpRight(i) [] blackQueenDownLeft(i) [] blackQueenDownRight(i);
 
+//===========================================================================//
+// white queen
+//===========================================================================//
 whiteQueenUp(i) = [call(isLegal, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE], piecePosition[WHITE_QUEEN][RANK], piecePosition[WHITE_QUEEN][FILE], i, 0)]movePiece(WHITE_QUEEN, i, 0);
 whiteQueenDown(i) = [call(isLegal, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE], piecePosition[WHITE_QUEEN][RANK], piecePosition[WHITE_QUEEN][FILE], -i, 0)]movePiece(WHITE_QUEEN, -i, 0);
 whiteQueenLeft(i) = [call(isLegal, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE], piecePosition[WHITE_QUEEN][RANK], piecePosition[WHITE_QUEEN][FILE], 0, -i)]movePiece(WHITE_QUEEN, 0, -i);
@@ -29,55 +40,3 @@ whiteQueenMove(i) = whiteQueenUp(i) [] whiteQueenDown(i) [] whiteQueenLeft(i) []
                whiteQueenUpLeft(i) [] whiteQueenUpRight(i) [] whiteQueenDownLeft(i) [] whiteQueenDownRight(i);
 
 moveBlackQueen() = changeTurnToBlack{currentTurn = BLACK_TURN} -> blackQueen();
-
-#define goalSuccessWhiteQueenDownLeft actualBoard[RANK_1][FILE_B] == WHITE_QUEEN && 
-								piecePosition[WHITE_QUEEN][RANK] == RANK_1 && piecePosition[WHITE_QUEEN][FILE] == FILE_B;
-#define goalSuccessWhiteQueenRight actualBoard[RANK_4][FILE_G] == WHITE_QUEEN && 
-								piecePosition[WHITE_QUEEN][RANK] == RANK_4 && piecePosition[WHITE_QUEEN][FILE] == FILE_G;
-#define goalSuccessWhiteQueenUpRight actualBoard[RANK_5][FILE_F] == WHITE_QUEEN && 
-								piecePosition[WHITE_QUEEN][RANK] == RANK_5 && piecePosition[WHITE_QUEEN][FILE] == FILE_F;
-#define goalSuccessWhiteQueenUpLeftEnemyPiece actualBoard[RANK_6][FILE_C] == WHITE_QUEEN && 
-								piecePosition[WHITE_QUEEN][RANK] == RANK_6 && piecePosition[WHITE_QUEEN][FILE] == FILE_C;
-#define goalFailureWhiteQueenUpLeftBehindEnemyPiece actualBoard[RANK_7][FILE_B] == WHITE_QUEEN && 
-								piecePosition[WHITE_QUEEN][RANK] == RANK_7 && piecePosition[WHITE_QUEEN][FILE] == FILE_B;
-#define goalSuccessWhiteQueenDownRightEnemyPiece actualBoard[RANK_1][FILE_H] == WHITE_QUEEN && 
-								piecePosition[WHITE_QUEEN][RANK] == RANK_1 && piecePosition[WHITE_QUEEN][FILE] == FILE_H;
-#define goalFailureWhiteQueenDownSelfPiece actualBoard[RANK_1][FILE_E] == WHITE_QUEEN && 
-								piecePosition[WHITE_QUEEN][RANK] == RANK_1 && piecePosition[WHITE_QUEEN][FILE] == FILE_E;
-#define goalFailureWhiteQueenUpBehindSelfPiece actualBoard[RANK_8][FILE_E] == WHITE_QUEEN && 
-								piecePosition[WHITE_QUEEN][RANK] == RANK_8 && piecePosition[WHITE_QUEEN][FILE] == FILE_E;
-
-#define goalSuccessBlackQueenLeft actualBoard[RANK_7][FILE_B] == BLACK_QUEEN && 
-								piecePosition[BLACK_QUEEN][RANK] == RANK_7 && piecePosition[BLACK_QUEEN][FILE] == FILE_B;
-#define goalSuccessBlackQueenUp actualBoard[RANK_8][FILE_D] == BLACK_QUEEN && 
-								piecePosition[BLACK_QUEEN][RANK] == RANK_8 && piecePosition[BLACK_QUEEN][FILE] == FILE_D;
-#define goalSuccessBlackQueenDownRight actualBoard[RANK_3][FILE_H] == BLACK_QUEEN && 
-								piecePosition[BLACK_QUEEN][RANK] == RANK_3 && piecePosition[BLACK_QUEEN][FILE] == FILE_H;
-#define goalSuccessBlackQueenDownEnemyPiece actualBoard[RANK_6][FILE_D] == BLACK_QUEEN && 
-								piecePosition[BLACK_QUEEN][RANK] == RANK_6 && piecePosition[BLACK_QUEEN][FILE] == FILE_D;
-#define goalFailureBlackQueenUpRightSelfPiece actualBoard[RANK_8][FILE_E] == BLACK_QUEEN && 
-								piecePosition[BLACK_QUEEN][RANK] == RANK_8 && piecePosition[BLACK_QUEEN][FILE] == FILE_E;
-#define goalFailureBlackQueenRightBehindSelfPiece actualBoard[RANK_7][FILE_H] == BLACK_QUEEN && 
-								piecePosition[BLACK_QUEEN][RANK] == RANK_7 && piecePosition[BLACK_QUEEN][FILE] == FILE_H;
-#define goalFailureBlackQueenDownLeftBehindSelfPiece actualBoard[RANK_4][FILE_A] == BLACK_QUEEN && 
-								piecePosition[BLACK_QUEEN][RANK] == RANK_4 && piecePosition[BLACK_QUEEN][FILE] == FILE_A;
-#define goalFailureBlackQueenMoveNotPossible actualBoard[RANK_8][FILE_B] == BLACK_QUEEN && 
-								piecePosition[BLACK_QUEEN][RANK] == RANK_8 && piecePosition[BLACK_QUEEN][FILE] == FILE_B;
-
-#assert whiteQueen() reaches goalSuccessWhiteQueenDownLeft;
-#assert whiteQueen() reaches goalSuccessWhiteQueenRight;
-#assert whiteQueen() reaches goalSuccessWhiteQueenUpRight;
-#assert whiteQueen() reaches goalSuccessWhiteQueenUpLeftEnemyPiece;
-#assert whiteQueen() reaches goalFailureWhiteQueenUpLeftBehindEnemyPiece;
-#assert whiteQueen() reaches goalSuccessWhiteQueenDownRightEnemyPiece;
-#assert whiteQueen() reaches goalFailureWhiteQueenDownSelfPiece;
-#assert whiteQueen() reaches goalFailureWhiteQueenUpBehindSelfPiece;
-
-#assert moveBlackQueen() reaches goalSuccessBlackQueenLeft;
-#assert moveBlackQueen() reaches goalSuccessBlackQueenUp;
-#assert moveBlackQueen() reaches goalSuccessBlackQueenDownRight;
-#assert moveBlackQueen() reaches goalSuccessBlackQueenDownEnemyPiece;
-#assert moveBlackQueen() reaches goalFailureBlackQueenUpRightSelfPiece;
-#assert moveBlackQueen() reaches goalFailureBlackQueenRightBehindSelfPiece;
-#assert moveBlackQueen() reaches goalFailureBlackQueenDownLeftBehindSelfPiece;
-#assert moveBlackQueen() reaches goalFailureBlackQueenMoveNotPossible;

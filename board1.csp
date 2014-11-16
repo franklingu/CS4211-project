@@ -3,7 +3,7 @@
 #include "constants.csp";
 
 var piecePosition[33][2] = [	DEAD, DEAD, // 0 - dummy
-								DEAD, DEAD, // 1 white pawn 1
+								RANK_2, FILE_A, // 1 white pawn 1
 								DEAD, DEAD, // 2 white pawn 2
 								DEAD, DEAD, // 3 white pawn 3
 								RANK_6, FILE_D, // 4 white pawn 4
@@ -20,7 +20,7 @@ var piecePosition[33][2] = [	DEAD, DEAD, // 0 - dummy
 								RANK_7, FILE_F, // 15 white king's knight
 								DEAD, DEAD, // 16 white king's rook
 								RANK_7, FILE_A, // 17 black pawn 1
-								DEAD, DEAD, // 18 black pawn 2
+								RANK_3, FILE_G, // 18 black pawn 2
 								RANK_6, FILE_C, // 19 black pawn 3
 								DEAD, DEAD, // 20 black pawn 4
 								RANK_7, FILE_E, // 21 black pawn 5
@@ -38,8 +38,8 @@ var piecePosition[33][2] = [	DEAD, DEAD, // 0 - dummy
 						];
 									 
 var actualBoard[BOARD_SIZE][BOARD_SIZE] =  [		0,	0,	WHITE_QUEENS_BISHOP,	0,	WHITE_KING,	WHITE_KINGS_BISHOP,	0,	BLACK_KINGS_ROOK,
-		   		 						  		WHITE_QUEENS_ROOK,		0,		0,			0,		0,		0,	0,	0,
-		   		 						  		0,		0,		0,			0,		0,		0,		0,		0,
+		   		 						  		WHITE_QUEENS_ROOK,		0,		0,			0,		0,		0,	0,	WHITE_PAWN_1,
+		   		 						  		0,		0,		0,			0,		0,		0,		BLACK_PAWN_2,		0,
 		   		 						  		0,		0,		0,			0,		WHITE_QUEEN,		0,	0,	0,
 		   		 						  		BLACK_QUEENS_ROOK,		0,		BLACK_KINGS_BISHOP,			0,		0,		0,	BLACK_PAWN_7,	0,
 		   		 						  		BLACK_QUEENS_KNIGHT,		0,		BLACK_PAWN_3,			WHITE_PAWN_4,		0,		WHITE_PAWN_6,	0,	0,

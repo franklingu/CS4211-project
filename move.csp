@@ -1,8 +1,37 @@
-﻿#include "constants.csp";
+﻿/* move.csp
+ * This code takes care of the movement of the pieces and state variables.
+ */
 
+#include "constants.csp";
+
+//===========================================================================//
+// variable declarations
+//===========================================================================//
+ 
+var currentTurn = -1;
+
+// number of elapsed moves
+var numMoves = 0;
+
+// checkStatus = [whiteStatus, blackStatus], to indicate whether either side is in check
+var checkStatus[2] = [0,0];
+//===========================================================================//
+//===========================================================================//
+
+
+//===========================================================================//
+// definition of universal move function
+//===========================================================================//
+
+/* the function movePiece() takes in three variables:
+ * 1. piece: the moving piece
+ * 2. up: the vertical amount of movement the piece is moving to. Negative numbers indicate downwards movement.
+ * 3. right: the horizontal amount of movement the piece is moving to. Negative numbers indicate movement to the left.
+ */
 movePiece(piece, up, right) = 
-// if space is empty
+// if space is empty, then move
 [actualBoard[piecePosition[piece][RANK] + up][piecePosition[piece][FILE] + right] == 0]
+	// move only happens when target tile is empty
 	move.pieceNames[piece].files[(piecePosition[piece][FILE] + right)].(piecePosition[piece][RANK] + up + 1){
 		// update the old position
 		actualBoard[piecePosition[piece][RANK]][piecePosition[piece][FILE]] = 0;
@@ -18,9 +47,11 @@ movePiece(piece, up, right) =
 		numMoves = 1 + numMoves;
 	} -> (([currentTurn == 1] blackInCheck()) [] ([currentTurn == 0] whiteInCheck()))
 []
+// if space is occupied, then eat
 [actualBoard[piecePosition[piece][RANK] + up][piecePosition[piece][FILE] + right] != 0]
+	// eat only happens when target tile is occupied by an enemy piece
 	eat.pieceNames[piece].files[(piecePosition[piece][FILE] + right)].(piecePosition[piece][RANK] + up + 1){
-		// kill the enemy piece!!!
+		// kill the enemy piece
 		piecePosition[actualBoard[piecePosition[piece][RANK] + up][piecePosition[piece][FILE] + right]][RANK] = DEAD;
 		piecePosition[actualBoard[piecePosition[piece][RANK] + up][piecePosition[piece][FILE] + right]][FILE] = DEAD;
 		// updating previous position to empty
@@ -35,3 +66,6 @@ movePiece(piece, up, right) =
 		// increase numMoves
 		numMoves = 1 + numMoves;
 	} -> (([currentTurn == 1] blackInCheck()) [] ([currentTurn == 0] whiteInCheck()));
+
+//===========================================================================//
+//===========================================================================//

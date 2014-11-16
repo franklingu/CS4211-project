@@ -1,4 +1,8 @@
-﻿#define BOARD_SIZE 8;
+﻿/* constants.csp
+ * This code takes care of all constants used in other programs.
+ */
+
+#define BOARD_SIZE 8;
 #define RANK 0;
 #define FILE 1;
 
@@ -75,19 +79,6 @@
 #define BLACK_TURN 1;
 
 #define DEAD -1;
-
-var currentTurn = -1;
-
-var numMoves = 0;
-
-// checkStatus = [whiteStatus, blackStatus]
-var checkStatus[2] = [0,0];
-// flag for legal checks
-var whiteIllegal = 0;
-var blackIllegal = 0;
-// flag for invalid checks
-var whiteNoMoves = 0;
-var blackNoMoves = 0;
 
 var pieceNames[33] = [0, P1, P2, P3, P4, P5, P6, P7, P8, R, N, B, Q, K, B, N, R, P1, P2, P3, P4, P5, P6, P7, P8, R, N, B, Q, K, B, N, R];
 var files[8] = [FILE_A, FILE_B, FILE_C, FILE_D, FILE_E, FILE_F, FILE_G, FILE_H];

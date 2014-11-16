@@ -1,5 +1,15 @@
-﻿#include "move.csp";
+﻿/* pawn.csp
+ * This code takes care of the movement for both black and white pawns.
+ * Pawn can move two steps only from its starting position.
+ * Pawn can move straight only if the square in front of it is empty.
+ * Pawn can move diagonally only if the square in front diagonal of it is occupied by an enemy piece.
+ */
+ 
+#include "move.csp";
 
+//===========================================================================//
+// white pawns
+//===========================================================================//
 whitePawn() = whitePawnStraight() [] whitePawnDouble() [] whitePawnUpLeft() [] whitePawnUpRight();
 
 whitePawnStraight() = whiteOnePawnStraight() [] whiteTwoPawnStraight() [] whiteThreePawnStraight() [] whiteFourPawnStraight() [] whiteFivePawnStraight() [] whiteSixPawnStraight() [] whiteSevenPawnStraight() [] whiteEightPawnStraight();
@@ -42,6 +52,10 @@ whiteFivePawnUpRight() = [call(isLegal, currentTurn, actualBoard, piecePosition[
 whiteSixPawnUpRight() = [call(isLegal, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE], piecePosition[WHITE_PAWN_6][RANK], piecePosition[WHITE_PAWN_6][FILE], 1, 1) && call(isBlack, actualBoard, piecePosition[WHITE_PAWN_6][RANK] + 1, piecePosition[WHITE_PAWN_6][FILE] + 1)]movePiece(WHITE_PAWN_6, 1, 1);
 whiteSevenPawnUpRight() = [call(isLegal, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE], piecePosition[WHITE_PAWN_7][RANK], piecePosition[WHITE_PAWN_7][FILE], 1, 1) && call(isBlack, actualBoard, piecePosition[WHITE_PAWN_7][RANK] + 1, piecePosition[WHITE_PAWN_7][FILE] + 1)]movePiece(WHITE_PAWN_7, 1, 1);
 whiteEightPawnUpRight() = [call(isLegal, currentTurn, actualBoard, piecePosition[WHITE_KING][RANK], piecePosition[WHITE_KING][FILE], piecePosition[WHITE_PAWN_8][RANK], piecePosition[WHITE_PAWN_8][FILE], 1, 1) && call(isBlack, actualBoard, piecePosition[WHITE_PAWN_8][RANK] + 1, piecePosition[WHITE_PAWN_8][FILE] + 1)]movePiece(WHITE_PAWN_8, 1, 1);
+
+//===========================================================================//
+// black pawns
+//===========================================================================//
 
 blackPawn() = blackPawnStraight() [] blackPawnDouble() [] blackPawnDownLeft() [] blackPawnDownRight();
 
@@ -87,46 +101,3 @@ blackSevenPawnDownRight() = [call(isLegal, currentTurn, actualBoard, piecePositi
 blackEightPawnDownRight() = [call(isLegal, currentTurn, actualBoard, piecePosition[BLACK_KING][RANK], piecePosition[BLACK_KING][FILE], piecePosition[BLACK_PAWN_8][RANK], piecePosition[BLACK_PAWN_8][FILE], -1, 1) && call(isWhite, actualBoard, piecePosition[BLACK_PAWN_8][RANK] - 1, piecePosition[BLACK_PAWN_8][FILE] + 1)]movePiece(BLACK_PAWN_8, -1, 1);
 
 moveBlackPawn() = changeTurnToBlack{currentTurn = BLACK_TURN} -> blackPawn();
-
-#define goalSuccessBlackPawnSingle actualBoard[RANK_6][FILE_E] == BLACK_PAWN_5 && 
-										piecePosition[BLACK_PAWN_5][RANK] == RANK_6 && piecePosition[BLACK_PAWN_5][FILE] == FILE_E;	
-#define goalSuccessBlackPawnInitialDouble actualBoard[RANK_5][FILE_E] == BLACK_PAWN_5 && 
-										piecePosition[BLACK_PAWN_5][RANK] == RANK_5 && piecePosition[BLACK_PAWN_5][FILE] == FILE_E;	
-#define goalFailureBlackPawnSingleSelfPiece actualBoard[RANK_6][FILE_A] == BLACK_PAWN_1 && 
-										piecePosition[BLACK_PAWN_1][RANK] == RANK_6 && piecePosition[BLACK_PAWN_1][FILE] == FILE_A;		
-#define goalFailureBlackPawnDoubleBehindSelfPiece actualBoard[RANK_5][FILE_A] == BLACK_PAWN_1 && 
-										piecePosition[BLACK_PAWN_1][RANK] == RANK_5 && piecePosition[BLACK_PAWN_1][FILE] == FILE_A;
-#define goalFailureBlackPawnDoubelNotInitial actualBoard[RANK_4][FILE_C] == BLACK_PAWN_3 && 
-										piecePosition[BLACK_PAWN_3][RANK] == RANK_4 && piecePosition[BLACK_PAWN_3][FILE] == FILE_C;
-#define goalSuccessBlackPawnDiagonalLeftEnemyPiece actualBoard[RANK_6][FILE_D] == BLACK_PAWN_5 && 
-										piecePosition[BLACK_PAWN_5][RANK] == RANK_6 && piecePosition[BLACK_PAWN_5][FILE] == FILE_D;
-#define goalSuccessBlackPawnDiagonaRightlEnemyPiece actualBoard[RANK_6][FILE_F] == BLACK_PAWN_5 && 
-										piecePosition[BLACK_PAWN_5][RANK] == RANK_6 && piecePosition[BLACK_PAWN_5][FILE] == FILE_F;	
-#define goalFailureBlackPawnMoveNotPossible1 actualBoard[RANK_4][FILE_E] == BLACK_PAWN_5 && 
-										piecePosition[BLACK_PAWN_5][RANK] == RANK_4 && piecePosition[BLACK_PAWN_5][FILE] == FILE_E;
-#define goalFailureDiagonalRightNoEnemyPiece actualBoard[RANK_6][FILE_B] == BLACK_PAWN_1 && 
-										piecePosition[BLACK_PAWN_1][RANK] == RANK_6 && piecePosition[BLACK_PAWN_1][FILE] == FILE_B;	
-
-#assert moveBlackPawn() reaches goalSuccessBlackPawnSingle;
-#assert moveBlackPawn() reaches goalFailureBlackPawnSingleSelfPiece;
-#assert moveBlackPawn() reaches goalSuccessBlackPawnInitialDouble;
-#assert moveBlackPawn() reaches goalFailureBlackPawnDoubleBehindSelfPiece;
-#assert moveBlackPawn() reaches goalFailureBlackPawnDoubelNotInitial;
-#assert moveBlackPawn() reaches goalSuccessBlackPawnDiagonalLeftEnemyPiece;
-#assert moveBlackPawn() reaches goalSuccessBlackPawnDiagonaRightlEnemyPiece;
-#assert moveBlackPawn() reaches goalFailureDiagonalRightNoEnemyPiece;
-#assert moveBlackPawn() reaches goalFailureBlackPawnMoveNotPossible1;
-
-#define goalFailureWhitePawnSingleSelfPiece actualBoard[RANK_7][FILE_F] == WHITE_PAWN_6 && 
-										piecePosition[WHITE_PAWN_6][RANK] == RANK_7 && piecePosition[WHITE_PAWN_6][FILE] == FILE_F;		
-#define goalFailureWhitePawnSingleEnemyPiece actualBoard[RANK_7][FILE_D] == WHITE_PAWN_6 && 
-										piecePosition[WHITE_PAWN_6][RANK] == RANK_7 && piecePosition[WHITE_PAWN_6][FILE] == FILE_D;		
-#define goalSuccessWhitePawnDiagonalEnemyPiece actualBoard[RANK_7][FILE_E] == WHITE_PAWN_6 && 
-										piecePosition[WHITE_PAWN_6][RANK] == RANK_7 && piecePosition[WHITE_PAWN_6][FILE] == FILE_E;
-#define goalFailureWhitePawnDiagonalNoEnemyPiece actualBoard[RANK_7][FILE_C] == WHITE_PAWN_6 && 
-										piecePosition[WHITE_PAWN_6][RANK] == RANK_7 && piecePosition[WHITE_PAWN_6][FILE] == FILE_C;	
-
-#assert whitePawn() reaches goalFailureWhitePawnSingleSelfPiece;
-#assert whitePawn() reaches goalFailureWhitePawnSingleEnemyPiece;
-#assert whitePawn() reaches goalSuccessWhitePawnDiagonalEnemyPiece;
-#assert whitePawn() reaches goalFailureWhitePawnDiagonalNoEnemyPiece;
