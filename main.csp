@@ -12,22 +12,23 @@
 
 /* Uncomment exactly one board for verification
  * Corresponding graphical representation of the board is included in the same folder
+ * Assert blackGame() for black to win
+ * Assert whiteGame() for white to win
  */
-//#include "testboard1.csp";
-#include "board1.csp";
-//#include "board2.csp";
-//#include "board3.csp";
-//#include "board4.csp";
-//#include "board5.csp";
-//#include "board6.csp";
-//#include "board7.csp";
-//#include "board8.csp";
-//#include "board9.csp";
-//#include "board10.csp";
-//#include "board11.csp";
-//#include "board12.csp";
-//#include "board13.csp";
-//#include "board14.csp";
+//#include "pieceMovementCheckBoard.csp";
+#include "board1.csp"; // black to win Rook H8
+//#include "board2.csp"; // white to win Bishop F6
+//#include "board3.csp"; // white to win Queen B8
+//#include "board4.csp"; // white to win Queen D8
+//#include "board5.csp"; // white to win Rook H8
+//#include "board6.csp"; // white to win Pawn G7
+//#include "board7.csp"; // white to win Queen G7
+//#include "board8.csp"; // white is in check, white cannot win in 1 move
+//#include "board9.csp"; // white to win Queen H5
+//#include "board10.csp"; // white to win Bishop F6
+//#include "board11.csp"; // white to win Knight F7
+//#include "board12.csp"; // white to win Knight D6
+//#include "board13.csp"; // white to win Pawn F7
 
 #import "ValidityCheck";
 
@@ -39,7 +40,7 @@ whiteMove() = [numMoves <= 2] whitePlan();
 blackMove() = [numMoves <= 2] blackPlan();
 
 // each side can move any of its pieces
-whitePlan() = whiteKing() [] whiteRook() [] whiteQueen() [] whiteGame() [] whitePawn() [] whiteKnight();
+whitePlan() = whiteKing() [] whiteRook() [] whiteQueen() [] whiteBishop() [] whitePawn() [] whiteKnight();
 blackPlan() = blackKing() [] blackRook() [] blackQueen() [] blackBishop() [] blackPawn() [] blackKnight();
 
 // updates the check status for the side that is about to play
